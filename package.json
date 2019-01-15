@@ -1,22 +1,24 @@
 {
-  "name": "lcw",
+  "private": true,
+  "name": "frograming",
   "version": "0.0.1",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Jason Yu <jason.yu@thehutgroup.com>",
+  "author": "Jason Yu <me@ycmjason.com>",
   "license": "ISC",
-  "devDependencies": {
-    "@vue/component-compiler-utils": "^2.5.0",
-    "parcel-bundler": "^1.11.0",
-    "vue-template-compiler": "^2.5.21"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ycmjason/frograming.git"
   },
-  "dependencies": {
-    "vue": "^2.5.21",
-    "vue-hot-reload-api": "^2.3.1"
+  "bugs": {
+    "url": "https://github.com/ycmjason/frograming/issues"
+  },
+  "homepage": "https://github.com/ycmjason/frograming#readme",
+  "description": "",
+  "devDependencies": {
+    "lerna": "^3.10.5"
   }
 }
