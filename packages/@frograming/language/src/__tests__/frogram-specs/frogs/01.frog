@@ -1,0 +1,21 @@
+moveDown();
+moveUp();
+
+loop(2) {
+  moveDown();
+}
+
+if (!isCarUp() && isCarLeft() || isLogUp()) {
+  moveDown();
+  loop (2) {
+    moveLeft();
+    moveUp();
+    if (isCarUp()) {
+      moveUp();
+    } else {
+      moveLeft();
+    }
+  }
+} else {
+  moveUp();
+}

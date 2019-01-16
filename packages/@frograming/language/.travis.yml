@@ -1,0 +1,15 @@
+anguage: node_js
+
+node_js: 8
+
+env:
+  - NODE_ENV=ci
+
+install:
+  - npm ci
+
+script:
+  - npm test -- --coverage --verbose
+
+after_script:
+  - npx codecov

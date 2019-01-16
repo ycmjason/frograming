@@ -5,7 +5,7 @@
   "author": "Jason Yu <me@ycmjason.com>",
   "homepage": "https://github.com/ycmjason/frograming/tree/master/packages/language#readme",
   "license": "ISC",
-  "main": "lib/language.js",
+  "main": "src/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -20,10 +20,23 @@
     "type": "git",
     "url": "git+https://github.com/ycmjason/frograming.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "bugs": {
     "url": "https://github.com/ycmjason/frograming/issues"
+  },
+  "scripts": {
+    "preversion": "$EDITOR CHANGELOG.md",
+    "version": "git add -A",
+    "generateParser": "pegjs -o src/parser.peg.js src/spec.pegjs",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "codecov": "^3.1.0",
+    "fs-extra": "^7.0.1",
+    "jest": "^23.6.0",
+    "pegjs": "^0.10.0"
   }
 }

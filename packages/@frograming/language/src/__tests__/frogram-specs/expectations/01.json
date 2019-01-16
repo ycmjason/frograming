@@ -1,0 +1,34 @@
+[
+  {
+    "context": {
+      "isCarUp": false,
+      "isCarLeft": true
+    },
+    "expectation": [
+      "moveDown",
+      "moveUp",
+      "moveDown",
+      "moveDown",
+      "moveDown",
+      "moveLeft",
+      "moveUp",
+      "moveLeft",
+      "moveLeft",
+      "moveUp",
+      "moveLeft"
+    ]
+  },
+  {
+    "context": {
+      "isCarUp": true,
+      "isLogUp": true
+    },
+    "expectation": [
+      "moveDown",
+      "moveUp",
+      "moveDown",
+      "moveDown",
+      "moveUp"
+    ]
+  }
+]
