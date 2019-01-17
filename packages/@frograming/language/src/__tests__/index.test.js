@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync } from 'fs-extra';
 import { join, basename } from 'path';
-import parse from '../index.js';
+import { parse, interpret } from '../index.js';
 
 const DEFAULT_CONTEXT = {
   isCarUp: false,
@@ -36,8 +36,8 @@ describe('@frograming/language', () => {
       const frogCode = readFileSync(frogCodePath, 'utf8');
       require(expectationsPath).forEach(({ context, expectation }, i) => {
         test(`${i + 1}`.padStart(2, 0), () => {
-          const run = parse(frogCode);
-          expect(run({
+          const executionTree = parse(frogCode);
+          expect(interpret(executionTree, {
             ...DEFAULT_CONTEXT,
             ...context,
           })).toEqual(expectation);

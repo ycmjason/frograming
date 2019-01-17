@@ -11,9 +11,9 @@ npm install @frograming/language
 ## Usage
 
 ```js
-import parse '@frograming/language';
+import { parse, interpret } '@frograming/language';
 
-const provideContext = parse(`moveDown();
+const executionTree = parse(`moveDown();
 moveUp();
 
 loop(2) {
@@ -35,7 +35,7 @@ if (!isCarUp() && isCarLeft() || isLogUp()) {
   moveUp();
 }`);
 
-provideContext({
+interpret(executionTree, {
   isCarUp: false,
   isCarLeft: true
   ...

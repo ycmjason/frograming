@@ -16,20 +16,20 @@ const flatMap = (xs, fn, thisArg) => {
 
 const parse = frogCode => {
   const executionTree = pegParser.parse(frogCode);
-  return context => interpretTreeWithContext(executionTree, context);
+  return executionTree;
 };
 
-const interpretTreeWithContext = (executionTree, context) => flatMap(executionTree, atom => {
+const interpret = (executionTree, context) => flatMap(executionTree, atom => {
   if (typeof atom === 'string') return atom;
   if (typeof atom !== 'object') throw Error('Unexpected error while parsing.');
 
   for (const [predicate, executionTree] of Object.entries(atom)) {
     if (predicate === 'else' || evaluatePredicate(predicate, context)) {
-      return interpretTreeWithContext(executionTree, context);
+      return interpret(executionTree, context);
     }
   }
 
   return [];
 });
 
-export default parse;
+export { parse, interpret };
