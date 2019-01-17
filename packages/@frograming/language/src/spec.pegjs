@@ -23,17 +23,18 @@ Statement // => [operation]
   = LoopStatement / IfStatement
 
 LoopStatement // => [operation]
-  = "loop" _ "(" _ n:Integer _ ")" _ "{" operations:Lines "}" {
+  = "loop" _ "(" _ n:Integer _ ")" _ "{" _ operations:Lines _ "}" {
     return flatten(take(n, repeat(operations)));
   }
   
 IfStatement // => [operation]
   = "if" _ "(" _ p:Predicate _ ")" _ "{" _ operations:Lines _ "}" _ e:ElseStatement? {
     if (p === "true") return operations;
-    if (p === "false") return e;
+    if (p === "false") return e || [];
     const branch = {};
     branch[p] = operations;
     if (e) branch.else = e;
+    if (operations.length <= 0 && !e) return [];
     return branch;
   }
 

@@ -201,10 +201,11 @@ function peg$parse(input, options) {
     };
   var peg$f6 = function(p, operations, e) {
       if (p === "true") return operations;
-      if (p === "false") return e;
+      if (p === "false") return e || [];
       const branch = {};
       branch[p] = operations;
       if (e) branch.else = e;
+      if (operations.length <= 0 && !e) return [];
       return branch;
     };
   var peg$f7 = function(operations) {
@@ -593,7 +594,7 @@ function peg$parse(input, options) {
   }
 
   function peg$parseLoopStatement() {
-    var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11;
+    var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13;
 
     var rule$expects = function (expected) {
       if (peg$silentFails === 0) peg$expect(expected);
@@ -638,18 +639,20 @@ function peg$parse(input, options) {
               s9 = peg$FAILED;
             }
             if (s9 !== peg$FAILED) {
-              s10 = peg$parseLines();
-              if (s10 !== peg$FAILED) {
+              s10 = peg$parse_();
+              s11 = peg$parseLines();
+              if (s11 !== peg$FAILED) {
+                s12 = peg$parse_();
                 rule$expects(peg$e10);
                 if (input.charCodeAt(peg$currPos) === 125) {
-                  s11 = peg$c10;
+                  s13 = peg$c10;
                   peg$currPos++;
                 } else {
-                  s11 = peg$FAILED;
+                  s13 = peg$FAILED;
                 }
-                if (s11 !== peg$FAILED) {
+                if (s13 !== peg$FAILED) {
                   peg$savedPos = s0;
-                  s0 = peg$f5(s5, s10);
+                  s0 = peg$f5(s5, s11);
                 } else {
                   peg$currPos = s0;
                   s0 = peg$FAILED;

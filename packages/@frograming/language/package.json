@@ -24,10 +24,10 @@
     "url": "https://github.com/ycmjason/frograming/issues"
   },
   "scripts": {
-    "preversion": "$EDITOR CHANGELOG.md",
+    "preversion": "npm t && $EDITOR CHANGELOG.md",
     "version": "git add -A",
     "generateParser": "pegjs --format es -o src/parser.peg.js src/spec.pegjs",
-    "test": "jest",
+    "test": "npm run generateParser && jest",
     "lint": "eslint src"
   },
   "devDependencies": {
