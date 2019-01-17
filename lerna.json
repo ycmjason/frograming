@@ -1,6 +1,7 @@
 {
   "packages": [
-    "packages/@frograming/*"
+    "packages/@frograming/*",
+    "packages/frograming-explorer"
   ],
   "version": "0.1.2"
 }

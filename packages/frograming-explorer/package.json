@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "frograming-web",
-  "description": "The web for frograming.",
+  "name": "frograming-explorer",
+  "description": "The web to explore the frograming language.",
   "version": "0.0.0",
   "author": "Jason Yu <me@ycmjason.com>",
   "scripts": {
@@ -10,7 +10,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@frograming/language": "^0.1.2",
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.5.21",
+    "vue-codemirror": "^4.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
