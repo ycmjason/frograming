@@ -21,7 +21,7 @@ const parse = frogCode => {
 
 const interpretTreeWithContext = (executionTree, context) => flatMap(executionTree, atom => {
   if (typeof atom === 'string') return atom;
-  if (!typeof atom === 'object') throw Error('Unexpected error while parsing.');
+  if (typeof atom !== 'object') throw Error('Unexpected error while parsing.');
 
   for (const [predicate, executionTree] of Object.entries(atom)) {
     if (predicate === 'else' || evaluatePredicate(predicate, context)) {

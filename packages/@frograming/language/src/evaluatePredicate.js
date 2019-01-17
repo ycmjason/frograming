@@ -1,7 +1,7 @@
 const evaluate = (predicate, context) => {
   if (/[()]/.test(predicate)) {
     return evaluate(predicate.replace(/\([^()]+\)/g, (m) => {
-      return evaluate(m.substr(1, m.length - 2), context)
+      return evaluate(m.substr(1, m.length - 2), context);
     }), context);
   }
 

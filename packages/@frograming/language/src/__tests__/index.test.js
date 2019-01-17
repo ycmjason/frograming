@@ -14,7 +14,7 @@ const DEFAULT_CONTEXT = {
   isWallUp: false,
   isWallRight: false,
   isWallDown: false,
-  isWallLeft: false
+  isWallLeft: false,
 };
 
 const zip = ([x, ...xs], [y, ...ys]) => {
