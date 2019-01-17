@@ -26,7 +26,7 @@
   "scripts": {
     "preversion": "$EDITOR CHANGELOG.md",
     "version": "git add -A",
-    "generateParser": "pegjs -o src/parser.peg.js src/spec.pegjs",
+    "generateParser": "pegjs --format es -o src/parser.peg.js src/spec.pegjs",
     "test": "jest",
     "lint": "eslint src"
   },
@@ -40,7 +40,7 @@
     "eslint": "^5.12.0",
     "fs-extra": "^7.0.1",
     "jest": "^23.6.0",
-    "pegjs": "^0.10.0"
+    "pegjs": "^0.11.0-dev.325"
   },
   "dependencies": {}
 }

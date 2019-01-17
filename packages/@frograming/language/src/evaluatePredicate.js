@@ -39,4 +39,4 @@ const evaluateFlatBooleanExpression = (expression, context) => {
   throw Error('Unexpected Error.');
 };
 
-module.exports = evaluate;
+export default evaluate;
