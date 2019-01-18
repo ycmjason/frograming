@@ -27,7 +27,9 @@ export default {
   computed: {
     executionTree () {
       try {
-        return parse(this.frogCode);
+        const tree = parse(this.frogCode);
+        this.$emit('parsed');
+        return tree;
       } catch (e) {
         this.$emit('error', e);
         return [];
