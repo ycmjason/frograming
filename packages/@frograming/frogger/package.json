@@ -1,0 +1,36 @@
+{
+  "name": "@frograming/frogger",
+  "version": "0.2.0",
+  "description": "The frogger game.",
+  "keywords": [
+    "frogger",
+    "vue"
+  ],
+  "author": "Jason Yu <me@ycmjason.com>",
+  "homepage": "https://github.com/ycmjason/frograming/tree/master/packages/@frograming/frogger#readme",
+  "license": "ISC",
+  "main": "src/Frogger.vue",
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ycmjason/frograming.git"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/ycmjason/frograming/issues"
+  },
+  "devDependencies": {
+    "@ycm.jason/eslint-config": "^1.3.1",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.12.0",
+    "eslint-plugin-vue": "^5.1.0"
+  }
+}

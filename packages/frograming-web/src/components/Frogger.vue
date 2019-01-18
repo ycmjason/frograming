@@ -1,13 +1,18 @@
 <template>
   <div>
+    <Frogger />
     {{ commands }}
   </div>
 </template>
 
 <script>
 import FroggerController from '@/classes/FroggerController';
+import Frogger from '@frograming/frogger';
+console.log(Frogger);
 
 export default {
+  components: { Frogger },
+
   props: {
     controller: {
       type: FroggerController,
