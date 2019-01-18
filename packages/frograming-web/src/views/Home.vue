@@ -4,40 +4,26 @@
     <div class="ok" v-else>Compiled!</div>
     <div class="split">
       <div class="editorArea">
-        <Editor
-          class="editor"
-          v-model="frogCode"
-          @parsed="onParsed"
-          @error="onError"/>
+        <Editor class="editor" v-model="frogCode" />
       </div>
-      <Frogger class="frogger" :controller="controller" />
+      <FrogrammableFrogger
+          class="frogger"
+          :frogCode="frogCode"
+          @parsed="() => this.currentError = null"
+          @error="err => this.currentError = err"/>
     </div>
   </div>
 </template>
 
 <script>
-import { interpret } from '@frograming/language';
 import Editor from '@/components/Editor.vue';
-import Frogger from '@/components/Frogger.vue';
-import FroggerController from '@/classes/FroggerController';
+import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
 
 export default {
   name: 'home',
-  components: { Editor, Frogger },
-
-  created () {
-    const { controller } = this;
-    controller.onTick(context => {
-      const commands = interpret(this.executionTree, context);
-
-      for (const command of commands) {
-        controller.emit(command);
-      }
-    });
-  },
+  components: { Editor, FrogrammableFrogger },
 
   data: () => ({
-    controller: new FroggerController(),
     currentError: null,
     frogCode: `moveDown();
 moveUp();
@@ -49,24 +35,7 @@ loop (3) {
     moveLeft();
   }
 }`,
-    executionTree: [],
   }),
-
-  methods: {
-    JSONToString (obj, ind) {
-      return JSON.stringify(obj, null, 4);
-    },
-    onParsed (executionTree) {
-      this.controller.emit('reset');
-      this.executionTree = executionTree;
-      this.currentError = null;
-    },
-    onError (error) {
-      this.controller.emit('reset');
-      this.executionTree = [];
-      this.currentError = error;
-    },
-  },
 };
 </script>
 

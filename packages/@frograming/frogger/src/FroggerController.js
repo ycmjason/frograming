@@ -10,22 +10,6 @@ export default class FroggerController {
   ];
 
   #subscribers = [];
-  #onTicks = [];
-
-  onTick (fn) {
-    if (!this.#onTicks.includes(fn)) {
-      this.#onTicks.push(fn);
-    }
-    return () => removeAll(this.#onTicks, fn);
-  }
-
-  tick (context) {
-    for (const onTick of this.#onTicks) {
-      onTick(context);
-    }
-
-    return this;
-  }
 
   subscribe (fn) {
     if (!this.#subscribers.includes(fn)) {
