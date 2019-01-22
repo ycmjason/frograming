@@ -30,4 +30,11 @@ module.exports = [
 
     ['TERMINATED', {isCarDown: false}],
   ],
+
+  [
+    ['moveLeft', {}],
+    ['NO_OP', {isWallLeft: true}],
+    ['NO_OP', {isWallLeft: true}],
+    ['TERMINATED', {isWallLeft: false}],
+  ],
 ];

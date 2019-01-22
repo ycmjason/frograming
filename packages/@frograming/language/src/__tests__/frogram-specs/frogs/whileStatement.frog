@@ -10,3 +10,5 @@ while (isCarDown()) {
 
   moveDown();
 }
+
+while (isWallLeft()) {}

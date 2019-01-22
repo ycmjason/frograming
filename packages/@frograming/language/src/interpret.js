@@ -44,7 +44,11 @@ interpret.LoopStatement = function* ({ n, body }) {
 
 interpret.WhileStatement = function* ({ condition, body }) {
   while (evaluatePredicate(condition, yield)) {
-    yield* interpret(body);
+    if (body.length <= 0) {
+      yield 'NO_OP';
+    } else {
+      yield* interpret(body);
+    }
   }
 };
 
