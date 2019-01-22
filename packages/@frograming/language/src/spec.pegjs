@@ -1,44 +1,48 @@
 // This language is defined with the PEG.js grammar
 {
-  const repeat = function* (x) { while (true) yield x; };
-  const take = (length, itr) => Array.from({ length }, () => itr.next().value);
   const notElim = (nots) => Array.from({ length: nots.length % 2 }, () => '!').join('');
-  const flatten = xs => [].concat.apply([], xs);
 }
 
+Frogram = body:Lines { return { type: 'frogram', body }; }
 
-Lines // => [operation]
-  = ls:(_ l:Line _ { return l })* { return flatten(ls); }
+Lines
+  = ls:(_ l:Line _ { return l })* { return ls; }
 
-Line // => [operation]
-  = operation:MethodCall ";" { return [operation]; }
+Line
+  = operation:MethodCall ";" { return operation; }
   / operations:Statement { return operations; }
 
-MethodCall // => operation
-  = _ name:MethodName _ "()" { return name; }
+MethodCall
+  = _ name:MethodName _ "()" { return { type: 'command', name }; }
 
 MethodName = "moveUp" / "moveDown" / "moveLeft" / "moveRight"
 
-Statement // => [operation]
-  = LoopStatement / IfStatement
+Statement
+  = LoopStatement / IfStatement / WhileStatement / WaitStatement
+  
+WaitStatement
+  = "wait " _ condition:Predicate _ ";" {
+    if (condition === 'false') error('Attempt to wait false.');
+    return { type: 'WaitStatement', condition };
+  }
 
-LoopStatement // => [operation]
-  = "loop" _ "(" _ n:Integer _ ")" _ "{" _ operations:Lines _ "}" {
-    return flatten(take(n, repeat(operations)));
+WhileStatement
+  = "while" _ "(" _ condition:Predicate _ ")" _ "{" _ body:Lines _ "}" {
+    return  { type: 'WhileStatement', condition, body };
+  }
+
+LoopStatement
+  = "loop" _ "(" _ n:Integer _ ")" _ "{" _ body:Lines _ "}" {
+    return  { type: 'LoopStatement', n, body };
   }
   
-IfStatement // => [operation]
-  = "if" _ "(" _ p:Predicate _ ")" _ "{" _ operations:Lines _ "}" _ e:ElseStatement? {
-    if (p === "true") return operations;
-    if (p === "false") return e || [];
-    const branch = {};
-    branch[p] = operations;
-    if (e) branch.else = e;
-    if (operations.length <= 0 && !e) return [];
-    return branch;
+IfStatement
+  = "if" _ "(" _ p:Predicate _ ")" _ "{" _ ifBody:Lines _ "}" _ elseBody:ElseStatement? {
+    elseBody = elseBody || [];
+    return { type: 'IfStatement', condition: p, ifBody, elseBody };
   }
 
-ElseStatement // => [operation]
+ElseStatement
   = "else" _ "{" _ operations:Lines _ "}" {
     if (operations.length <= 0) return null;
     return operations;

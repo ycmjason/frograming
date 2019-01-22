@@ -1,0 +1,34 @@
+[
+  [
+    ["moveDown", {}],
+    ["moveUp", {}],
+    ["moveUp", {}],
+    ["moveUp", {}],
+    ["moveLeft", { "isLogUp":true }],
+    ["NO_OP", { "isLogUp":false }],
+    ["NO_OP", { "isLogUp":false }],
+    ["NO_OP", { "isLogUp":false }],
+    ["TERMINATED", { "isLogUp": true, "isLogLeft": true }]
+  ],
+
+  [
+    ["moveDown", {}],
+    ["moveUp", {}],
+
+    ["moveUp", {}],
+    ["moveLeft", { "isLogUp": true }],
+    ["moveUp", { "isLogUp": false }],
+
+
+    ["NO_OP", {}],
+    ["NO_OP", {}],
+    ["NO_OP", {}],
+    ["NO_OP", {}],
+    ["NO_OP", {}],
+    ["moveUp", { "isLogUp": true }],
+    ["moveUp", {}],
+    ["moveUp", {}],
+    ["moveUp", {}],
+    ["TERMINATED", { "isLogLeft": true }]
+  ]
+]

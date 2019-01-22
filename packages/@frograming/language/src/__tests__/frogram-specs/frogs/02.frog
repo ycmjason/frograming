@@ -1,0 +1,15 @@
+moveDown();
+moveUp();
+
+loop (3) {
+  if (!isLogUp()) {
+    moveUp();
+  } else {
+    moveLeft();
+  }
+}
+
+wait isLogUp();
+while (!isLogLeft()) {
+  moveUp();
+}

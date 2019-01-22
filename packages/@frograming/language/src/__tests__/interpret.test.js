@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'fs-extra';
 import { join, basename } from 'path';
 import { parse, interpret } from '../index.js';
 
-const DEFAULT_CONTEXT = {
+const INITIAL_CONTEXT = {
   isCarUp: false,
   isCarRight: false,
   isCarDown: false,
@@ -34,13 +34,31 @@ describe('@frograming/language', () => {
   ).forEach(([frogCodePath, expectationsPath]) => {
     describe(basename(frogCodePath), () => {
       const frogCode = readFileSync(frogCodePath, 'utf8');
-      require(expectationsPath).forEach(({ context, expectation }, i) => {
+      require(expectationsPath).forEach((timeline, i) => {
         test(`${i + 1}`.padStart(2, 0), () => {
-          const executionTree = parse(frogCode);
-          expect(interpret(executionTree, {
-            ...DEFAULT_CONTEXT,
-            ...context,
-          })).toEqual(expectation);
+          const execution = interpret(parse(frogCode));
+
+          const commands = [];
+          const [expectedCommands, contextPatches] = timeline.reduce(
+            ([accCommands, accContextPatches], [command, patch]) => [
+              [...accCommands, command],
+              [...accContextPatches, patch],
+            ],
+            [[], []],
+          );
+
+          if (expectedCommands.slice(-1)[0] !== 'TERMINATED') {
+            throw Error('Please assert till the end of the frogram. No TERMINATED token found.');
+          }
+
+          let context = { ...INITIAL_CONTEXT };
+          for (const contextPatch of contextPatches) {
+            context = { ...context, ...contextPatch };
+            const command = execution.step(context);
+            commands.push(command);
+            if (command === 'TERMINATED') break;
+          }
+          expect(commands).toEqual(expectedCommands);
         });
       });
     });

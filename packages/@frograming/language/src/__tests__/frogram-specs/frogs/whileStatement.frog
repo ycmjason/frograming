@@ -1,0 +1,12 @@
+moveLeft();
+
+while (isCarDown()) {
+  moveUp();
+  moveRight();
+
+  while (isLogUp() || isLogLeft()) {
+    moveLeft();
+  }
+
+  moveDown();
+}

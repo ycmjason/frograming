@@ -1,34 +1,24 @@
 [
-  {
-    "context": {
-      "isCarUp": false,
-      "isCarLeft": true
-    },
-    "expectation": [
-      "moveDown",
-      "moveUp",
-      "moveDown",
-      "moveDown",
-      "moveDown",
-      "moveLeft",
-      "moveUp",
-      "moveLeft",
-      "moveLeft",
-      "moveUp",
-      "moveLeft"
-    ]
-  },
-  {
-    "context": {
-      "isCarUp": true,
-      "isLogUp": true
-    },
-    "expectation": [
-      "moveDown",
-      "moveUp",
-      "moveDown",
-      "moveDown",
-      "moveUp"
-    ]
-  }
+  [
+    ["moveDown", { "isCarLeft":true }], 
+    ["moveUp", {}], 
+    ["moveDown", {}], 
+    ["moveDown", {}], 
+    ["moveDown", {}], 
+    ["moveLeft", {}], 
+    ["moveUp", {}], 
+    ["moveLeft", {}], 
+    ["moveLeft", {}], 
+    ["moveUp", {}], 
+    ["moveLeft", {}], 
+    ["TERMINATED", {}]
+  ], 
+  [
+    ["moveDown", { "isCarUp":true, "isLogUp":true }], 
+    ["moveUp", {}], 
+    ["moveDown", {}], 
+    ["moveDown", {}], 
+    ["moveUp", {}], 
+    ["TERMINATED", {}]
+  ]
 ]

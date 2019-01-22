@@ -1,0 +1,6 @@
+moveUp();
+
+wait isCarDown();
+wait isWallLeft() && isCarUp();
+
+moveDown();

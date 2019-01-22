@@ -1,0 +1,15 @@
+[
+  [
+    ["moveLeft", {}],
+    ["moveRight", { "isLogDown": true }],
+    ["moveDown", { "isCarUp": true }],
+    ["moveRight", {}],
+    ["TERMINATED", {}]
+  ],
+  [
+    ["moveLeft", {}],
+    ["moveUp", {}],
+    ["moveRight", {}],
+    ["TERMINATED", {}]
+  ]
+]
