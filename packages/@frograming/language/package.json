@@ -23,7 +23,8 @@
     "preversion": "npm t && $EDITOR CHANGELOG.md",
     "version": "git add -A",
     "generateParser": "pegjs --format es -o src/parser.peg.js src/spec.pegjs",
-    "test": "npm run generateParser && jest",
+    "pretest": "npm run generateParser",
+    "test": "jest",
     "lint": "eslint src"
   },
   "devDependencies": {
