@@ -11,7 +11,6 @@
     "deploy": "firebase -P production deploy"
   },
   "dependencies": {
-    "@frograming/frogger": "^0.2.0",
     "@frograming/language": "^0.2.0",
     "lodash.debounce": "^4.0.8",
     "vue": "^2.5.21",

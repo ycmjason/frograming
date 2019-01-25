@@ -2,27 +2,25 @@
   <div class="home container">
     <div class="error" v-if="currentError">{{ currentError.message }}</div>
     <div class="ok" v-else>Compiled!</div>
-    <div class="split">
+    <Split>
       <div class="editorArea">
         <Editor
           class="editor"
-          v-model="frogCode"
-          @parsed="onParsed"
-          @error="onError"/>
+          v-model="frogCode" />
       </div>
-      <div class="executionTree code">{{ JSONToString(executionTree, 4) }}</div>
-    </div>
-    <Interpreter :executionTree="executionTree" />
+      <Interpreter class="interpreter" :frogCode="frogCode" />
+    </Split>
   </div>
 </template>
 
 <script>
 import Editor from '@/components/Editor.vue';
 import Interpreter from '@/components/Interpreter.vue';
+import Split from '@/components/Split.vue';
 
 export default {
   name: 'home',
-  components: { Editor, Interpreter },
+  components: { Editor, Interpreter, Split },
 
   data: () => ({
     currentError: null,
@@ -30,25 +28,30 @@ export default {
 moveUp();
 
 loop (3) {
-  if (isLogUp()) {
+  if (!isLogUp()) {
     moveUp();
   } else {
     moveLeft();
   }
+}
+
+wait isLogUp();
+while (!isLogLeft()) {
+  moveUp();
 }`,
-    executionTree: [],
+    AST: [],
   }),
 
   methods: {
     JSONToString (obj, ind) {
       return JSON.stringify(obj, null, 4);
     },
-    onParsed (executionTree) {
-      this.executionTree = executionTree;
+    onParsed (AST) {
+      this.AST = AST;
       this.currentError = null;
     },
     onError (error) {
-      this.executionTree = [];
+      this.AST = [];
       this.currentError = error;
     },
   },
@@ -56,20 +59,8 @@ loop (3) {
 </script>
 
 <style lang="scss" scoped>
-.split {
-  display: flex;
-}
-
-.editorArea {
-  flex-basis: 50%;
-}
-
 .editor {
   min-height: 80vh;
-}
-
-.executionTree {
-  flex-basis: 50%;
 }
 
 .error, .ok {
