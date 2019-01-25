@@ -8,7 +8,7 @@
     "clean": "/bin/rm -rf dist",
     "prebuild": "npm run clean",
     "build": "lerna run build --stream",
-    "postbuild": "mkdir dist && printf 'frograming-explorer frograming-web' | xargs -d' ' -I% cp -ra packages/%/dist dist/%",
+    "postbuild": "mkdir dist && printf 'frograming-explorer frograming-web' | xargs -d' ' -I% cp -ra packages/%/dist dist/% && echo '<!DOCTYPE html><html><head><meta http-equiv=\"Refresh\" content=\"0; url=frograming-web\" /></head></html>' > dist/index.html",
     "test": "lerna run test --stream -- -- --verbose"
   },
   "keywords": [],
