@@ -226,6 +226,11 @@ Object {
       "condition": "isCarDown",
       "type": "WhileStatement",
     },
+    Object {
+      "body": Array [],
+      "condition": "isWallLeft",
+      "type": "WhileStatement",
+    },
   ],
   "type": "frogram",
 }
