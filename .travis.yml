@@ -11,3 +11,12 @@ install:
 
 script:
   - npm test
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  local-dir: dist
+  on:
+    branch: master
