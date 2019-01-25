@@ -1,9 +1,10 @@
 <template>
-  <Frogger class="froggerSvg"
-           :key="uid"
-           :controller="controller"
-           @tick="onTick"
-           @gameOver="$emit('gameOver', $event)" />
+  <div @click="uid++" class="froggerSvgContainer">
+    <Frogger :key="uid"
+             :controller="controller"
+             @tick="onTick"
+             @gameOver="$emit('gameOver', $event)" />
+  </div>
 </template>
 
 <script>
@@ -59,8 +60,8 @@ export default {
 </script>
 
 <style scoped>
-.froggerSvg {
+.froggerSvgContainer {
   height: auto;
-  min-height: 80vh;
+  max-height: 90vh;
 }
 </style>

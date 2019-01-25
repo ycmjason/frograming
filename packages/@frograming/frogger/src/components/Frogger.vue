@@ -2,7 +2,7 @@
   <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
     <Ticker @tick="onTick" :ticking="gameStatus === 'playing'" ms="1000" />
     <ControllerConsumer :controller="controller" @command="onCommand" />
-    <Frame fill="#8fbc8f" />
+    <rect x="0" y="0" height="100%" width="100%" fill="skyblue" />
 
     <Banner v-if="gameStatus === 'won'" text="You won!" color="lightgreen" />
     <Banner v-else-if="gameStatus === 'lost'" text="You lost!" color="pink" />
@@ -18,7 +18,6 @@
 
 <script>
 import Frog from './svg/Frog.vue';
-import Frame from './svg/Frame.vue';
 import Banner from './svg/Banner.vue';
 import Car from './svg/Car.vue';
 
@@ -64,7 +63,6 @@ const GAME_STATUS = {
 export default {
   components: {
     Frog,
-    Frame,
     Banner,
     Ticker,
     ControllerConsumer,
@@ -185,5 +183,7 @@ export default {
 svg {
   display: block;
   margin: 0 auto;
+  width: 100%;
+  height: 100%;
 }
 </style>
