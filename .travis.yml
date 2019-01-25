@@ -1,0 +1,13 @@
+language: node_js
+
+node_js: 8
+
+env:
+  - NODE_ENV=ci
+
+install:
+  - npm i -g lerna
+  - npm run bootstrap
+
+script:
+  - npm test
