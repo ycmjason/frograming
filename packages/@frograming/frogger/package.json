@@ -21,7 +21,6 @@
     "url": "git+https://github.com/ycmjason/frograming.git"
   },
   "scripts": {
-    "clean": "/bin/rm -rf node_modules",
     "lint": "eslint src"
   },
   "bugs": {

@@ -20,7 +20,6 @@
     "url": "https://github.com/ycmjason/frograming/issues"
   },
   "scripts": {
-    "clean": "/bin/rm -rf node_modules",
     "preversion": "npm t && $EDITOR CHANGELOG.md",
     "version": "git add -A",
     "generateParser": "pegjs --format es -o src/parser.peg.js src/spec.pegjs",

@@ -6,7 +6,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "/bin/rm -rf dist",
-    "prebuild": "npm run clean && lerna run clean",
+    "prebuild": "npm run clean",
     "build": "lerna run build --stream",
     "postbuild": "mkdir dist && printf 'frograming-explorer frograming-web' | xargs -d' ' -I% cp -ra packages/%/dist dist/%",
     "test": "lerna run test --stream -- -- --verbose"
