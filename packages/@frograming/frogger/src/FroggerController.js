@@ -6,7 +6,8 @@ export default class FroggerController {
     'moveUp',
     'moveLeft',
     'moveRight',
-    'reset',
+    'NO_OP',
+    'TERMINATED',
   ];
 
   #subscribers = [];

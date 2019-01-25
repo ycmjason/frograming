@@ -1,5 +1,6 @@
 <template>
   <Frogger class="froggerSvg"
+           :key="uid"
            :controller="controller"
            @tick="onTick"
            @gameOver="$emit('gameOver', $event)" />
@@ -20,37 +21,38 @@ export default {
   },
 
   data: () => ({
+    uid: 0,
     controller: new FroggerController(),
     commands: [],
   }),
 
   computed: {
-    executionTree () {
+    ast () {
       try {
         const tree = parse(this.frogCode);
         this.$emit('parsed');
         return tree;
       } catch (e) {
         this.$emit('error', e);
-        return [];
+        return null;
       }
+    },
+    execution () {
+      return interpret(this.ast || parse(''));
     },
   },
 
   watch: {
-    frogCode () {
-      this.controller.emit('reset');
+    execution () {
+      this.uid += 1;
     },
   },
 
   methods: {
     onTick (context) {
-      const { executionTree, controller } = this;
-      const commands = interpret(executionTree, context);
-
-      for (const command of commands) {
-        controller.emit(command);
-      }
+      const { execution, controller } = this;
+      const command = execution.step(context);
+      controller.emit(command);
     },
   },
 };

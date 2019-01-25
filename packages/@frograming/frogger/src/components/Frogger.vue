@@ -1,30 +1,47 @@
 <template>
   <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
+    <Ticker @tick="onTick" :ticking="gameStatus === 'playing'" ms="1000" />
+    <ControllerConsumer :controller="controller" @command="onCommand" />
     <Frame fill="#8fbc8f" />
-    <g v-if="gameStatus === 'playing'">
-      <component v-for="(obstacle, i) in obstacles"
-                 :key="i"
-                 :position="obstacle.pos"
-                 :length="obstacle.length"
-                 :is="obstacle.is" />
-      <Frog :position="frogPos" />
-    </g>
-    <GameLostPage  v-else-if="gameStatus === 'lost'" />
-    <GameWonPage  v-else-if="gameStatus === 'won'" />
+
+    <Banner v-if="gameStatus === 'won'" text="You won!" color="lightgreen" />
+    <Banner v-else-if="gameStatus === 'lost'" text="You lost!" color="pink" />
+
+    <component v-for="(obstacle, i) in obstacles"
+               :key="i"
+               :position="obstacle.pos"
+               :length="obstacle.length"
+               :is="obstacle.is" />
+    <Frog :position="frogPos" />
   </svg>
 </template>
 
 <script>
-import Frog from './svg-components/Frog.vue';
-import Frame from './svg-components/Frame.vue';
-import GameLostPage from './svg-components/GameLostPage.vue';
-import GameWonPage from './svg-components/GameWonPage.vue';
-import FroggerController from './FroggerController';
+import Frog from './svg/Frog.vue';
+import Frame from './svg/Frame.vue';
+import Banner from './svg/Banner.vue';
+import Car from './svg/Car.vue';
 
-import getInitialObstacles from './getInitialObstacles';
+import Ticker from './renderless/Ticker.vue';
+import ControllerConsumer from './renderless/ControllerConsumer.vue';
+
+import FroggerController from '../FroggerController';
 
 const MAX_X = 12;
 const MAX_Y = 14;
+
+const getInitialObstacles = ({ MAX_X, MAX_Y }) => [
+  // first row
+  { pos: { x: 0, y: MAX_Y - 1 }, length: 1 },
+  { pos: { x: 4, y: MAX_Y - 1 }, length: 1 },
+  { pos: { x: 8, y: MAX_Y - 1 }, length: 1 },
+  { pos: { x: 12, y: MAX_Y - 1 }, length: 1 },
+  // second row
+  { pos: { x: 1, y: MAX_Y - 2 }, length: 1 },
+  { pos: { x: 4, y: MAX_Y - 2 }, length: 1 },
+  { pos: { x: 9, y: MAX_Y - 2 }, length: 1 },
+  { pos: { x: 12, y: MAX_Y - 2 }, length: 1 },
+].map(obj => ({ ...obj, is: Car }));
 
 const moveCar = car => {
   car.pos.x = car.pos.x > 0 ? car.pos.x - 1 : MAX_X;
@@ -38,12 +55,19 @@ const getInitialData = () => ({
   frogPos: { x: MAX_X / 2, y: MAX_Y },
 });
 
+const GAME_STATUS = {
+  playing: 'playing',
+  won: 'won',
+  lost: 'lost',
+};
+
 export default {
   components: {
     Frog,
     Frame,
-    GameLostPage,
-    GameWonPage,
+    Banner,
+    Ticker,
+    ControllerConsumer,
   },
 
   props: {
@@ -55,16 +79,6 @@ export default {
   },
 
   data: () => getInitialData(),
-
-  created () {
-    this.start();
-    this.unsubscribe = this.controller.subscribe(this.onCommand);
-  },
-
-  beforeDestroy () {
-    this.stop();
-    this.unsubscribe();
-  },
 
   computed: {
     hasCollision () {
@@ -98,16 +112,19 @@ export default {
   methods: {
     checkCollision () {
       if (!this.hasCollision) return;
-      this.stop();
-      this.$emit('gameOver', 'lose');
+      this.lost();
     },
 
     start () {
-      this.intervalId = setInterval(this.onTick, 1000);
+      this.gameStatus = GAME_STATUS.playing;
     },
 
-    stop () {
-      clearInterval(this.intervalId);
+    won () {
+      this.gameStatus = GAME_STATUS.won;
+    },
+
+    lost () {
+      this.gameStatus = GAME_STATUS.lost;
     },
 
     onTick () {
@@ -118,6 +135,7 @@ export default {
 
     onCommand (command) {
       this[command]();
+      this.checkCollision();
     },
 
     move (direction) {
@@ -157,9 +175,8 @@ export default {
       this.move('right');
     },
 
-    reset () {
-      Object.assign(this.$data, getInitialData());
-    },
+    NO_OP: () => {},
+    TERMINATED: () => {},
   },
 };
 </script>
