@@ -21,8 +21,7 @@
     "url": "git+https://github.com/ycmjason/frograming.git"
   },
   "scripts": {
-    "lint": "eslint src",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "lint": "eslint src"
   },
   "bugs": {
     "url": "https://github.com/ycmjason/frograming/issues"
