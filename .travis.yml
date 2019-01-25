@@ -6,7 +6,7 @@ env:
   - NODE_ENV=ci
 
 install:
-  - npm i -g lerna
+  - npm ci
   - npm run bootstrap
 
 script:

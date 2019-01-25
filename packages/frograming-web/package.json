@@ -5,6 +5,7 @@
   "version": "0.2.0",
   "author": "Jason Yu <me@ycmjason.com>",
   "scripts": {
+    "clean": "/bin/rm -rf node_modules dist",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
