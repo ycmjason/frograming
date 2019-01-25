@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parser /Users/ycmjason/Development/frograming/packages/@frograming/language/src/__tests__/frogram-specs/frogs/01.frog 1`] = `
+exports[`parser 01.frog 1`] = `
 Object {
   "body": Array [
     Object {
@@ -72,7 +72,7 @@ Object {
 }
 `;
 
-exports[`parser /Users/ycmjason/Development/frograming/packages/@frograming/language/src/__tests__/frogram-specs/frogs/02.frog 1`] = `
+exports[`parser 02.frog 1`] = `
 Object {
   "body": Array [
     Object {
@@ -124,7 +124,7 @@ Object {
 }
 `;
 
-exports[`parser /Users/ycmjason/Development/frograming/packages/@frograming/language/src/__tests__/frogram-specs/frogs/ifStatement.frog 1`] = `
+exports[`parser ifStatement.frog 1`] = `
 Object {
   "body": Array [
     Object {
@@ -167,7 +167,7 @@ Object {
 }
 `;
 
-exports[`parser /Users/ycmjason/Development/frograming/packages/@frograming/language/src/__tests__/frogram-specs/frogs/waitStatement.frog 1`] = `
+exports[`parser waitStatement.frog 1`] = `
 Object {
   "body": Array [
     Object {
@@ -191,7 +191,7 @@ Object {
 }
 `;
 
-exports[`parser /Users/ycmjason/Development/frograming/packages/@frograming/language/src/__tests__/frogram-specs/frogs/whileStatement.frog 1`] = `
+exports[`parser whileStatement.frog 1`] = `
 Object {
   "body": Array [
     Object {

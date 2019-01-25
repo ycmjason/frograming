@@ -9,7 +9,7 @@
     "prebuild": "npm run clean && lerna run clean",
     "build": "lerna run build",
     "postbuild": "mkdir dist && printf 'frograming-explorer frograming-web' | xargs -d' ' -I% cp -ra packages/%/dist dist/%",
-    "test": "lerna run test"
+    "test": "lerna run test -- -- --verbose"
   },
   "keywords": [],
   "author": "Jason Yu <me@ycmjason.com>",
