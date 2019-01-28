@@ -4,10 +4,10 @@
     <ControllerConsumer :controller="controller" @command="onCommand" />
     <rect x="0" y="0" height="100%" width="100%" fill="skyblue" />
 
+    <Board :board="board" />
+
     <Banner v-if="gameStatus === 'won'" text="You won!" color="lightgreen" />
     <Banner v-else-if="gameStatus === 'lost'" text="You lost!" color="pink" />
-
-    <Board :board="board" />
 
     <Frame color="brown" />
   </svg>
@@ -24,11 +24,7 @@ import ControllerConsumer from './renderless/ControllerConsumer.vue';
 import FroggerController from '../FroggerController';
 import { getInitialGameBoard } from '../FroggerConfig';
 
-const getInitialData = () => ({
-  gameStatus: 'playing',
-  intervalId: null,
-  board: getInitialGameBoard(),
-});
+import { isUp, isRight, isDown, isLeft } from '../utils/position';
 
 const GAME_STATUS = {
   playing: 'playing',
@@ -53,7 +49,11 @@ export default {
     },
   },
 
-  data: () => getInitialData(),
+  data: () => ({
+    gameStatus: 'playing',
+    intervalId: null,
+    board: getInitialGameBoard(),
+  }),
 
   computed: {
     hasCollision () {
@@ -70,20 +70,17 @@ export default {
       const { board } = this;
       const { frogPos, obstacles } = board;
 
-      const isUp = (pos1, pos2) => pos1.x === pos2.x && pos1.y + 1 === pos2.y;
-      const isRight = (pos1, pos2) => pos1.x - 1 === pos2.x && pos1.y === pos2.y;
-      const isDown = (pos1, pos2) => pos1.x === pos2.x && pos1.y - 1 === pos2.y;
-      const isLeft = (pos1, pos2) => pos1.x + 1 === pos2.x && pos1.y === pos2.y;
-
       return {
         isCarUp: obstacles.some(({ type, pos }) => type === 'car' && isUp(pos, frogPos)),
         isCarRight: obstacles.some(({ type, pos }) => type === 'car' && isRight(pos, frogPos)),
         isCarDown: obstacles.some(({ type, pos }) => type === 'car' && isDown(pos, frogPos)),
         isCarLeft: obstacles.some(({ type, pos }) => type === 'car' && isLeft(pos, frogPos)),
+
         isLogUp: obstacles.some(({ type, pos }) => type === 'log' && isUp(pos, frogPos)),
         isLogRight: obstacles.some(({ type, pos }) => type === 'log' && isRight(pos, frogPos)),
         isLogDown: obstacles.some(({ type, pos }) => type === 'log' && isDown(pos, frogPos)),
         isLogLeft: obstacles.some(({ type, pos }) => type === 'log' && isLeft(pos, frogPos)),
+
         isWallUp: obstacles.some(({ type, pos }) => type === 'wall' && isUp(pos, frogPos)),
         isWallRight: obstacles.some(({ type, pos }) => type === 'wall' && isRight(pos, frogPos)),
         isWallDown: obstacles.some(({ type, pos }) => type === 'wall' && isDown(pos, frogPos)),

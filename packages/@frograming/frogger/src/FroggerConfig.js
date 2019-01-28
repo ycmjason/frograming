@@ -4,7 +4,7 @@ import { Car } from './Obstacles';
 export const MAX_X = 12;
 export const MAX_Y = 14;
 
-const cars = [
+const getInitialCars = () => [
   {
     xs: [0, 4, 8, 12],
     color: 'red',
@@ -52,7 +52,7 @@ const cars = [
 
 export const getInitialGameBoard = () => ({
   obstacles: [
-    ...cars,
+    ...getInitialCars(),
   ],
 
   frogPos: {
