@@ -1,57 +1,33 @@
 <template>
   <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
-    <Ticker @tick="onTick" :ticking="gameStatus === 'playing'" ms="1000" />
+    <Ticker @tick="onTick" :ticking="gameStatus === 'playing'" :interval="1000" />
     <ControllerConsumer :controller="controller" @command="onCommand" />
     <rect x="0" y="0" height="100%" width="100%" fill="skyblue" />
 
     <Banner v-if="gameStatus === 'won'" text="You won!" color="lightgreen" />
     <Banner v-else-if="gameStatus === 'lost'" text="You lost!" color="pink" />
 
-    <component v-for="(obstacle, i) in obstacles"
-               :key="i"
-               :position="obstacle.pos"
-               :length="obstacle.length"
-               :is="obstacle.is" />
-    <Frog :position="frogPos" />
+    <Board :board="board" />
+
+    <Frame color="brown" />
   </svg>
 </template>
 
 <script>
-import Frog from './svg/Frog.vue';
 import Banner from './svg/Banner.vue';
-import Car from './svg/Car.vue';
+import Board from './svg/Board.vue';
+import Frame from './svg/Frame.vue';
 
 import Ticker from './renderless/Ticker.vue';
 import ControllerConsumer from './renderless/ControllerConsumer.vue';
 
 import FroggerController from '../FroggerController';
-
-const MAX_X = 12;
-const MAX_Y = 14;
-
-const getInitialObstacles = ({ MAX_X, MAX_Y }) => [
-  // first row
-  { pos: { x: 0, y: MAX_Y - 1 }, length: 1 },
-  { pos: { x: 4, y: MAX_Y - 1 }, length: 1 },
-  { pos: { x: 8, y: MAX_Y - 1 }, length: 1 },
-  { pos: { x: 12, y: MAX_Y - 1 }, length: 1 },
-  // second row
-  { pos: { x: 1, y: MAX_Y - 2 }, length: 1 },
-  { pos: { x: 4, y: MAX_Y - 2 }, length: 1 },
-  { pos: { x: 9, y: MAX_Y - 2 }, length: 1 },
-  { pos: { x: 12, y: MAX_Y - 2 }, length: 1 },
-].map(obj => ({ ...obj, is: Car }));
-
-const moveCar = car => {
-  car.pos.x = car.pos.x > 0 ? car.pos.x - 1 : MAX_X;
-  return car;
-};
+import { getInitialGameBoard } from '../FroggerConfig';
 
 const getInitialData = () => ({
   gameStatus: 'playing',
   intervalId: null,
-  obstacles: getInitialObstacles({ MAX_X, MAX_Y }),
-  frogPos: { x: MAX_X / 2, y: MAX_Y },
+  board: getInitialGameBoard(),
 });
 
 const GAME_STATUS = {
@@ -62,10 +38,11 @@ const GAME_STATUS = {
 
 export default {
   components: {
-    Frog,
     Banner,
     Ticker,
     ControllerConsumer,
+    Board,
+    Frame,
   },
 
   props: {
@@ -82,7 +59,7 @@ export default {
     hasCollision () {
       // (obstacle.pos.x <= frogPos.x < obstacle.pos.x + obstacle.length
       //   AND frogPos.y == obstacle.pos.y), for some obstacles
-      const { obstacles, frogPos } = this;
+      const { obstacles, frogPos } = this.board;
       return obstacles.some(obstacle => {
         return frogPos.y === obstacle.pos.y
           && obstacle.pos.x <= frogPos.x && frogPos.x < obstacle.pos.x + obstacle.length;
@@ -90,19 +67,27 @@ export default {
     },
 
     context () {
+      const { board } = this;
+      const { frogPos, obstacles } = board;
+
+      const isUp = (pos1, pos2) => pos1.x === pos2.x && pos1.y + 1 === pos2.y;
+      const isRight = (pos1, pos2) => pos1.x - 1 === pos2.x && pos1.y === pos2.y;
+      const isDown = (pos1, pos2) => pos1.x === pos2.x && pos1.y - 1 === pos2.y;
+      const isLeft = (pos1, pos2) => pos1.x + 1 === pos2.x && pos1.y === pos2.y;
+
       return {
-        isCarUp: false,
-        isCarRight: false,
-        isCarDown: false,
-        isCarLeft: false,
-        isLogUp: false,
-        isLogRight: false,
-        isLogDown: false,
-        isLogLeft: false,
-        isWallUp: false,
-        isWallRight: false,
-        isWallDown: false,
-        isWallLeft: false,
+        isCarUp: obstacles.some(({ type, pos }) => type === 'car' && isUp(pos, frogPos)),
+        isCarRight: obstacles.some(({ type, pos }) => type === 'car' && isRight(pos, frogPos)),
+        isCarDown: obstacles.some(({ type, pos }) => type === 'car' && isDown(pos, frogPos)),
+        isCarLeft: obstacles.some(({ type, pos }) => type === 'car' && isLeft(pos, frogPos)),
+        isLogUp: obstacles.some(({ type, pos }) => type === 'log' && isUp(pos, frogPos)),
+        isLogRight: obstacles.some(({ type, pos }) => type === 'log' && isRight(pos, frogPos)),
+        isLogDown: obstacles.some(({ type, pos }) => type === 'log' && isDown(pos, frogPos)),
+        isLogLeft: obstacles.some(({ type, pos }) => type === 'log' && isLeft(pos, frogPos)),
+        isWallUp: obstacles.some(({ type, pos }) => type === 'wall' && isUp(pos, frogPos)),
+        isWallRight: obstacles.some(({ type, pos }) => type === 'wall' && isRight(pos, frogPos)),
+        isWallDown: obstacles.some(({ type, pos }) => type === 'wall' && isDown(pos, frogPos)),
+        isWallLeft: obstacles.some(({ type, pos }) => type === 'wall' && isLeft(pos, frogPos)),
       };
     },
   },
@@ -126,9 +111,9 @@ export default {
     },
 
     onTick () {
-      this.obstacles.forEach(moveCar);
-      this.checkCollision();
+      this.board.obstacles.forEach(obstacle => obstacle.move());
       this.$emit('tick', this.context);
+      this.checkCollision();
     },
 
     onCommand (command) {
@@ -137,7 +122,7 @@ export default {
     },
 
     move (direction) {
-      const { frogPos } = this;
+      const { frogPos } = this.board;
       switch (direction) {
         case 'up':
           frogPos.y--;
