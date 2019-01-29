@@ -1,40 +1,64 @@
 module.exports = [
   [
     ['moveLeft', {}],
+    ['NO_OP', {}],
+    ['NO_OP', {}],
     ['TERMINATED', {}],
   ],
   [
     ['moveLeft', {}],
-    ['moveUp', {isCarDown: true}],
+
+    ['NO_OP', {isCarDown: true}],
+    ['moveUp', {}],
     ['moveRight', {isCarDown: false}],
+
+    ['NO_OP', {}],
+
     ['moveDown', {}],
+    ['NO_OP', {}],
+
+    ['NO_OP', {}],
     ['TERMINATED', {}],
   ],
   [
     ['moveLeft', {}],
 
-    ['moveUp', {isCarDown: true}],
-    ['moveRight', {}],
-    ['moveLeft', {isLogUp: true}],
-    ['moveDown', {isLogUp: false}],
-
+    ['NO_OP', {isCarDown: true}],
     ['moveUp', {}],
     ['moveRight', {}],
-
-    ['moveLeft', {isLogLeft: true}],
+    ['NO_OP', {isLogUp: true}],
     ['moveLeft', {}],
-    ['moveLeft', {}],
-    ['moveLeft', {}],
+    ['NO_OP', {isLogUp: false}],
+    ['moveDown', {}],
 
-    ['moveDown', {isLogLeft: false}],
+    ['NO_OP', {}],
+    ['moveUp', {}],
+    ['moveRight', {}],
+    ['NO_OP', {isLogLeft: true}],
+    ['moveLeft', {}],
+    ['NO_OP', {}],
+    ['moveLeft', {}],
+    ['NO_OP', {}],
+    ['moveLeft', {}],
+    ['NO_OP', {}],
+    ['moveLeft', {}],
+    ['NO_OP', {isLogLeft: false}],
 
-    ['TERMINATED', {isCarDown: false}],
+    ['moveDown', {}],
+    ['NO_OP', {isCarDown: false}],
+
+    ['NO_OP', {isWallLeft: false}],
+
+    ['TERMINATED', {}],
   ],
 
   [
     ['moveLeft', {}],
+    ['NO_OP', {isCarDown: false}],
+
     ['NO_OP', {isWallLeft: true}],
     ['NO_OP', {isWallLeft: true}],
-    ['TERMINATED', {isWallLeft: false}],
+    ['NO_OP', {isWallLeft: false}],
+    ['TERMINATED', {}],
   ],
 ];

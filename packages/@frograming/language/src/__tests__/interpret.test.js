@@ -53,9 +53,9 @@ describe('@frograming/language', () => {
 
           let context = { ...INITIAL_CONTEXT };
           for (const contextPatch of contextPatches) {
-            context = { ...context, ...contextPatch };
             const command = execution.step(context);
             commands.push(command);
+            context = { ...context, ...contextPatch };
             if (command === 'TERMINATED') break;
           }
           expect(commands).toEqual(expectedCommands);

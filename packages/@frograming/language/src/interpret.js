@@ -1,7 +1,5 @@
 import evaluatePredicate from './evaluatePredicate.js';
 
-const MAX_STEP_COUNT = 9999;
-
 function* interpret(node) {
   if (typeof node !== 'object') {
     throw TypeError(`Expecting node to be an object. ${typeof node} is found instead.`);
@@ -14,6 +12,8 @@ function* interpret(node) {
   }
 
   yield* interpret[type](node);
+
+  return 'TERMINATED';
 }
 
 interpret.lines = function* (nodes) {
@@ -31,8 +31,7 @@ interpret.command = function* ({ name }) {
 };
 
 interpret.IfStatement = function* ({ condition, ifBody, elseBody }) {
-  const state = yield;
-  const body = evaluatePredicate(condition, state) ? ifBody: elseBody;
+  const body = evaluatePredicate(condition, yield 'NO_OP') ? ifBody: elseBody;
   yield* interpret(body);
 };
 
@@ -43,42 +42,28 @@ interpret.LoopStatement = function* ({ n, body }) {
 };
 
 interpret.WhileStatement = function* ({ condition, body }) {
-  while (evaluatePredicate(condition, yield)) {
-    if (body.length <= 0) {
-      yield 'NO_OP';
-    } else {
-      yield* interpret(body);
-    }
+  while (evaluatePredicate(condition, yield 'NO_OP')) {
+    yield* interpret(body);
   }
 };
 
 interpret.WaitStatement = function* ({ condition }) {
-  let state = yield;
-  while (!evaluatePredicate(condition, state)) {
-    state = yield 'NO_OP';
-  }
+  while (!evaluatePredicate(condition, yield 'NO_OP'));
 };
 
 export default (ast) => {
   const commandGenerator = interpret(ast);
 
-  let stepCount = 0;
-
   const execution = {
     terminated: false,
     step: (state) => {
       if (execution.terminated) return 'TERMINATED';
-      if (stepCount++ > MAX_STEP_COUNT) {
-        throw Error(`MAX_STEP_COUNT exceeded: Are you waiting on a predicate that never came true?`);
-      }
 
-      let next;
-      do {
-        next = commandGenerator.next(state);
-      } while (!next.value && !next.done);
+      const { value, done } = commandGenerator.next(state);
 
-      if (next.done) execution.terminated = true;
-      return next.value || 'TERMINATED';
+      if (done) execution.terminated = true;
+
+      return value;
     },
   };
 
