@@ -9,11 +9,14 @@
 </template>
 
 <script>
+import Board from '../../models/Board';
 import Obstacle from './Obstacle.vue';
 import Frog from './Frog.vue';
 
 export default {
   components: { Obstacle, Frog },
-  props: ['board'],
+  props: {
+    board: Board,
+  },
 };
 </script>

@@ -1,5 +1,5 @@
 <script>
-import FroggerController from '../../FroggerController';
+import FroggerController from '../../models/FroggerController';
 
 export default {
   props: {

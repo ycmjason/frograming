@@ -1,5 +1,5 @@
-import { mod } from './utils/math';
-import { MAX_X } from './FroggerConfig';
+import { mod } from '../utils/math';
+import { MAX_X } from './Board';
 
 class AbstractObstacle {
   type = 'abstract-obstacle';
@@ -20,4 +20,8 @@ class AbstractObstacle {
 
 export class Car extends AbstractObstacle {
   type = 'car';
+}
+
+export class Log extends AbstractObstacle {
+  type = 'log';
 }
