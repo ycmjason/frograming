@@ -9,3 +9,5 @@ export const isInRange = (n, [l, h], rangeOperator='[]') => {
     default: throw Error(`Invalid range operator ${rangeOperator}.`);
   }
 };
+
+export { default as round } from 'lodash.round';

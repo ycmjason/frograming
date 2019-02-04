@@ -22,7 +22,7 @@ import Frame from './svg/Frame.vue';
 import Ticker from './renderless/Ticker.vue';
 import ControllerConsumer from './renderless/ControllerConsumer.vue';
 
-import FroggerController from '../models/FroggerController';
+import FrogController from '../models/FrogController';
 import { getInitialBoard } from '../models/Board';
 
 import { isInRange } from '../utils/math';
@@ -44,9 +44,9 @@ export default {
 
   props: {
     controller: {
-      type: FroggerController,
+      type: FrogController,
       required: false,
-      default: () => new FroggerController(),
+      default: () => new FrogController(),
     },
   },
 
@@ -58,8 +58,6 @@ export default {
 
   computed: {
     hasCollision () {
-      // (obstacle.pos.x <= frogPos.x < obstacle.pos.x + obstacle.length
-      //   AND frogPos.y == obstacle.pos.y), for some obstacles
       const { obstacles, frogPos } = this.board;
       return obstacles.some(obstacle => {
         return frogPos.y === obstacle.pos.y
@@ -108,13 +106,20 @@ export default {
     },
 
     onTick () {
+      const { context } = this;
       this.board.obstacles.forEach(obstacle => obstacle.move());
-      this.$emit('tick', this.context);
+      this.$emit('tick', context);
       this.checkCollision();
     },
 
     onCommand (command) {
-      this[command]();
+      if (!command) return;
+
+      if (/^move(Up|Right|Down|Left)$/.test(command)) {
+        const direction = type.match(/move(Up|Right|Down|Left)/)[1].toLowerCase();
+        this.move(direction);
+      }
+
       this.checkCollision();
     },
 
@@ -122,41 +127,21 @@ export default {
       const { frogPos } = this.board;
       switch (direction) {
         case 'up':
-          frogPos.y--;
+          frogPos.y -= 1;
           break;
         case 'down':
-          frogPos.y++;
+          frogPos.y += 1;
           break;
         case 'left':
-          frogPos.x--;
+          frogPos.x -= 1;
           break;
         case 'right':
-          frogPos.x++;
+          frogPos.x += 1;
           break;
         default:
           throw Error(`Cannot move ${direction}.`);
       }
-      this.checkCollision();
     },
-
-    moveUp () {
-      this.move('up');
-    },
-
-    moveDown () {
-      this.move('down');
-    },
-
-    moveLeft () {
-      this.move('left');
-    },
-
-    moveRight () {
-      this.move('right');
-    },
-
-    NO_OP: () => {},
-    TERMINATED: () => {},
   },
 };
 </script>

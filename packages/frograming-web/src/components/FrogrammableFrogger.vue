@@ -9,7 +9,7 @@
 
 <script>
 import { parse, interpret } from '@frograming/language';
-import { Frogger, FroggerController } from '@frograming/frogger';
+import { Frogger, FrogController } from '@frograming/frogger';
 
 import debounce from 'lodash.debounce';
 
@@ -25,7 +25,7 @@ export default {
 
   data: () => ({
     uid: 0,
-    controller: new FroggerController(),
+    controller: new FrogController(),
     commands: [],
     ast: null,
     execution: interpret(''),

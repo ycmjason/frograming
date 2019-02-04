@@ -1,11 +1,11 @@
 <script>
-import FroggerController from '../../models/FroggerController';
+import FrogController from '../../models/FrogController';
 
 export default {
   props: {
     controller: {
-      type: FroggerController,
-      default: new FroggerController(),
+      type: FrogController,
+      required: true,
     },
   },
 

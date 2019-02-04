@@ -1,5 +1,12 @@
 <script>
 export default {
+  props: {
+    ticking: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   mounted () {
     document.addEventListener('keypress', this.onKeyPress);
   },
@@ -11,6 +18,8 @@ export default {
   methods: {
     onKeyPress (e) {
       if (e.key !== ' ') return;
+      if (e.target !== document.body) return;
+      if (!this.ticking) return;
       e.preventDefault();
       this.tick();
     },

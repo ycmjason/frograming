@@ -1,2 +1,2 @@
 export { default as Frogger } from './components/Frogger.vue';
-export { default as FroggerController } from './models/FroggerController';
+export { default as FrogController } from './models/FrogController';

@@ -6,11 +6,11 @@ export const MAX_X = 12;
 export const MAX_Y = 14;
 
 const isObstacleUp = ({ pos, length }, frogPos) => {
-  return pos.y === frogPos.y - 1 && isInRange(frogPos.x, [pos.x, pos.x + length]);
+  return pos.y === frogPos.y - 1 && isInRange(frogPos.x, [pos.x - 1, pos.x + length]);
 };
 
 const isObstacleDown = ({ pos, length }, frogPos) => {
-  return pos.y === frogPos.y + 1 && isInRange(frogPos.x, [pos.x, pos.x + length]);
+  return pos.y === frogPos.y + 1 && isInRange(frogPos.x, [pos.x - 1, pos.x + length]);
 };
 
 const isObstacleLeft = ({ pos, length }, frogPos) => {
@@ -94,24 +94,32 @@ export default class Board {
 
 export const getInitialBoard = () => new Board({
   obstacles: [
-    new Car({ pos: { x: 0, y: 13 }, length: 1, velocity: 1, color: 'red' }),
-    new Car({ pos: { x: 4, y: 13 }, length: 1, velocity: 1, color: 'red' }),
-    new Car({ pos: { x: 8, y: 13 }, length: 1, velocity: 1, color: 'red' }),
-    new Car({ pos: { x: 12, y: 13 }, length: 1, velocity: 1, color: 'red' }),
+    ...[0, 4, 8, 12].map(x => new Car({
+      pos: { x, y: 13 },
+      length: 1,
+      velocity: 0.05,
+      color: 'red',
+    })),
 
-    new Car({ pos: { x: 12, y: 12 }, length: 1, velocity: -0.5, color: 'pink' }),
+    new Car({ pos: { x: 12, y: 12 }, length: 1, velocity: -0.025, color: 'pink' }),
 
-    new Car({ pos: { x: 9, y: 11 }, length: 1, velocity: -1, color: 'yellow' }),
-    new Car({ pos: { x: 12, y: 11 }, length: 1, velocity: -1, color: 'yellow' }),
+    ...[9, 12].map(x => new Car({
+      pos: { x, y: 11 },
+      length: 1,
+      velocity: -0.05,
+      color: 'yellow',
+    })),
 
-    new Car({ pos: { x: 3, y: 10 }, length: 1, velocity: 1, color: 'lightyellow' }),
+    new Car({ pos: { x: 3, y: 10 }, length: 1, velocity: 0.05, color: 'lightyellow' }),
 
-    new Car({ pos: { x: 0, y: 9 }, length: 1, velocity: -0.8, color: 'yellow' }),
+    new Car({ pos: { x: 0, y: 9 }, length: 1, velocity: -0.04, color: 'yellow' }),
 
-    new Car({ pos: { x: -1, y: 8 }, length: 2, velocity: -0.5, color: 'white' }),
-    new Car({ pos: { x: 3, y: 8 }, length: 2, velocity: -0.5, color: 'white' }),
-    new Car({ pos: { x: 7, y: 8 }, length: 2, velocity: -0.5, color: 'white' }),
-    new Car({ pos: { x: 11, y: 8 }, length: 2, velocity: -0.5, color: 'white' }),
+    ...[-1, 3, 7, 11].map(x => new Car({
+      pos: { x, y: 8 },
+      length: 2,
+      velocity: -0.025,
+      color: 'white',
+    })),
   ],
 
   frogPos: {

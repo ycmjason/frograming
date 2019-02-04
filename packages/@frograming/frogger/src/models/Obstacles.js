@@ -1,4 +1,4 @@
-import { mod } from '../utils/math';
+import { mod, round } from '../utils/math';
 import { MAX_X } from './Board';
 
 class AbstractObstacle {
@@ -13,7 +13,7 @@ class AbstractObstacle {
 
   move () {
     const { pos, velocity, length } = this;
-    pos.x = mod(pos.x + length + (velocity / 10), MAX_X + 1 + length) - length;
+    pos.x = round(mod(pos.x + length + velocity, MAX_X + 1 + length) - length, 5);
     return this;
   }
 }
