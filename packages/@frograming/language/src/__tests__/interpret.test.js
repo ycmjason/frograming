@@ -22,6 +22,11 @@ const zip = ([x, ...xs], [y, ...ys]) => {
   return [[x, y], ...zip(xs, ys)];
 };
 
+const unzip = (zipped) => zipped.reduce(([xs, ys], [x, y]) => [
+  [...xs, x],
+  [...ys, y],
+], [[], []]);
+
 const readdirFullSync = (dir) => readdirSync(dir).map(name => join(dir, name));
 
 const FROGS_DIR = join(__dirname, 'frogram-specs/frogs');
@@ -39,24 +44,14 @@ describe('@frograming/language', () => {
           const execution = interpret(parse(frogCode));
 
           const commands = [];
-          const [expectedCommands, contextPatches] = timeline.reduce(
-            ([accCommands, accContextPatches], [command, patch]) => [
-              [...accCommands, command],
-              [...accContextPatches, patch],
-            ],
-            [[], []],
-          );
-
-          if (expectedCommands.slice(-1)[0] !== 'TERMINATED') {
-            throw Error('Please assert till the end of the frogram. No TERMINATED token found.');
-          }
+          const [expectedCommands, contextPatches] = unzip(timeline);
 
           let context = { ...INITIAL_CONTEXT };
+
           for (const contextPatch of contextPatches) {
-            const command = execution.step(context);
-            commands.push(command);
             context = { ...context, ...contextPatch };
-            if (command === 'TERMINATED') break;
+            const command = execution.tick(context);
+            commands.push(command);
           }
           expect(commands).toEqual(expectedCommands);
         });

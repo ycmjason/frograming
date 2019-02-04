@@ -3,38 +3,19 @@
   const notElim = (nots) => Array.from({ length: nots.length % 2 }, () => '!').join('');
 }
 
-Frogram = body:Lines { return { type: 'frogram', body }; }
+Frogram = "onTick" _ "{" _ body:Lines _ "}" _ { return { type: 'frogram', body }; }
 
 Lines
   = ls:(_ l:Line _ { return l })* { return ls; }
 
 Line
-  = operation:MethodCall ";" { return operation; }
-  / operations:Statement { return operations; }
+  = operation:ExecCommand ";" { return operation; }
+  / operations:IfStatement { return operations; }
 
-MethodCall
-  = _ name:MethodName _ "()" { return { type: 'command', name }; }
+ExecCommand
+  = "exec" _ name:CommandName { return { type: 'command', name }; }
 
-MethodName = "moveUp" / "moveDown" / "moveLeft" / "moveRight"
-
-Statement
-  = LoopStatement / IfStatement / WhileStatement / WaitStatement
-  
-WaitStatement
-  = "wait " _ condition:Predicate _ ";" {
-    if (condition === 'false') error('Attempt to wait false.');
-    return { type: 'WaitStatement', condition };
-  }
-
-WhileStatement
-  = "while" _ "(" _ condition:Predicate _ ")" _ "{" _ body:Lines _ "}" {
-    return  { type: 'WhileStatement', condition, body };
-  }
-
-LoopStatement
-  = "loop" _ "(" _ n:Integer _ ")" _ "{" _ body:Lines _ "}" {
-    return  { type: 'LoopStatement', n, body };
-  }
+CommandName = "moveUp" / "moveDown" / "moveLeft" / "moveRight"
   
 IfStatement
   = "if" _ "(" _ p:Predicate _ ")" _ "{" _ ifBody:Lines _ "}" _ elseBody:ElseStatement? {

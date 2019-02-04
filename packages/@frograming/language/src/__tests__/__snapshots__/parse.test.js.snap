@@ -4,232 +4,42 @@ exports[`parser 01.frog 1`] = `
 Object {
   "body": Array [
     Object {
-      "name": "moveDown",
-      "type": "command",
-    },
-    Object {
-      "name": "moveUp",
-      "type": "command",
-    },
-    Object {
-      "body": Array [
-        Object {
-          "name": "moveDown",
-          "type": "command",
-        },
-      ],
-      "n": 2,
-      "type": "LoopStatement",
-    },
-    Object {
-      "condition": "!isCarUp&&isCarLeft||isLogUp",
+      "condition": "!isCarUp",
       "elseBody": Array [
         Object {
-          "name": "moveUp",
-          "type": "command",
-        },
-      ],
-      "ifBody": Array [
-        Object {
-          "name": "moveDown",
-          "type": "command",
-        },
-        Object {
-          "body": Array [
-            Object {
-              "name": "moveLeft",
-              "type": "command",
-            },
-            Object {
-              "name": "moveUp",
-              "type": "command",
-            },
-            Object {
-              "condition": "isCarUp",
-              "elseBody": Array [
-                Object {
-                  "name": "moveLeft",
-                  "type": "command",
-                },
-              ],
-              "ifBody": Array [
-                Object {
-                  "name": "moveUp",
-                  "type": "command",
-                },
-              ],
-              "type": "IfStatement",
-            },
-          ],
-          "n": 2,
-          "type": "LoopStatement",
-        },
-      ],
-      "type": "IfStatement",
-    },
-  ],
-  "type": "frogram",
-}
-`;
-
-exports[`parser 02.frog 1`] = `
-Object {
-  "body": Array [
-    Object {
-      "name": "moveDown",
-      "type": "command",
-    },
-    Object {
-      "name": "moveUp",
-      "type": "command",
-    },
-    Object {
-      "body": Array [
-        Object {
-          "condition": "!isLogUp",
-          "elseBody": Array [
-            Object {
-              "name": "moveLeft",
-              "type": "command",
-            },
-          ],
+          "condition": "isCarLeft",
+          "elseBody": Array [],
           "ifBody": Array [
             Object {
-              "name": "moveUp",
+              "name": "moveRight",
+              "type": "command",
+            },
+          ],
+          "type": "IfStatement",
+        },
+        Object {
+          "condition": "isCarRight",
+          "elseBody": Array [],
+          "ifBody": Array [
+            Object {
+              "name": "moveLeft",
+              "type": "command",
+            },
+            Object {
+              "name": "moveRight",
               "type": "command",
             },
           ],
           "type": "IfStatement",
         },
       ],
-      "n": 3,
-      "type": "LoopStatement",
-    },
-    Object {
-      "condition": "isLogUp",
-      "type": "WaitStatement",
-    },
-    Object {
-      "body": Array [
-        Object {
-          "name": "moveUp",
-          "type": "command",
-        },
-      ],
-      "condition": "!isLogLeft",
-      "type": "WhileStatement",
-    },
-  ],
-  "type": "frogram",
-}
-`;
-
-exports[`parser ifStatement.frog 1`] = `
-Object {
-  "body": Array [
-    Object {
-      "name": "moveLeft",
-      "type": "command",
-    },
-    Object {
-      "condition": "isLogDown",
-      "elseBody": Array [
-        Object {
-          "name": "moveUp",
-          "type": "command",
-        },
-      ],
       "ifBody": Array [
         Object {
-          "name": "moveRight",
+          "name": "moveUp",
           "type": "command",
         },
       ],
       "type": "IfStatement",
-    },
-    Object {
-      "condition": "isCarUp",
-      "elseBody": Array [],
-      "ifBody": Array [
-        Object {
-          "name": "moveDown",
-          "type": "command",
-        },
-      ],
-      "type": "IfStatement",
-    },
-    Object {
-      "name": "moveRight",
-      "type": "command",
-    },
-  ],
-  "type": "frogram",
-}
-`;
-
-exports[`parser waitStatement.frog 1`] = `
-Object {
-  "body": Array [
-    Object {
-      "name": "moveUp",
-      "type": "command",
-    },
-    Object {
-      "condition": "isCarDown",
-      "type": "WaitStatement",
-    },
-    Object {
-      "condition": "isWallLeft&&isCarUp",
-      "type": "WaitStatement",
-    },
-    Object {
-      "name": "moveDown",
-      "type": "command",
-    },
-  ],
-  "type": "frogram",
-}
-`;
-
-exports[`parser whileStatement.frog 1`] = `
-Object {
-  "body": Array [
-    Object {
-      "name": "moveLeft",
-      "type": "command",
-    },
-    Object {
-      "body": Array [
-        Object {
-          "name": "moveUp",
-          "type": "command",
-        },
-        Object {
-          "name": "moveRight",
-          "type": "command",
-        },
-        Object {
-          "body": Array [
-            Object {
-              "name": "moveLeft",
-              "type": "command",
-            },
-          ],
-          "condition": "isLogUp||isLogLeft",
-          "type": "WhileStatement",
-        },
-        Object {
-          "name": "moveDown",
-          "type": "command",
-        },
-      ],
-      "condition": "isCarDown",
-      "type": "WhileStatement",
-    },
-    Object {
-      "body": Array [],
-      "condition": "isWallLeft",
-      "type": "WhileStatement",
     },
   ],
   "type": "frogram",
