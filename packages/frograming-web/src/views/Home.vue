@@ -18,6 +18,7 @@
 <script>
 import Editor from '@/components/Editor.vue';
 import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
+import { stripIndent } from 'common-tags';
 
 export default {
   name: 'home',
@@ -25,16 +26,11 @@ export default {
 
   data: () => ({
     currentError: null,
-    frogCode: `moveDown();
-moveUp();
-
-loop (3) {
-  if (isLogUp()) {
-    moveUp();
-  } else {
-    moveLeft();
-  }
-}`,
+    frogCode: stripIndent`
+      while (true) {
+        moveUp();
+      }
+    `,
   }),
 };
 </script>

@@ -1,37 +1,17 @@
 <script>
+import DebugTicker from './DebugTicker.vue';
+import IntervalTicker from './IntervalTicker.vue';
+
 export default {
+  functional: true,
   props: {
-    ticking: {
+    debug: {
       type: Boolean,
       default: false,
     },
-    interval: {
-      type: Number,
-      default: 500,
-    },
   },
-
-  beforeDestroy () {
-    clearInterval(this.id);
+  render: (h, { props, data, children }) => {
+    return h(props.debug? DebugTicker: IntervalTicker, data, children);
   },
-
-  data: () => ({
-    id: null,
-  }),
-
-  watch: {
-    ticking: {
-      immediate: true,
-      handler (t) {
-        if (t) {
-          this.id = setInterval(() => this.$emit('tick'), this.interval);
-        } else {
-          clearInterval(this.id);
-        }
-      },
-    },
-  },
-
-  render: h => null,
 };
 </script>

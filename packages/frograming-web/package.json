@@ -13,6 +13,7 @@
   "dependencies": {
     "@frograming/frogger": "^0.2.0",
     "@frograming/language": "^0.2.0",
+    "common-tags": "^1.8.0",
     "core-js": "^2.6.3",
     "lodash.debounce": "^4.0.8",
     "vue": "^2.5.21",

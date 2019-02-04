@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Ticker @tick="onTick" :ticking="gameStatus === 'playing'" :interval="1000" />
+    <Ticker @tick="onTick" :ticking="gameStatus === 'playing'" :interval="100" />
     <ControllerConsumer :controller="controller" @command="onCommand" />
     <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" height="100%" width="100%" fill="skyblue" />
@@ -20,11 +20,12 @@ import Banner from './svg/Banner.vue';
 import Board from './svg/Board.vue';
 import Frame from './svg/Frame.vue';
 import Ticker from './renderless/Ticker.vue';
-import DebugTicker from './renderless/DebugTicker.vue';
 import ControllerConsumer from './renderless/ControllerConsumer.vue';
 
 import FroggerController from '../models/FroggerController';
 import { getInitialBoard } from '../models/Board';
+
+import { isInRange } from '../utils/math';
 
 const GAME_STATUS = {
   playing: 'playing',
@@ -36,7 +37,6 @@ export default {
   components: {
     Banner,
     Ticker,
-    DebugTicker, // eslint-disable-line vue/no-unused-components
     ControllerConsumer,
     Board,
     Frame,
@@ -63,7 +63,7 @@ export default {
       const { obstacles, frogPos } = this.board;
       return obstacles.some(obstacle => {
         return frogPos.y === obstacle.pos.y
-          && obstacle.pos.x <= frogPos.x && frogPos.x < obstacle.pos.x + obstacle.length;
+          && isInRange(frogPos.x, [obstacle.pos.x, obstacle.pos.x + obstacle.length], '[)');
       });
     },
 

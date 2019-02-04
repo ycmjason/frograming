@@ -11,6 +11,8 @@
 import { parse, interpret } from '@frograming/language';
 import { Frogger, FroggerController } from '@frograming/frogger';
 
+import debounce from 'lodash.debounce';
+
 export default {
   components: { Frogger },
 
@@ -25,27 +27,28 @@ export default {
     uid: 0,
     controller: new FroggerController(),
     commands: [],
+    ast: null,
+    execution: interpret(''),
   }),
-
-  computed: {
-    ast () {
-      try {
-        const tree = parse(this.frogCode);
-        this.$emit('parsed');
-        return tree;
-      } catch (e) {
-        this.$emit('error', e);
-        return null;
-      }
-    },
-    execution () {
-      return interpret(this.ast || parse(''));
-    },
-  },
 
   watch: {
     execution () {
       this.uid += 1;
+    },
+
+    frogCode: {
+      immediate: true,
+      handler: debounce(function () {
+        try {
+          this.ast = parse(this.frogCode);
+          this.execution = interpret(this.ast);
+          this.$emit('parsed');
+        } catch (e) {
+          this.ast = null;
+          this.execution = interpret('');
+          this.$emit('error', e);
+        }
+      }, 500),
     },
   },
 

@@ -1,6 +1,7 @@
 import evaluatePredicate from './evaluatePredicate.js';
 
 function* interpret(node) {
+  if (!node) return 'TERMINATED'
   if (typeof node !== 'object') {
     throw TypeError(`Expecting node to be an object. ${typeof node} is found instead.`);
   }
