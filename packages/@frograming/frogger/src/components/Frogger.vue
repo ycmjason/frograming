@@ -63,7 +63,7 @@ export default {
       const { obstacles, frogPos } = this.board;
       return obstacles.some(obstacle => {
         return frogPos.y === obstacle.pos.y
-          && isInRange(frogPos.x, [obstacle.pos.x, obstacle.pos.x + obstacle.length], '[)');
+          && isInRange(frogPos.x, [obstacle.pos.x - 1, obstacle.pos.x + obstacle.length], '()');
       });
     },
 
