@@ -39,6 +39,7 @@ interpret.IfStatement = ({ condition, ifBody, elseBody }, state) => {
 export default (ast) => ({
   commands: [],
   tick (state) {
+    if (ast === null) return 'NO_OP';
     const command = interpret(ast, state);
     this.commands.push(command);
     return command;

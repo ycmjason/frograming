@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Ticker @tick="onTick" :ticking="gameStatus === 'playing'" :interval="100" />
+    <Ticker debug @tick="onTick" :ticking="gameStatus === 'playing'" :interval="100" />
     <ControllerConsumer :controller="controller" @command="onCommand" />
     <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" height="100%" width="100%" fill="skyblue" />
@@ -116,7 +116,7 @@ export default {
       if (!command) return;
 
       if (/^move(Up|Right|Down|Left)$/.test(command)) {
-        const direction = type.match(/move(Up|Right|Down|Left)/)[1].toLowerCase();
+        const direction = command.match(/move(Up|Right|Down|Left)/)[1].toLowerCase();
         this.move(direction);
       }
 

@@ -97,27 +97,27 @@ export const getInitialBoard = () => new Board({
     ...[0, 4, 8, 12].map(x => new Car({
       pos: { x, y: 13 },
       length: 1,
-      velocity: 0.05,
+      velocity: 0.5,
       color: 'red',
     })),
 
-    new Car({ pos: { x: 12, y: 12 }, length: 1, velocity: -0.025, color: 'pink' }),
+    new Car({ pos: { x: 7, y: 12 }, length: 1, velocity: -0.25, color: 'pink' }),
 
     ...[9, 12].map(x => new Car({
       pos: { x, y: 11 },
       length: 1,
-      velocity: -0.05,
+      velocity: -0.5,
       color: 'yellow',
     })),
 
-    new Car({ pos: { x: 3, y: 10 }, length: 1, velocity: 0.05, color: 'lightyellow' }),
+    new Car({ pos: { x: 3, y: 10 }, length: 1, velocity: 0.5, color: 'lightyellow' }),
 
-    new Car({ pos: { x: 0, y: 9 }, length: 1, velocity: -0.04, color: 'yellow' }),
+    new Car({ pos: { x: 0, y: 9 }, length: 1, velocity: -0.4, color: 'yellow' }),
 
     ...[-1, 3, 7, 11].map(x => new Car({
       pos: { x, y: 8 },
       length: 2,
-      velocity: -0.025,
+      velocity: -0.25,
       color: 'white',
     })),
   ],

@@ -27,8 +27,8 @@ export default {
   data: () => ({
     currentError: null,
     frogCode: stripIndent`
-      while (true) {
-        moveUp();
+      onTick {
+        exec moveUp;
       }
     `,
   }),

@@ -28,7 +28,7 @@ export default {
     controller: new FrogController(),
     commands: [],
     ast: null,
-    execution: interpret(''),
+    execution: interpret(null),
   }),
 
   watch: {
@@ -45,7 +45,7 @@ export default {
           this.$emit('parsed');
         } catch (e) {
           this.ast = null;
-          this.execution = interpret('');
+          this.execution = interpret(null);
           this.$emit('error', e);
         }
       }, 500),
@@ -55,7 +55,7 @@ export default {
   methods: {
     onTick (context) {
       const { execution, controller } = this;
-      const command = execution.step(context);
+      const command = execution.tick(context);
       controller.emit(command);
     },
   },
