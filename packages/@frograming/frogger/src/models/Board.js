@@ -6,19 +6,31 @@ export const MAX_X = 12;
 export const MAX_Y = 14;
 
 const isObstacleUp = ({ pos, length }, frogPos) => {
-  return pos.y === frogPos.y - 1 && isInRange(frogPos.x, [pos.x - 1, pos.x + length]);
+  return pos.y === frogPos.y - 1 && isInRange(frogPos.x, [pos.x - 1, pos.x + length], '()');
 };
 
 const isObstacleDown = ({ pos, length }, frogPos) => {
-  return pos.y === frogPos.y + 1 && isInRange(frogPos.x, [pos.x - 1, pos.x + length]);
+  return pos.y === frogPos.y + 1 && isInRange(frogPos.x, [pos.x - 1, pos.x + length], '()');
 };
 
-const isObstacleLeft = ({ pos, length }, frogPos) => {
-  return pos.y === frogPos.y && isInRange(frogPos.x - 1, [pos.x, pos.x + length]);
+const isObstacleLeft = ({ pos, length, velocity }, frogPos) => {
+  return pos.y === frogPos.y
+    && isInRange(
+      frogPos.x,
+      velocity > 0
+        ? [pos.x + length, pos.x + length + velocity]
+        : [pos.x + length + velocity, pos.x + length],
+    );
 };
 
-const isObstacleRight = ({ pos, length }, frogPos) => {
-  return pos.y === frogPos.y && isInRange(frogPos.x + 1, [pos.x, pos.x + length]);
+const isObstacleRight = ({ pos, velocity }, frogPos) => {
+  return pos.y === frogPos.y
+    && isInRange(
+      frogPos.x + 1,
+      velocity > 0
+        ? [pos.x, pos.x + velocity]
+        : [pos.x + velocity, pos.x],
+    );
 };
 
 export default class Board {
@@ -110,11 +122,16 @@ export const getInitialBoard = () => new Board({
       color: 'yellow',
     })),
 
-    new Car({ pos: { x: 3, y: 10 }, length: 1, velocity: 0.5, color: 'lightyellow' }),
+    ...[5, 11].map(x => new Car({
+      pos: { x, y: 10 },
+      length: 1,
+      velocity: 0.5,
+      color: 'lightyellow',
+    })),
 
     new Car({ pos: { x: 0, y: 9 }, length: 1, velocity: -0.4, color: 'yellow' }),
 
-    ...[-1, 3, 7, 11].map(x => new Car({
+    ...[0, 4, 8, 12].map(x => new Car({
       pos: { x, y: 8 },
       length: 2,
       velocity: -0.25,

@@ -106,9 +106,8 @@ export default {
     },
 
     onTick () {
-      const { context } = this;
       this.board.obstacles.forEach(obstacle => obstacle.move());
-      this.$emit('tick', context);
+      this.$emit('tick', this.context);
       this.checkCollision();
     },
 
