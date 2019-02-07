@@ -17,9 +17,14 @@ class AbstractObstacle {
     return this;
   }
 
-  overlapWith ({x, y}) {
+  overlapsWith ({x, y}) {
     const { pos, length } = this;
     return y === pos.y && isInRange(x, [pos.x - 1, pos.x + length], '()');
+  }
+
+  contains ({x, y}) {
+    const { pos, length } = this;
+    return y === pos.y && isInRange(x, [pos.x, pos.x + length - 1], '[]');
   }
 }
 

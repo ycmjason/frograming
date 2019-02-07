@@ -17,7 +17,7 @@
               :key="i"
               :obstacle="obstacle"/>
 
-    <Frog :position="board.frogPos" />
+    <Frog :frog="board.frog" />
   </g>
 </template>
 

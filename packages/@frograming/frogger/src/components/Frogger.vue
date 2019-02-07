@@ -21,7 +21,7 @@ import Ticker from './renderless/Ticker.vue';
 import ControllerConsumer from './renderless/ControllerConsumer.vue';
 
 import FrogController from '../models/FrogController';
-import { getInitialBoard, MAX_Y } from '../models/Board';
+import { getInitialBoard, MAX_X, MAX_Y } from '../models/Board';
 
 import { isInRange } from '../utils/math';
 
@@ -56,13 +56,6 @@ export default {
 
   computed: {
     hasCollision () {
-      const { obstacles, frogPos } = this.board;
-
-      const cars = obstacles.filter(({ type }) => type === 'car');
-      const logs = obstacles.filter(({ type }) => type === 'log');
-
-      return cars.some(car => car.overlapWith(frogPos))
-        || (isInRange(frogPos.y, [2, 6], '[]') && !logs.some(log => log.overlapWith(frogPos)));
     },
 
     context () {
@@ -88,58 +81,58 @@ export default {
   },
 
   methods: {
-    checkCollision () {
-      if (!this.hasCollision) return;
-      this.lost();
+    checkBoard () {
+      const { obstacles, frog } = this.board;
+
+      // check car collision
+      const cars = obstacles.filter(({ type }) => type === 'car');
+      if (cars.some(car => car.overlapsWith(frog.pos))) {
+        return this.lose();
+      }
+
+      // check river
+      const logs = obstacles.filter(({ type }) => type === 'log');
+      if (isInRange(frog.pos.y, [2, 6], '[]') && logs.every(log => !log.contains(frog.pos))) {
+        return this.lose();
+      }
+
+      // check out of sight
+      if (frog.pos.x < 0 || frog.pos.x >= MAX_X + 1 || frog.pos.y < 0 || frog.pos.y >= MAX_Y + 1) {
+        return this.lose();
+      }
+
+      if (frog.pos.y <= 1) {
+        return this.win();
+      }
     },
 
     start () {
       this.gameStatus = GAME_STATUS.playing;
     },
 
-    won () {
+    win () {
       this.gameStatus = GAME_STATUS.won;
     },
 
-    lost () {
+    lose () {
       this.gameStatus = GAME_STATUS.lost;
     },
 
     onTick () {
       this.board.tick();
       this.$emit('tick', this.context);
-      this.checkCollision();
+      this.checkBoard();
     },
 
     onCommand (command) {
       if (!command) return;
 
       if (/^move(Up|Right|Down|Left)$/.test(command)) {
-        const direction = command.match(/move(Up|Right|Down|Left)/)[1].toLowerCase();
-        this.move(direction);
+        const moveDirection = command.match(/move(Up|Right|Down|Left)/)[0];
+        this.board.frog[moveDirection]();
       }
 
-      this.checkCollision();
-    },
-
-    move (direction) {
-      const { frogPos } = this.board;
-      switch (direction) {
-        case 'up':
-          frogPos.y -= 1;
-          break;
-        case 'down':
-          frogPos.y += 1;
-          break;
-        case 'left':
-          frogPos.x -= 1;
-          break;
-        case 'right':
-          frogPos.x += 1;
-          break;
-        default:
-          throw Error(`Cannot move ${direction}.`);
-      }
+      this.checkBoard();
     },
   },
 };
