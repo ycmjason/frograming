@@ -41,49 +41,49 @@ export default class Board {
 
   isCarUpOfFrog () {
     const { obstacles, frogPos } = this;
-    const cars = obstacles.filter(obstacle => obstacle instanceof Car);
+    const cars = obstacles.filter(({ type }) => type === 'car');
     return cars.some(car => isObstacleUp(car, frogPos));
   }
 
   isCarDownOfFrog () {
     const { obstacles, frogPos } = this;
-    const cars = obstacles.filter(obstacle => obstacle instanceof Car);
+    const cars = obstacles.filter(({ type }) => type === 'car');
     return cars.some(car => isObstacleDown(car, frogPos));
   }
 
   isCarLeftOfFrog () {
     const { obstacles, frogPos } = this;
-    const cars = obstacles.filter(obstacle => obstacle instanceof Car);
+    const cars = obstacles.filter(({ type }) => type === 'car');
     return cars.some(car => isObstacleLeft(car, frogPos));
   }
 
   isCarRightOfFrog () {
     const { obstacles, frogPos } = this;
-    const cars = obstacles.filter(obstacle => obstacle instanceof Car);
+    const cars = obstacles.filter(({ type }) => type === 'car');
     return cars.some(car => isObstacleRight(car, frogPos));
   }
 
   isLogUpOfFrog () {
     const { obstacles, frogPos } = this;
-    const logs = obstacles.filter(obstacle => obstacle instanceof Log);
+    const logs = obstacles.filter(({ type }) => type === 'log');
     return logs.some(log => isObstacleUp(log, frogPos));
   }
 
   isLogDownOfFrog () {
     const { obstacles, frogPos } = this;
-    const logs = obstacles.filter(obstacle => obstacle instanceof Log);
+    const logs = obstacles.filter(({ type }) => type === 'log');
     return logs.some(log => isObstacleDown(log, frogPos));
   }
 
   isLogLeftOfFrog () {
     const { obstacles, frogPos } = this;
-    const logs = obstacles.filter(obstacle => obstacle instanceof Log);
+    const logs = obstacles.filter(({ type }) => type === 'log');
     return logs.some(log => isObstacleLeft(log, frogPos));
   }
 
   isLogRightOfFrog () {
     const { obstacles, frogPos } = this;
-    const logs = obstacles.filter(obstacle => obstacle instanceof Log);
+    const logs = obstacles.filter(({ type }) => type === 'log');
     return logs.some(log => isObstacleRight(log, frogPos));
   }
 
@@ -106,21 +106,20 @@ export default class Board {
 
 export const getInitialBoard = () => new Board({
   obstacles: [
+    ...[1, 6, 11].map(x => new Log({
+      pos: { x, y: 2 },
+      length: 3,
+      velocity: 0.7,
+    })),
+
     ...[0, 4, 8, 12].map(x => new Car({
-      pos: { x, y: 13 },
-      length: 1,
-      velocity: 0.5,
-      color: 'red',
+      pos: { x, y: 8 },
+      length: 2,
+      velocity: -0.25,
+      color: 'white',
     })),
 
-    new Car({ pos: { x: 7, y: 12 }, length: 1, velocity: -0.25, color: 'pink' }),
-
-    ...[9, 12].map(x => new Car({
-      pos: { x, y: 11 },
-      length: 1,
-      velocity: -0.5,
-      color: 'yellow',
-    })),
+    new Car({ pos: { x: 0, y: 9 }, length: 1, velocity: -0.4, color: 'yellow' }),
 
     ...[5, 11].map(x => new Car({
       pos: { x, y: 10 },
@@ -129,13 +128,20 @@ export const getInitialBoard = () => new Board({
       color: 'lightyellow',
     })),
 
-    new Car({ pos: { x: 0, y: 9 }, length: 1, velocity: -0.4, color: 'yellow' }),
+    ...[9, 12].map(x => new Car({
+      pos: { x, y: 11 },
+      length: 1,
+      velocity: -0.5,
+      color: 'yellow',
+    })),
+
+    new Car({ pos: { x: 7, y: 12 }, length: 1, velocity: -0.25, color: 'pink' }),
 
     ...[0, 4, 8, 12].map(x => new Car({
-      pos: { x, y: 8 },
-      length: 2,
-      velocity: -0.25,
-      color: 'white',
+      pos: { x, y: 13 },
+      length: 1,
+      velocity: 0.5,
+      color: 'red',
     })),
   ],
 

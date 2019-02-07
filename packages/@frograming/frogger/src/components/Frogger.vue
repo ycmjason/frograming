@@ -10,7 +10,7 @@
       <Banner v-if="gameStatus === 'won'" text="You won!" color="lightgreen" />
       <Banner v-else-if="gameStatus === 'lost'" text="You lost!" color="pink" />
 
-      <Frame color="brown" />
+      <Frame color="#b5b5b5" :width="6" />
     </svg>
   </div>
 </template>
