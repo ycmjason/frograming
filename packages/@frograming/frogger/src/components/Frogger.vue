@@ -55,9 +55,6 @@ export default {
   }),
 
   computed: {
-    hasCollision () {
-    },
-
     context () {
       const { board } = this;
 
@@ -82,26 +79,24 @@ export default {
 
   methods: {
     checkBoard () {
-      const { obstacles, frog } = this.board;
+      const { board } = this;
 
       // check car collision
-      const cars = obstacles.filter(({ type }) => type === 'car');
-      if (cars.some(car => car.overlapsWith(frog.pos))) {
+      if (board.hasCarCollision()) {
         return this.lose();
       }
 
       // check river
-      const logs = obstacles.filter(({ type }) => type === 'log');
-      if (isInRange(frog.pos.y, [2, 6], '[]') && logs.every(log => !log.contains(frog.pos))) {
+      if (board.isFrogInRiver() && !board.isFrogRidingLog()) {
         return this.lose();
       }
 
       // check out of sight
-      if (frog.pos.x < 0 || frog.pos.x >= MAX_X + 1 || frog.pos.y < 0 || frog.pos.y >= MAX_Y + 1) {
+      if (board.isFrogOutOfBoard()) {
         return this.lose();
       }
 
-      if (frog.pos.y <= 1) {
+      if (board.hasFrogTouchdown()) {
         return this.win();
       }
     },

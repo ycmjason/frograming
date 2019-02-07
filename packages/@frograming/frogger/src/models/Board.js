@@ -12,6 +12,14 @@ export default class Board {
     this.frog = frog;
   }
 
+  get cars () {
+    return this.obstacles.filter(({ type }) => type === 'car');
+  }
+
+  get logs () {
+    return this.obstacles.filter(({ type }) => type === 'log');
+  }
+
   tick () {
     const { obstacles, frog } = this;
     for (const obstacle of obstacles) {
@@ -23,8 +31,7 @@ export default class Board {
   }
 
   isCarUpOfFrog () {
-    const { obstacles, frog } = this;
-    const cars = obstacles.filter(({ type }) => type === 'car');
+    const { cars, frog } = this;
     return cars.some(car => car.overlapsWith({
       x: frog.pos.x,
       y: frog.pos.y - 1,
@@ -32,8 +39,7 @@ export default class Board {
   }
 
   isCarDownOfFrog () {
-    const { obstacles, frog } = this;
-    const cars = obstacles.filter(({ type }) => type === 'car');
+    const { cars, frog } = this;
     return cars.some(car => car.overlapsWith({
       x: frog.pos.x,
       y: frog.pos.y + 1,
@@ -41,8 +47,7 @@ export default class Board {
   }
 
   isCarLeftOfFrog () {
-    const { obstacles, frog } = this;
-    const cars = obstacles.filter(({ type }) => type === 'car');
+    const { cars, frog } = this;
     return cars.some(car => car.overlapsWith({
       x: frog.pos.x - 1,
       y: frog.pos.y,
@@ -50,8 +55,7 @@ export default class Board {
   }
 
   isCarRightOfFrog () {
-    const { obstacles, frog } = this;
-    const cars = obstacles.filter(({ type }) => type === 'car');
+    const { cars, frog } = this;
     return cars.some(car => car.overlapsWith({
       x: frog.pos.x + 1,
       y: frog.pos.y,
@@ -59,8 +63,7 @@ export default class Board {
   }
 
   isLogUpOfFrog () {
-    const { obstacles, frog } = this;
-    const logs = obstacles.filter(({ type }) => type === 'log');
+    const { logs, frog } = this;
     return logs.some(log => log.contains({
       x: frog.pos.x,
       y: frog.pos.y - 1,
@@ -68,8 +71,7 @@ export default class Board {
   }
 
   isLogDownOfFrog () {
-    const { obstacles, frog } = this;
-    const logs = obstacles.filter(({ type }) => type === 'log');
+    const { logs, frog } = this;
     return logs.some(log => log.contains({
       x: frog.pos.x,
       y: frog.pos.y + 1,
@@ -77,8 +79,7 @@ export default class Board {
   }
 
   isLogLeftOfFrog () {
-    const { obstacles, frog } = this;
-    const logs = obstacles.filter(({ type }) => type === 'log');
+    const { logs, frog } = this;
     return logs.some(log => log.contains({
       x: frog.pos.x - 1,
       y: frog.pos.y,
@@ -86,8 +87,7 @@ export default class Board {
   }
 
   isLogRightOfFrog () {
-    const { obstacles, frog } = this;
-    const logs = obstacles.filter(({ type }) => type === 'log');
+    const { logs, frog } = this;
     return logs.some(log => log.contains({
       x: frog.pos.x + 1,
       y: frog.pos.y,
@@ -95,19 +95,44 @@ export default class Board {
   }
 
   isWallUpOfFrog () {
-    return this.frog.pos.y === 0;
+    return this.frog.pos.y <= 0;
   }
 
   isWallDownOfFrog () {
-    return this.frog.pos.y === MAX_Y;
+    return this.frog.pos.y >= MAX_Y;
   }
 
   isWallLeftOfFrog () {
-    return this.frog.pos.x === 0;
+    return this.frog.pos.x <= 0;
   }
 
   isWallRightOfFrog () {
-    return this.frog.pos.x === MAX_X;
+    return this.frog.pos.x >= MAX_X;
+  }
+
+  hasCarCollision () {
+    const { cars, frog } = this;
+    return cars.some(car => car.overlapsWith(frog.pos));
+  }
+
+  isFrogRidingLog () {
+    const { logs, frog } = this;
+    return logs.some(log => log.contains(frog.pos));
+  }
+
+  isFrogInRiver () {
+    const { frog } = this;
+    return isInRange(frog.pos.y, [2, 6], '[]');
+  }
+
+  isFrogOutOfBoard () {
+    const { frog } = this;
+    return frog.pos.x < 0 || frog.pos.x >= MAX_X + 1 || frog.pos.y < 0 || frog.pos.y >= MAX_Y + 1;
+  }
+
+  hasFrogTouchdown () {
+    const { frog } = this;
+    return frog.pos.y <= 1;
   }
 }
 
