@@ -1,5 +1,5 @@
 <template functional>
-  <rect fill="green"
+  <rect fill="#63f463"
         :x="props.position.x"
         :y="props.position.y"
         rx="50%"

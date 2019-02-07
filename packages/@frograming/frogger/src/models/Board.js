@@ -112,6 +112,30 @@ export const getInitialBoard = () => new Board({
       velocity: 0.7,
     })),
 
+    ...[0, 6, 12].map(x => new Log({
+      pos: { x, y: 3 },
+      length: 2,
+      velocity: -1,
+    })),
+
+    ...[0, 10].map(x => new Log({
+      pos: { x, y: 4 },
+      length: 6,
+      velocity: 1.2,
+    })),
+
+    ...[2, 7, 12].map(x => new Log({
+      pos: { x, y: 5 },
+      length: 2,
+      velocity: 0.4,
+    })),
+
+    ...[2, 10].map(x => new Log({
+      pos: { x, y: 6 },
+      length: 3,
+      velocity: -1,
+    })),
+
     ...[0, 4, 8, 12].map(x => new Car({
       pos: { x, y: 8 },
       length: 2,

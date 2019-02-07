@@ -3,14 +3,12 @@
     <Ticker debug @tick="onTick" :ticking="gameStatus === 'playing'" :interval="100" />
     <ControllerConsumer :controller="controller" @command="onCommand" />
     <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" height="100%" width="100%" fill="skyblue" />
-
       <Board :board="board" />
 
       <Banner v-if="gameStatus === 'won'" text="You won!" color="lightgreen" />
       <Banner v-else-if="gameStatus === 'lost'" text="You lost!" color="pink" />
 
-      <Frame color="#b5b5b5" :width="6" />
+      <Frame color="#000" :width="6" />
     </svg>
   </div>
 </template>
@@ -59,6 +57,7 @@ export default {
   computed: {
     hasCollision () {
       const { obstacles, frogPos } = this.board;
+
       return obstacles.some(obstacle => {
         return frogPos.y === obstacle.pos.y
           && isInRange(frogPos.x, [obstacle.pos.x - 1, obstacle.pos.x + obstacle.length], '()');
