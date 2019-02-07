@@ -21,7 +21,7 @@ import Ticker from './renderless/Ticker.vue';
 import ControllerConsumer from './renderless/ControllerConsumer.vue';
 
 import FrogController from '../models/FrogController';
-import { getInitialBoard } from '../models/Board';
+import { getInitialBoard, MAX_Y } from '../models/Board';
 
 import { isInRange } from '../utils/math';
 
@@ -58,10 +58,11 @@ export default {
     hasCollision () {
       const { obstacles, frogPos } = this.board;
 
-      return obstacles.some(obstacle => {
-        return frogPos.y === obstacle.pos.y
-          && isInRange(frogPos.x, [obstacle.pos.x - 1, obstacle.pos.x + obstacle.length], '()');
-      });
+      const cars = obstacles.filter(({ type }) => type === 'car');
+      const logs = obstacles.filter(({ type }) => type === 'log');
+
+      return cars.some(car => car.overlapWith(frogPos))
+        || (isInRange(frogPos.y, [2, 6], '[]') && !logs.some(log => log.overlapWith(frogPos)));
     },
 
     context () {
@@ -105,7 +106,7 @@ export default {
     },
 
     onTick () {
-      this.board.obstacles.forEach(obstacle => obstacle.move());
+      this.board.tick();
       this.$emit('tick', this.context);
       this.checkCollision();
     },

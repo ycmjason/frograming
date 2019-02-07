@@ -34,9 +34,19 @@ const isObstacleRight = ({ pos, velocity }, frogPos) => {
 };
 
 export default class Board {
-  constructor({ obstacles, frogPos }) {
+  constructor ({ obstacles, frogPos }) {
     this.obstacles = obstacles;
     this.frogPos = frogPos;
+  }
+
+  tick () {
+    const { obstacles, frogPos } = this;
+    for (const obstacle of obstacles) {
+      obstacle.move();
+      if (obstacle.overlapWith(frogPos)) {
+        frogPos.x += obstacle.velocity;
+      }
+    }
   }
 
   isCarUpOfFrog () {
@@ -171,6 +181,6 @@ export const getInitialBoard = () => new Board({
 
   frogPos: {
     x: MAX_X / 2,
-    y: MAX_Y,
+    y: MAX_Y / 2,
   },
 });

@@ -1,4 +1,4 @@
-import { mod, round } from '../utils/math';
+import { mod, round, isInRange } from '../utils/math';
 import { MAX_X } from './Board';
 
 class AbstractObstacle {
@@ -15,6 +15,11 @@ class AbstractObstacle {
     const { pos, velocity, length } = this;
     pos.x = round(mod(pos.x + length + velocity, MAX_X + 1 + length) - length, 5);
     return this;
+  }
+
+  overlapWith ({x, y}) {
+    const { pos, length } = this;
+    return y === pos.y && isInRange(x, [pos.x - 1, pos.x + length], '()');
   }
 }
 
