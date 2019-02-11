@@ -71,6 +71,8 @@ export default {
         isWallDown: board.isWallDownOfFrog(),
         isWallLeft: board.isWallLeftOfFrog(),
         isWallRight: board.isWallRightOfFrog(),
+
+        isGoalUp: board.frog.pos.y === 2,
       };
     },
   },
