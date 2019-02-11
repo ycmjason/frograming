@@ -21,9 +21,7 @@ import Ticker from './renderless/Ticker.vue';
 import ControllerConsumer from './renderless/ControllerConsumer.vue';
 
 import FrogController from '../models/FrogController';
-import { getInitialBoard, MAX_X, MAX_Y } from '../models/Board';
-
-import { isInRange } from '../utils/math';
+import { getInitialBoard } from '../models/Board';
 
 const GAME_STATUS = {
   playing: 'playing',

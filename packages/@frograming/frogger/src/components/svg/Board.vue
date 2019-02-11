@@ -1,7 +1,6 @@
 <template>
   <g>
-    // finish line
-    <rect x="0" y="0" width="100%" height="2" fill="#008dff" />
+    <GoalLine />
 
     // safe road
     <rect x="0" y="7" width="100%" height="1" fill="#b52cff" />
@@ -25,11 +24,10 @@
 import Board from '../../models/Board';
 import Obstacle from './Obstacle.vue';
 import Frog from './Frog.vue';
+import GoalLine from './GoalLine.vue';
 
 export default {
-  components: { Obstacle, Frog },
-  props: {
-    board: Board,
-  },
+  components: { Obstacle, Frog, GoalLine },
+  props: { board: Board },
 };
 </script>

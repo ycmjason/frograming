@@ -1,14 +1,8 @@
-<template>
-  <g v-bind="$attrs" v-on="$listeners">
-    <rect :fill="color" width="100%" height="3" y="6"></rect>
-    <text x="6.5" y="7" font-size="1" text-anchor="middle" alignment-baseline="hanging">
-      {{ text }}
+<template functional>
+  <g v-bind="data.attrs" v-on="listeners">
+    <rect :fill="props.color" width="100%" height="3" y="6"></rect>
+    <text x="6.5" y="7" font-size="1" text-anchor="middle">
+      {{ props.text }}
     </text>
   </g>
 </template>
-
-<script>
-export default {
-  props: ['text', 'color'],
-};
-</script>
