@@ -1,6 +1,7 @@
 <template functional>
   <rect :x="props.obstacle.pos.x"
         :y="props.obstacle.pos.y"
+        :data-uid="props.obstacle.uid"
         height="1"
         :width="props.obstacle.length"
         :fill="props.obstacle.color"

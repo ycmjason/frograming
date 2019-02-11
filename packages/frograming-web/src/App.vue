@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <div class="container">
-        <h1>Frograming</h1>
+        <router-link tag="h1" to="/">Frograming</router-link>
       </div>
     </header>
     <router-view/>

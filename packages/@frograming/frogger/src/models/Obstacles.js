@@ -1,10 +1,16 @@
 import { mod, round, isInRange } from '../utils/math';
 import { MAX_X } from './Board';
 
+const nextUid = (() => {
+  let uid = 0;
+  return () => uid++;
+})();
+
 class AbstractObstacle {
   type = 'abstract-obstacle';
 
   constructor ({ pos: {x, y}, length, color, velocity }) {
+    this.uid = nextUid();
     this.pos = { x, y };
     this.length = length;
     this.color = color;
@@ -24,7 +30,7 @@ class AbstractObstacle {
 
   contains ({x, y}) {
     const { pos, length } = this;
-    return y === pos.y && isInRange(x, [pos.x, pos.x + length - 1], '[]');
+    return y === pos.y && isInRange(x, [pos.x, round(pos.x + length - 1, 5)], '[]');
   }
 }
 

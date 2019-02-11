@@ -23,10 +23,10 @@ export default class Board {
   tick () {
     const { obstacles, frog } = this;
     for (const obstacle of obstacles) {
-      obstacle.move();
       if (obstacle.contains(frog.pos)) {
         frog.moveRight(obstacle.velocity);
       }
+      obstacle.move();
     }
   }
 
@@ -204,7 +204,7 @@ export const getInitialBoard = () => new Board({
   frog: new Frog({
     pos: {
       x: MAX_X / 2,
-      y: MAX_Y / 2,
+      y: MAX_Y,
     },
   }),
 });

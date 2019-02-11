@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <Ticker debug @tick="onTick" :ticking="gameStatus === 'playing'" :interval="100" />
+    <Ticker
+      :debug="debug"
+      :ticking="gameStatus === 'playing'"
+      :interval="interval"
+      @tick="onTick" />
+
     <ControllerConsumer :controller="controller" @command="onCommand" />
     <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
       <Board :board="board" />
@@ -23,7 +28,7 @@ import ControllerConsumer from './renderless/ControllerConsumer.vue';
 import FrogController from '../models/FrogController';
 import { getInitialBoard } from '../models/Board';
 
-const GAME_STATUS = {
+export const GAME_STATUS = {
   playing: 'playing',
   won: 'won',
   lost: 'lost',
@@ -39,6 +44,14 @@ export default {
   },
 
   props: {
+    debug: {
+      type: Boolean,
+      default: false,
+    },
+    interval: {
+      type: Number,
+      default: 500,
+    },
     controller: {
       type: FrogController,
       required: false,
@@ -48,7 +61,6 @@ export default {
 
   data: () => ({
     gameStatus: 'playing',
-    intervalId: null,
     board: getInitialBoard(),
   }),
 
@@ -103,14 +115,17 @@ export default {
 
     start () {
       this.gameStatus = GAME_STATUS.playing;
+      this.$emit('gameStatus', GAME_STATUS.playing);
     },
 
     win () {
       this.gameStatus = GAME_STATUS.won;
+      this.$emit('gameStatus', GAME_STATUS.won);
     },
 
     lose () {
       this.gameStatus = GAME_STATUS.lost;
+      this.$emit('gameStatus', GAME_STATUS.lost);
     },
 
     onTick () {
@@ -120,6 +135,7 @@ export default {
     },
 
     onCommand (command) {
+      if (this.gameStatus !== GAME_STATUS.playing) return;
       if (!command) return;
 
       if (/^move(Up|Right|Down|Left)$/.test(command)) {

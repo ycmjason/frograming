@@ -3,7 +3,7 @@
     <Frogger :key="uid"
              :controller="controller"
              @tick="onTick"
-             @gameOver="$emit('gameOver', $event)" />
+             @gameStatus="$emit('gameStatus', $event)" />
   </div>
 </template>
 
