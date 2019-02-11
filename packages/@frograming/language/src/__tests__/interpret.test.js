@@ -15,6 +15,7 @@ const INITIAL_CONTEXT = {
   isWallRight: false,
   isWallDown: false,
   isWallLeft: false,
+  isGoalUp: false,
 };
 
 const zip = ([x, ...xs], [y, ...ys]) => {

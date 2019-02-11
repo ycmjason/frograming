@@ -1,4 +1,7 @@
 onTick {
+  if (isGoalUp()) {
+    exec moveUp;
+  }
   if (!isCarUp()) {
     exec moveUp;
   } else {

@@ -4,6 +4,17 @@ exports[`parser 01.frog 1`] = `
 Object {
   "body": Array [
     Object {
+      "condition": "isGoalUp",
+      "elseBody": Array [],
+      "ifBody": Array [
+        Object {
+          "name": "moveUp",
+          "type": "command",
+        },
+      ],
+      "type": "IfStatement",
+    },
+    Object {
       "condition": "!isCarUp",
       "elseBody": Array [
         Object {
