@@ -94,6 +94,11 @@ export default class Board {
     }));
   }
 
+  isWaterUpOfFrog () {
+    const { frog } = this;
+    return isInRange(frog.pos.y, [3, 7], '[]');
+  }
+
   isWallUpOfFrog () {
     return this.frog.pos.y <= 0;
   }

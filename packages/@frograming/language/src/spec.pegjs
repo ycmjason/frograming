@@ -41,7 +41,7 @@ _PREDICATE = nots:"!"* _ p:(
                return q;
              }
 _LOGICAL_OPERATOR = _ o:("&&" / "||") _ { return o }
-PredicateName = "isGoalUp" / "is" ("Car"/"Log"/"Wall") ("Up"/"Right"/"Down"/"Left") { return text() }
+PredicateName = "isGoalUp" / "isRiverUp" / "is" ("Car"/"Log"/"Wall") ("Up"/"Right"/"Down"/"Left") { return text() }
 
 _ "whitespace" = [ \t\n\r]*
 Integer "integer" = _ [0-9]+ { return parseInt(text(), 10); }
