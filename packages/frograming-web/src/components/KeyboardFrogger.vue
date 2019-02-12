@@ -28,6 +28,6 @@ export default {
 
 <style scoped>
 .froggerSvgContainer {
-  height: 85vh;
+  height: 70vh;
 }
 </style>

@@ -39,7 +39,7 @@ footer {
 }
 </style>
 
-<style>
+<style lang="scss">
 html {
   font-size: 20px;
   box-sizing: border-box;
@@ -64,5 +64,11 @@ button {
   background: white;
   border: 1px solid black;
   padding: 1rem;
+  cursor: pointer;
+  transition: 0.3s background;
+
+  &:hover {
+    background: #f6f6f6;
+  }
 }
 </style>
