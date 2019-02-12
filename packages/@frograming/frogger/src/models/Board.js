@@ -20,6 +20,26 @@ export default class Board {
     return this.obstacles.filter(({ type }) => type === 'log');
   }
 
+  get shortCarsLeft () {
+    return this.obstacles.filter(({ type, length, velocity }) => type === 'car' && length < 2 && velocity < 0);
+  }
+
+  get shortCarsRight () {
+    return this.obstacles.filter(({ type, length, velocity }) => type === 'car' && length < 2 && velocity > 0);
+  }
+
+  get longCars () {
+    return this.obstacles.filter(({ type, length }) => type === 'car' && length > 2);
+  }
+
+  get shortLogs () {
+    return this.obstacles.filter(({ type, length }) => type === 'log' && length <= 3);
+  }
+
+  get longLogs () {
+    return this.obstacles.filter(({ type, length }) => type === 'log' && length >  3);
+  }
+
   tick () {
     const { obstacles, frog } = this;
     for (const obstacle of obstacles) {
