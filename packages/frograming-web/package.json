@@ -8,7 +8,8 @@
     "serve": "vue-cli-service serve",
     "build": "PUBLIC_PATH=frograming/frograming-web vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "firebase -P production deploy"
+    "deploy": "firebase -P production deploy",
+    "deploy:ci": "firebase -P production deploy --token \"$FIREBASE_TOKEN\""
   },
   "dependencies": {
     "@frograming/frogger": "^0.2.0",
