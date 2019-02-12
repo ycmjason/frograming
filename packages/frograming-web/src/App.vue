@@ -31,9 +31,16 @@ footer {
   margin: 0 auto;
 }
 
-.code {
+div.code {
   white-space: pre;
   padding: 1rem;
+  background-color: #efefef;
+  border: 1px solid #cccccc;
+}
+
+span.code {
+  white-space: pre;
+  padding: 0 5px;
   background-color: #efefef;
   border: 1px solid #cccccc;
 }
@@ -70,5 +77,9 @@ button {
   &:hover {
     background: #f6f6f6;
   }
+}
+
+input {
+  padding: 0.5rem;
 }
 </style>

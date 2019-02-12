@@ -1,73 +1,31 @@
 <template>
   <div class="container">
-    <div class="error" v-if="currentError">{{ currentError.message }}</div>
-    <div class="ok" v-else>Compiled!</div>
-    <div class="split">
-      <div class="editorArea">
-        <Editor class="editor" v-model="frogCode" />
-      </div>
-      <FrogrammableFrogger
-          class="frogger"
-          :frogCode="frogCode"
-          @parsed="() => this.currentError = null"
-          @error="err => this.currentError = err"/>
-    </div>
+    <LevelHeader :showNext="showNext">
+      <h2>Level 1</h2>
+      <ul>
+        <li>Type <span class="code">exec moveUp;</span> to move to the goal line.</li>
+      </ul>
+    </LevelHeader>
+    <InterpretedFrogger class="frogger"/>
+    <input v-model="input" placeholder="Type in exec statements." autofocus>
   </div>
 </template>
 
 <script>
-import Editor from '@/components/Editor.vue';
-import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
-import { stripIndent } from 'common-tags';
+import InterpretedFrogger from '@/components/InterpretedFrogger.vue';
 
 export default {
   name: 'level1',
-  components: { Editor, FrogrammableFrogger },
+  components: { InterpretedFrogger },
 
   data: () => ({
-    currentError: null,
-    frogCode: stripIndent`
-      onTick {
-        exec moveUp;
-      }
-    `,
+    input: '',
   }),
 };
 </script>
 
 <style lang="scss" scoped>
-.split {
-  display: flex;
-}
-
-.editorArea {
-  flex-basis: 50%;
-}
-
-.editor {
-  min-height: 80vh;
-}
-
-.frogger {
-  flex-basis: 50%;
-}
-
-.error, .ok {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid;
-  border-radius: 0.25rem;
-}
-
-.error {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-}
-
-.ok {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
+input {
+  width: 100%;
 }
 </style>
