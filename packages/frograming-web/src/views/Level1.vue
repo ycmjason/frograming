@@ -1,5 +1,5 @@
 <template>
-  <div class="home container">
+  <div class="container">
     <div class="error" v-if="currentError">{{ currentError.message }}</div>
     <div class="ok" v-else>Compiled!</div>
     <div class="split">
@@ -21,7 +21,7 @@ import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
 import { stripIndent } from 'common-tags';
 
 export default {
-  name: 'home',
+  name: 'level1',
   components: { Editor, FrogrammableFrogger },
 
   data: () => ({

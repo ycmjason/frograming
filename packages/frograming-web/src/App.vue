@@ -13,6 +13,10 @@
 </template>
 
 <style scoped>
+h1 {
+  cursor: pointer;
+}
+
 footer {
   margin-top: 1rem;
   background: #efefef;
@@ -50,9 +54,15 @@ body {
   box-sizing: inherit;
 }
 
-textarea {
+textarea, button, input {
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;
+}
+
+button {
+  background: white;
+  border: 1px solid black;
+  padding: 1rem;
 }
 </style>
