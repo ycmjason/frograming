@@ -7,7 +7,7 @@
         <li>Hit Enter to submit.</li>
       </ul>
     </LevelHeader>
-    <InterpretedFrogger class="frogger"/>
+    <InterpretedFrogger class="frogger" @gameStatus="onGameStatus"/>
   </div>
 </template>
 

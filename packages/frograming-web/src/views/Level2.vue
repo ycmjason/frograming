@@ -1,6 +1,6 @@
 <template>
   <div class="home container">
-    <ParserMessage :error="currentError" />
+    <ParserMessage :error="currentError" class="message" />
     <div class="split">
       <div class="editorArea">
         <Editor class="editor" v-model="frogCode" />
@@ -50,5 +50,9 @@ export default {
 
 .frogger {
   flex-basis: 50%;
+}
+
+.message {
+  margin-bottom: 1rem;
 }
 </style>

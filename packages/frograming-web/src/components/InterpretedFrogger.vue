@@ -9,9 +9,7 @@
     <div @click="uid++" class="froggerSvgContainer">
       <Frogger :key="uid"
                :interval="Infinity"
-               boardSetting="empty"
                :controller="controller"
-               @tick="onTick"
                @gameStatus="$emit('gameStatus', $event)" />
     </div>
   </div>
@@ -45,9 +43,6 @@ export default {
       } catch (e) {
         this.currentError = e;
       }
-    },
-
-    onTick (context) {
     },
   },
 };
