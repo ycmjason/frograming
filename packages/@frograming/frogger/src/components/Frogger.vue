@@ -79,7 +79,7 @@ export default {
         isLogLeft: board.isLogLeftOfFrog(),
         isLogRight: board.isLogRightOfFrog(),
 
-        isRiverUp: board.isWaterUpOfFrog(),
+        isRiverUp: board.isRiverUpOfFrog(),
 
         isWallUp: board.isWallUpOfFrog(),
         isWallDown: board.isWallDownOfFrog(),

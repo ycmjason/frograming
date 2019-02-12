@@ -94,7 +94,7 @@ export default class Board {
     }));
   }
 
-  isWaterUpOfFrog () {
+  isRiverUpOfFrog () {
     const { frog } = this;
     return isInRange(frog.pos.y, [3, 7], '[]');
   }
