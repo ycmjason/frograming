@@ -23,7 +23,7 @@ export default {
     ticking: {
       immediate: true,
       handler (t) {
-        if (t) {
+        if (t && this.interval < Infinity) {
           this.id = setInterval(() => this.$emit('tick'), this.interval);
         } else {
           clearInterval(this.id);

@@ -130,7 +130,7 @@ function peg$parse(input, options) {
 
   var peg$FAILED = {};
 
-  var peg$startRuleFunctions = { Frogram: peg$parseFrogram };
+  var peg$startRuleFunctions = { Frogram: peg$parseFrogram, Lines: peg$parseLines };
   var peg$startRuleFunction = peg$parseFrogram;
 
   var peg$c0 = "onTick";
