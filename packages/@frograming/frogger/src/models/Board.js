@@ -29,7 +29,7 @@ export default class Board {
   }
 
   get longCars () {
-    return this.obstacles.filter(({ type, length }) => type === 'car' && length > 2);
+    return this.obstacles.filter(({ type, length }) => type === 'car' && length >= 2);
   }
 
   get shortLogs () {
@@ -37,7 +37,7 @@ export default class Board {
   }
 
   get longLogs () {
-    return this.obstacles.filter(({ type, length }) => type === 'log' && length >  3);
+    return this.obstacles.filter(({ type, length }) => type === 'log' && length > 3);
   }
 
   tick () {
