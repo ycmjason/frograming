@@ -29,8 +29,8 @@ ElseStatement
     return operations;
   }
 
-Predicate = p:_PREDICATE ps:(l:_LOGICAL_OPERATOR p2:Predicate { return l + p2; })* { return p + ps.join('') }
-          / "(" p:Predicate ")" { return '(' + p + ')' }
+Predicate = p:(_PREDICATE / "(" p:Predicate ")" { return '(' + p + ')' }) ps:(l:_LOGICAL_OPERATOR p2:Predicate { return l + p2; })* { return p + ps.join('') }
+
 _PREDICATE = nots:"!"* _ p:(
                  name:PredicateName _ "()" { return name; }
                / bool:Boolean { return bool }

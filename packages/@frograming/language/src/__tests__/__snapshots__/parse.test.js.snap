@@ -56,3 +56,22 @@ Object {
   "type": "frogram",
 }
 `;
+
+exports[`parser 02.frog 1`] = `
+Object {
+  "body": Array [
+    Object {
+      "condition": "(isLogUp&&isWallRight)||isCarUp",
+      "elseBody": Array [],
+      "ifBody": Array [
+        Object {
+          "name": "moveRight",
+          "type": "command",
+        },
+      ],
+      "type": "IfStatement",
+    },
+  ],
+  "type": "frogram",
+}
+`;
