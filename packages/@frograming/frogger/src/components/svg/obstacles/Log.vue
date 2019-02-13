@@ -1,5 +1,5 @@
 <template functional>
-  <g :data-uid="props.obstacle.uid">
+  <g>
     <rect :x="props.obstacle.pos.x"
           :y="props.obstacle.pos.y + 0.15"
           height="0.7"
@@ -22,11 +22,6 @@
           stroke-width="0.05"
           fill="none"
           :d="'M' + props.obstacle.pos.x + ',' + props.obstacle.pos.y + 'm0.3,0.33l0.1,0l0.1,0.1l0.1,-0.1l0.1,-0.1l0.1,0.1l0.1,0.05l0.2,-0.05l0.3,0.05'" />
-
-    <path stroke="#781414"
-          stroke-width="0.05"
-          fill="none"
-          :d="'M' + props.obstacle.pos.x + ',' + props.obstacle.pos.y + 'm2.3,0.5l0.1,0l0.1,-0.1l0.1,0.1l0.1,0.1l0.1,-0.1l0.1,0.05l0.2,-0.05l0.3,0.05'" />
 
     <path stroke="#781414"
           stroke-width="0.05"

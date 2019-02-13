@@ -1,6 +1,6 @@
 <template functional>
   <!-- From https://www.shareicon.net/toad-toads-amphibian-biology-animals-frogs-702138 -->
-  <path :transform="'scale(0.0015, 0.0015) translate(' + ((props.frog.pos.x + 0.125) / 0.0015) + ',' + ((props.frog.pos.y + 0.125) / 0.0015) + ')'"
+  <path :transform="`scale(0.0015, 0.0015) translate(${(props.frog.pos.x + 0.125) / 0.0015}, ${(props.frog.pos.y + 0.125) / 0.0015})`"
         fill="#63f463"
         stroke="black"
         stroke-width="30"

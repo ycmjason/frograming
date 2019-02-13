@@ -1,5 +1,5 @@
 <template functional>
-  <g :data-uid="props.obstacle.uid">
+  <g>
     <rect :x="props.obstacle.pos.x"
           :y="props.obstacle.pos.y + 0.2"
           height="0.6"
@@ -56,7 +56,7 @@
           rx="0.1"
           fill="black" />
 
-    <rect :x="props.obstacle.pos.x + 0.2"
+    <rect :x="props.obstacle.pos.x + 0.1"
           :y="props.obstacle.pos.y + 0.3"
           height="0.4"
           width="0.2"
@@ -64,7 +64,7 @@
           rx="0.1"
           fill="black" />
 
-    <rect :x="props.obstacle.pos.x + props.obstacle.length - 0.3"
+    <rect :x="props.obstacle.pos.x + props.obstacle.length - 0.4"
           :y="props.obstacle.pos.y + 0.3"
           height="0.4"
           width="0.2"

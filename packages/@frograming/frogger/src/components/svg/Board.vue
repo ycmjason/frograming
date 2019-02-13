@@ -10,23 +10,7 @@
 
     <Road />
 
-    <Car v-for="(obstacle, i) in board.shortCarsRight"
-              :key="i"
-              :obstacle="obstacle"/>
-
-    <CarReversed v-for="(obstacle, i) in board.shortCarsLeft"
-              :key="i"
-              :obstacle="obstacle"/>
-
-    <Lorry v-for="(obstacle, i) in board.longCars"
-              :key="i"
-              :obstacle="obstacle"/>
-
-    <Log v-for="(obstacle, i) in board.shortLogs"
-              :key="i"
-              :obstacle="obstacle"/>
-
-    <LongLog v-for="(obstacle, i) in board.longLogs"
+    <Obstacle v-for="(obstacle, i) in board.obstacles"
               :key="i"
               :obstacle="obstacle"/>
 
@@ -37,12 +21,8 @@
 <script>
 import Board from '../../models/Board';
 import River from './River.vue';
-import Log from './Log.vue';
-import LongLog from './LongLog.vue';
+import Obstacle from './Obstacle.vue';
 import Road from './Road.vue';
-import Car from './Car.vue';
-import CarReversed from './CarReversed.vue';
-import Lorry from './Lorry.vue';
 import Frog from './Frog.vue';
 import GoalLine from './GoalLine.vue';
 
@@ -50,12 +30,8 @@ export default {
   components: {
     GoalLine,
     River,
-    Log,
-    LongLog,
+    Obstacle,
     Road,
-    Car,
-    CarReversed,
-    Lorry,
     Frog,
   },
   props: { board: Board },

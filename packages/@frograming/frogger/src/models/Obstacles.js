@@ -1,6 +1,11 @@
 import { mod, round, isInRange } from '../utils/math';
 import { MAX_X } from './Board';
 
+import CarComponent from '../components/svg/obstacles/Car.vue';
+import LorryComponent from '../components/svg/obstacles/Lorry.vue';
+import LogComponent from '../components/svg/obstacles/Log.vue';
+import LongLogComponent from '../components/svg/obstacles/LongLog.vue';
+
 const nextUid = (() => {
   let uid = 0;
   return () => uid++;
@@ -8,6 +13,21 @@ const nextUid = (() => {
 
 class AbstractObstacle {
   type = 'abstract-obstacle';
+
+  get component () {
+    switch (this.type) {
+      case 'car':
+        if (this.length < 2) return CarComponent;
+        if (this.length >= 2) return LorryComponent;
+        break;
+      case 'log':
+        if (this.length <= 3) return LogComponent;
+        if (this.length > 3) return LongLogComponent;
+        break;
+    }
+
+    throw Error(`No component defined for ${this.type}.`);
+  }
 
   constructor ({ pos: {x, y}, length, color, velocity }) {
     this.uid = nextUid();
