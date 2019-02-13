@@ -5,11 +5,19 @@
       <Editor class="editor" v-model="frogCode" />
     </div>
 
-    <div @click="uid++" class="froggerSvgContainer">
-      <Frogger :key="uid"
-               :controller="controller"
-               @tick="onTick"
-               @gameStatus="$emit('gameStatus', $event)" />
+    <div class="froggerArea">
+      <div class="froggerSettings">
+        <label title="Use space to control tick">
+          <input type="checkbox" v-model="debug"> Debug mode
+        </label>
+      </div>
+      <div @click="uid++" class="froggerSvgContainer">
+        <Frogger :key="uid"
+                 :controller="controller"
+                 :debug="debug"
+                 @tick="onTick"
+                 @gameStatus="$emit('gameStatus', $event)" />
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +45,7 @@ export default {
     controller: new FrogController(),
     ast: null,
     execution: interpret(null),
+    debug: false,
   }),
 
   watch: {
@@ -87,8 +96,26 @@ export default {
   max-height: 80vh;
 }
 
+.froggerArea {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.froggerSettings {
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
 .froggerSvgContainer {
   flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 100%;
   max-height: 80vh;
 }
 
