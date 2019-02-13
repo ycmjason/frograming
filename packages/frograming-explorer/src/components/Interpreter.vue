@@ -34,6 +34,8 @@ const getDefaultContext = () => ({
   isWallRight: false,
   isWallDown: false,
   isWallLeft: false,
+  isRiverUp: false,
+  isGoalUp: false,
 });
 
 export default {
