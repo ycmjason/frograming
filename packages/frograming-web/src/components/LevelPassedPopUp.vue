@@ -3,8 +3,7 @@
     <div v-show="show" class="popupContainer" @click="$emit('close')">
       <div class="popupContainer_background">
         <!-- prefetching the image -->
-        <img v-show="false"
-             src="https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif">
+        <img v-show="false" src="/fireworks.gif">
       </div>
       <section class="popup" @click.stop>
         <h3>Congratulations!</h3>
@@ -62,7 +61,7 @@ export default {
   height: 100vh;
   top: 0;
   left: 0;
-  background-image: url("https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif");
+  background-image: url("/fireworks.gif");
   opacity: 0.8;
 }
 
