@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <LevelHeader :showNext="showNext">
+    <LevelHeader :showNext="false">
       <h2>Level 2</h2>
       <ul>
         <li>Write a "frogram" to win the game!</li>
@@ -41,9 +41,6 @@ export default {
   components: { LevelHeader, FrogrammableFrogger },
 
   computed: {
-    showNext () {
-      return this.counts.won >= 1;
-    },
     helpLevel () {
       if (this.counts.lost >= 20) return 3;
       if (this.counts.lost >= 10) return 2;

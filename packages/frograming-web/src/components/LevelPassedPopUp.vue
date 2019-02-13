@@ -7,7 +7,7 @@
         <p>{{ message }}</p>
 
         <footer>
-          <NextLevelButton />
+          <NextLevelButton v-if="hasNextLevel" />
           <span class="closeButton" @click="$emit('close')">close</span>
         </footer>
       </section>
@@ -32,7 +32,7 @@ export default {
     },
     message: {
       type: String,
-      default: 'Congratulations! You have passed this level. You can proceed to the next level.',
+      required: true,
     },
   },
 };

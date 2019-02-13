@@ -9,7 +9,8 @@
         :show="showLevelPassedPopup"
         @close="showLevelPassedPopup = false"
         :currentLevel="level"
-        :hasNextLevel="level <= 1" />
+        :hasNextLevel="level <= 1"
+        :message="message" />
   </div>
 </template>
 
@@ -19,6 +20,12 @@ import Level1 from './Level1.vue';
 import Level2 from './Level2.vue';
 
 import LevelPassedPopUp from '@/components/LevelPassedPopUp.vue';
+
+const PASSING_MESSAGES = [
+  'Congratulations! You have passed this level. You can proceed to the next level.',
+  'Congratulations! You have passed this level. You can proceed to the next level.',
+  'Congratulations! You have passed all the levels! You have beaten the Frogram game!',
+];
 
 export default {
   name: 'level',
@@ -43,6 +50,12 @@ export default {
     },
     showLevelPassedPopup: false,
   }),
+
+  computed: {
+    message () {
+      return PASSING_MESSAGES[this.level];
+    },
+  },
 
   methods: {
     onGameStatus (status) {
