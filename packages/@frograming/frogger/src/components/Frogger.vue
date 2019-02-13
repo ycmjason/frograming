@@ -59,7 +59,7 @@ export default {
     },
   },
 
-  data: () => ({
+  data: vm => ({
     gameStatus: 'playing',
     board: getInitialBoard(),
   }),

@@ -164,7 +164,7 @@ export const getInitialBoard = () => new Board({
       velocity: 0.7,
     })),
 
-    ...[0, 6, 12].map(x => new Log({
+    ...[1, 6, 12].map(x => new Log({
       pos: { x, y: 3 },
       length: 2,
       velocity: -1,

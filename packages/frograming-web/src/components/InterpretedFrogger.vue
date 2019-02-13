@@ -1,62 +1,48 @@
 <template>
-  <div @click="uid++" class="froggerSvgContainer">
-    <Frogger :key="uid"
-             :controller="controller"
-             @tick="onTick"
-             @gameStatus="$emit('gameStatus', $event)" />
+  <div>
+    <ParserMessage :error="currentError" class="message" />
+    <input
+        v-model="input"
+        @keypress.enter.prevent="submitCommand"
+        placeholder="Type in an exec statements."
+        autofocus>
+    <div @click="uid++" class="froggerSvgContainer">
+      <Frogger :key="uid"
+               :interval="Infinity"
+               :controller="controller"
+               @gameStatus="$emit('gameStatus', $event)" />
+    </div>
   </div>
 </template>
 
 <script>
-import { parse, interpret } from '@frograming/language';
 import { Frogger, FrogController } from '@frograming/frogger';
+import { parse } from '@frograming/language';
 
-import debounce from 'lodash.debounce';
+import ParserMessage from '@/components/ParserMessage.vue';
 
 export default {
-  components: { Frogger },
-
-  props: {
-    frogCode: {
-      type: String,
-      required: true,
-    },
-  },
+  components: { Frogger, ParserMessage },
 
   data: () => ({
     uid: 0,
     controller: new FrogController(),
-    commands: [],
-    ast: null,
-    execution: interpret(null),
+    input: '',
+    currentError: null,
   }),
 
-  watch: {
-    execution () {
-      this.uid += 1;
-    },
-
-    frogCode: {
-      immediate: true,
-      handler: debounce(function () {
-        try {
-          this.ast = parse(this.frogCode);
-          this.execution = interpret(this.ast);
-          this.$emit('parsed');
-        } catch (e) {
-          this.ast = null;
-          this.execution = interpret(null);
-          this.$emit('error', e);
-        }
-      }, 500),
-    },
-  },
-
   methods: {
-    onTick (context) {
-      const { execution, controller } = this;
-      const command = execution.tick(context);
-      controller.emit(command);
+    submitCommand () {
+      try {
+        const [{ type, name }] = parse.Lines(this.input.trim());
+
+        if (type !== 'command') throw Error(`Expected "exec" statement.`);
+
+        this.currentError = null;
+        this.controller.emit(name);
+      } catch (e) {
+        this.currentError = e;
+      }
     },
   },
 };
@@ -65,5 +51,13 @@ export default {
 <style scoped>
 .froggerSvgContainer {
   height: 70vh;
+}
+
+input {
+  width: 100%;
+}
+
+.message {
+  margin: 1rem 0;
 }
 </style>

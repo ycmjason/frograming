@@ -26,7 +26,6 @@ export default {
   data: () => ({
     uid: 0,
     controller: new FrogController(),
-    commands: [],
     ast: null,
     execution: interpret(null),
   }),

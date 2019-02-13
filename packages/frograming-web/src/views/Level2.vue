@@ -1,7 +1,6 @@
 <template>
   <div class="home container">
-    <div class="error" v-if="currentError">{{ currentError.message }}</div>
-    <div class="ok" v-else>Compiled!</div>
+    <ParserMessage :error="currentError" class="message" />
     <div class="split">
       <div class="editorArea">
         <Editor class="editor" v-model="frogCode" />
@@ -18,11 +17,12 @@
 <script>
 import Editor from '@/components/Editor.vue';
 import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
+import ParserMessage from '@/components/ParserMessage.vue';
 import { stripIndent } from 'common-tags';
 
 export default {
-  name: 'home',
-  components: { Editor, FrogrammableFrogger },
+  name: 'level2',
+  components: { Editor, FrogrammableFrogger, ParserMessage },
 
   data: () => ({
     currentError: null,
@@ -52,22 +52,7 @@ export default {
   flex-basis: 50%;
 }
 
-.error, .ok {
-  padding: 1rem;
+.message {
   margin-bottom: 1rem;
-  border: 1px solid;
-  border-radius: 0.25rem;
-}
-
-.error {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-}
-
-.ok {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
 }
 </style>

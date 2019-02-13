@@ -22,7 +22,7 @@
   "scripts": {
     "preversion": "npm t && $EDITOR CHANGELOG.md",
     "version": "git add -A",
-    "generateParser": "pegjs --format es -o src/parser.peg.js src/spec.pegjs",
+    "generateParser": "pegjs --allowed-start-rules Frogram,Lines --format es -o src/parser.peg.js src/spec.pegjs",
     "pretest": "npm run generateParser",
     "test": "jest",
     "lint": "eslint src"
