@@ -1,5 +1,5 @@
 <template>
-  <div class="split">
+  <main>
     <div class="editorArea">
       <ParserMessage :error="currentError" class="message" />
       <Editor class="editor" v-model="frogCode" />
@@ -19,7 +19,7 @@
                  @gameStatus="$emit('gameStatus', $event)" />
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -84,25 +84,29 @@ export default {
 };
 </script>
 
-<style scoped>
-.split {
-  display: flex;
+<style lang="scss" scoped>
+main {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 1rem;
+
+  @media screen and (min-width: 760px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1rem;
+  }
 }
 
 .editorArea {
-  flex-basis: 50%;
-  margin-right: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .editor {
   flex-grow: 1;
-  max-height: 80vh;
 }
 
 .froggerArea {
-  flex-basis: 50%;
   display: flex;
   flex-direction: column;
 }
@@ -119,9 +123,7 @@ export default {
 
 .froggerSvgContainer {
   flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 100%;
-  max-height: 80vh;
+  height: 80vh;
 }
 
 .message {

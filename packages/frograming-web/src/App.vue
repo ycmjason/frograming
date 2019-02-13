@@ -43,12 +43,13 @@ h2, h3, h4, h5, h6 {
 }
 
 .container {
+  padding: 0 1rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 code {
-  white-space: pre;
+  white-space: pre-wrap;
   padding: 0 5px;
   background-color: #efefef;
   border: 1px solid #cccccc;
