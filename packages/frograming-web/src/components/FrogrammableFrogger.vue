@@ -7,7 +7,7 @@
 
     <div class="froggerArea">
       <div class="froggerSettings">
-        <label title="Use space to control tick">
+        <label title="Control tick with SPACE">
           <input type="checkbox" v-model="debug"> Debug mode
         </label>
       </div>
@@ -39,7 +39,12 @@ export default {
     currentError: null,
     frogCode: stripIndent`
       onTick {
-        exec moveUp;
+        if (!isCarUp()) {
+          exec moveUp;
+        } else {
+          exec moveLeft;
+          exec moveRight;
+        }
       }
     `,
     controller: new FrogController(),
