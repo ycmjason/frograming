@@ -1,7 +1,11 @@
 <template>
   <FadeTransition :duration="300">
     <div v-show="show" class="popupContainer" @click="$emit('close')">
-      <div class="popupContainer_background"></div>
+      <div class="popupContainer_background">
+        <!-- prefetching the image -->
+        <img v-show="false"
+             src="https://media.giphy.com/media/26tOZ42Mg6pbTUPHW/giphy.gif">
+      </div>
       <section class="popup" @click.stop>
         <h3>Congratulations!</h3>
         <p>{{ message }}</p>

@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <div class="container">
-        <router-link tag="h1" to="/">Frograming</router-link>
+        <router-link tag="h1" to="/">Frogram</router-link>
       </div>
     </header>
     <router-view/>
@@ -26,6 +26,22 @@ footer {
 </style>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Libre+Barcode+39+Text|Libre+Franklin:300|Roboto');
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-family: 'Libre Barcode 39 Text', cursive;
+  font-weight: normal;
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
