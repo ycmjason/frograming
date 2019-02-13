@@ -62,6 +62,7 @@ export default {
   top: 0;
   left: 0;
   background-image: url("/fireworks.gif");
+  background-size: cover;
   opacity: 0.8;
 }
 
