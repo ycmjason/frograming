@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="froggerContainer">
     <Ticker
       :debug="debug"
       :ticking="gameStatus === 'playing'"
@@ -159,7 +159,7 @@ svg {
   height: 100%;
 }
 
-.container {
+.froggerContainer {
   height: 100%;
 }
 </style>

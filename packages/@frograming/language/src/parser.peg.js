@@ -156,13 +156,12 @@ function peg$parse(input, options) {
   var peg$c20 = "Car";
   var peg$c21 = "Log";
   var peg$c22 = "Wall";
-  var peg$c23 = "Water";
-  var peg$c24 = "Up";
-  var peg$c25 = "Right";
-  var peg$c26 = "Down";
-  var peg$c27 = "Left";
-  var peg$c28 = "true";
-  var peg$c29 = "false";
+  var peg$c23 = "Up";
+  var peg$c24 = "Right";
+  var peg$c25 = "Down";
+  var peg$c26 = "Left";
+  var peg$c27 = "true";
+  var peg$c28 = "false";
 
   var peg$r0 = /^[ \t\n\r]/;
   var peg$r1 = /^[0-9]/;
@@ -190,13 +189,12 @@ function peg$parse(input, options) {
   var peg$e20 = peg$literalExpectation("Car", false);
   var peg$e21 = peg$literalExpectation("Log", false);
   var peg$e22 = peg$literalExpectation("Wall", false);
-  var peg$e23 = peg$literalExpectation("Water", false);
-  var peg$e24 = peg$literalExpectation("Up", false);
-  var peg$e25 = peg$literalExpectation("Right", false);
-  var peg$e26 = peg$literalExpectation("Down", false);
-  var peg$e27 = peg$literalExpectation("Left", false);
-  var peg$e28 = peg$otherExpectation("whitespace");
-  var peg$e29 = peg$otherExpectation("boolean");
+  var peg$e23 = peg$literalExpectation("Up", false);
+  var peg$e24 = peg$literalExpectation("Right", false);
+  var peg$e25 = peg$literalExpectation("Down", false);
+  var peg$e26 = peg$literalExpectation("Left", false);
+  var peg$e27 = peg$otherExpectation("whitespace");
+  var peg$e28 = peg$otherExpectation("boolean");
 
   var peg$f0 = function(body) { return { type: 'frogram', body }; };
   var peg$f1 = function(l) { return l };
@@ -1038,45 +1036,36 @@ function peg$parse(input, options) {
               } else {
                 s2 = peg$FAILED;
               }
-              if (s2 === peg$FAILED) {
-                rule$expects(peg$e23);
-                if (input.substr(peg$currPos, 5) === peg$c23) {
-                  s2 = peg$c23;
-                  peg$currPos += 5;
-                } else {
-                  s2 = peg$FAILED;
-                }
-              }
             }
           }
           if (s2 !== peg$FAILED) {
-            rule$expects(peg$e24);
-            if (input.substr(peg$currPos, 2) === peg$c24) {
-              s3 = peg$c24;
+            rule$expects(peg$e23);
+            if (input.substr(peg$currPos, 2) === peg$c23) {
+              s3 = peg$c23;
               peg$currPos += 2;
             } else {
               s3 = peg$FAILED;
             }
             if (s3 === peg$FAILED) {
-              rule$expects(peg$e25);
-              if (input.substr(peg$currPos, 5) === peg$c25) {
-                s3 = peg$c25;
+              rule$expects(peg$e24);
+              if (input.substr(peg$currPos, 5) === peg$c24) {
+                s3 = peg$c24;
                 peg$currPos += 5;
               } else {
                 s3 = peg$FAILED;
               }
               if (s3 === peg$FAILED) {
-                rule$expects(peg$e26);
-                if (input.substr(peg$currPos, 4) === peg$c26) {
-                  s3 = peg$c26;
+                rule$expects(peg$e25);
+                if (input.substr(peg$currPos, 4) === peg$c25) {
+                  s3 = peg$c25;
                   peg$currPos += 4;
                 } else {
                   s3 = peg$FAILED;
                 }
                 if (s3 === peg$FAILED) {
-                  rule$expects(peg$e27);
-                  if (input.substr(peg$currPos, 4) === peg$c27) {
-                    s3 = peg$c27;
+                  rule$expects(peg$e26);
+                  if (input.substr(peg$currPos, 4) === peg$c26) {
+                    s3 = peg$c26;
                     peg$currPos += 4;
                   } else {
                     s3 = peg$FAILED;
@@ -1112,7 +1101,7 @@ function peg$parse(input, options) {
       if (peg$silentFails === 0) peg$expect(expected);
     }
 
-    rule$expects(peg$e28);
+    rule$expects(peg$e27);
     peg$silentFails++;
     s0 = [];
     if (peg$r0.test(input.charAt(peg$currPos))) {
@@ -1182,19 +1171,19 @@ function peg$parse(input, options) {
       if (peg$silentFails === 0) peg$expect(expected);
     }
 
-    rule$expects(peg$e29);
+    rule$expects(peg$e28);
     peg$silentFails++;
     s0 = peg$currPos;
     s1 = peg$parse_();
-    if (input.substr(peg$currPos, 4) === peg$c28) {
-      s2 = peg$c28;
+    if (input.substr(peg$currPos, 4) === peg$c27) {
+      s2 = peg$c27;
       peg$currPos += 4;
     } else {
       s2 = peg$FAILED;
     }
     if (s2 === peg$FAILED) {
-      if (input.substr(peg$currPos, 5) === peg$c29) {
-        s2 = peg$c29;
+      if (input.substr(peg$currPos, 5) === peg$c28) {
+        s2 = peg$c28;
         peg$currPos += 5;
       } else {
         s2 = peg$FAILED;

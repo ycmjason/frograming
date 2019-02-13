@@ -1,58 +1,58 @@
 <template>
-  <div class="home container">
-    <ParserMessage :error="currentError" class="message" />
-    <div class="split">
-      <div class="editorArea">
-        <Editor class="editor" v-model="frogCode" />
-      </div>
-      <FrogrammableFrogger
-          class="frogger"
-          :frogCode="frogCode"
-          @parsed="() => this.currentError = null"
-          @error="err => this.currentError = err"/>
-    </div>
+  <div class="container">
+    <LevelHeader :showNext="showNext">
+      <h2>Level 2</h2>
+      <ul>
+        <li>Write a "frogram" to win the game!</li>
+      </ul>
+
+      <FadeTransition>
+        <div v-if="helpLevel >= 1">
+          <h3>Tips:</h3>
+          <ul>
+            <li>You can use these commands: <code>exec moveUp;</code> / <code>exec moveRight;</code> / <code>exec moveDown;</code> / <code>exec moveLeft;</code> to move.</li>
+            <li>You can use these predicates: <code>isGoalUp()</code> / <code> isRiverUp ()</code> / <code>is{Car|Log|Wall}{Up|Right|Down|Left}()</code>.</li>
+            <template v-if="helpLevel >= 2">
+              <li><!-- TODO: Add second level help --></li>
+              <li><!-- TODO: Add second level help --></li>
+              <li><!-- TODO: Add second level help --></li>
+            </template>
+            <template v-if="helpLevel >= 3">
+              <li><!-- TODO: Add third level help --></li>
+              <li><!-- TODO: Add third level help --></li>
+              <li><!-- TODO: Add third level help --></li>
+            </template>
+          </ul>
+        </div>
+      </FadeTransition>
+    </LevelHeader>
+
+    <FrogrammableFrogger @gameStatus="$emit('gameStatus', $event)" />
   </div>
 </template>
 
 <script>
-import Editor from '@/components/Editor.vue';
+import LevelHeader from '@/components/LevelHeader.vue';
 import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
-import ParserMessage from '@/components/ParserMessage.vue';
-import { stripIndent } from 'common-tags';
 
 export default {
   name: 'level2',
-  components: { Editor, FrogrammableFrogger, ParserMessage },
+  props: ['counts'],
+  components: { LevelHeader, FrogrammableFrogger },
 
-  data: () => ({
-    currentError: null,
-    frogCode: stripIndent`
-      onTick {
-        exec moveUp;
-      }
-    `,
-  }),
+  computed: {
+    showNext () {
+      return this.counts.won >= 1;
+    },
+    helpLevel () {
+      if (this.counts.lost >= 20) return 3;
+      if (this.counts.lost >= 10) return 2;
+      if (this.counts.lost >= 5) return 1;
+      return 0;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.split {
-  display: flex;
-}
-
-.editorArea {
-  flex-basis: 50%;
-}
-
-.editor {
-  min-height: 80vh;
-}
-
-.frogger {
-  flex-basis: 50%;
-}
-
-.message {
-  margin-bottom: 1rem;
-}
 </style>

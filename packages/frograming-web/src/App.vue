@@ -31,18 +31,15 @@ footer {
   margin: 0 auto;
 }
 
-div.code {
-  white-space: pre;
-  padding: 1rem;
-  background-color: #efefef;
-  border: 1px solid #cccccc;
-}
-
-span.code {
+code {
   white-space: pre;
   padding: 0 5px;
   background-color: #efefef;
   border: 1px solid #cccccc;
+}
+
+code.block {
+  padding: 1rem;
 }
 </style>
 
@@ -73,6 +70,7 @@ button {
   padding: 1rem;
   cursor: pointer;
   transition: 0.3s background;
+  text-transform: uppercase;
 
   &:hover {
     background: #f6f6f6;
