@@ -9,7 +9,13 @@ import { FadeTransition, SlideYDownTransition } from 'vue2-transitions';
 
 Vue.config.productionTip = false;
 
-Vue.use(VueAnalytics, { id: 'UA-113352609-6', router });
+Vue.use(VueAnalytics, {
+  id: 'UA-113352609-6',
+  router,
+  debug: {
+    sendHitTask: process.env.NODE_ENV === 'production',
+  },
+});
 
 Vue.component('FadeTransition', FadeTransition);
 Vue.component('SlideYDownTransition', SlideYDownTransition);
