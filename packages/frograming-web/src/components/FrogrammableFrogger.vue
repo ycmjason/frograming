@@ -83,8 +83,8 @@ export default {
 }
 
 .editor {
-  flex-basis: 80vh;
   flex-grow: 1;
+  max-height: 80vh;
 }
 
 .froggerSvgContainer {

@@ -24,7 +24,7 @@ export default class Board {
     const { obstacles, frog } = this;
     for (const obstacle of obstacles) {
       if (obstacle.contains(frog.pos)) {
-        frog.moveRight(obstacle.velocity);
+        frog.moveRight(obstacle.velocity, { skipRotate: true });
       }
       obstacle.move();
     }

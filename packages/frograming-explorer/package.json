@@ -8,7 +8,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "firebase -P production deploy",
     "predeploy:ci": "npm run build -- --mode production",
     "deploy:ci": "firebase -P production deploy --token \"$FIREBASE_TOKEN\""
   },

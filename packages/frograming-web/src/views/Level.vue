@@ -32,6 +32,7 @@ export default {
   watch: {
     level () {
       this.counts = { won: 0, lost: 0 };
+      this.showLevelPassedPopup = false;
     },
   },
 
