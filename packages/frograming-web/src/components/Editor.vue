@@ -9,7 +9,7 @@
 
 <script>
 import { codemirror } from 'vue-codemirror';
-import 'codemirror/lib/codemirror.css'
+import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/base16-dark.css';
 
 export default {
