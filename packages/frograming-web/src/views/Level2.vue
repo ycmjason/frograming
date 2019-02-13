@@ -73,5 +73,6 @@ export default {
 .share {
   margin: 0 auto;
   max-width: 500px;
+  text-align: center;
 }
 </style>

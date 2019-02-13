@@ -7,7 +7,16 @@
     </header>
     <router-view/>
     <footer>
-      <div class="container">Jason Yu &copy; 2019</div>
+      <div class="container">
+        <p>
+          <a href="https://www.ycmjason.com" target="blank">Jason Yu</a> &copy; 2019
+        </p>
+        <p>
+          <a href="https://github.com/ycmjason/frograming" target="blank">
+            Fork me on Github
+          </a>
+        </p>
+      </div>
     </footer>
   </div>
 </template>
