@@ -3,6 +3,8 @@
     <component
       :is="`Level${level}`"
       :counts="counts"
+      v-bind="$attrs"
+      v-on="$listeners"
       @gameStatus="onGameStatus" />
 
     <LevelPassedPopUp

@@ -19,7 +19,7 @@ export default new Router({
       path: '/l/:level',
       name: 'level',
       component: Level,
-      props: ({ params }) => ({ level: Number(params.level) }),
+      props: ({ params, query }) => ({ level: Number(params.level), c: query.c }),
     },
     {
       path: '*',

@@ -79,11 +79,11 @@ textarea, button, input {
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;
+  border: 1px solid black;
 }
 
 button {
   background: white;
-  border: 1px solid black;
   padding: 1rem;
   cursor: pointer;
   transition: 0.3s background;

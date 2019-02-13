@@ -2,7 +2,7 @@
   <main>
     <div class="editorArea">
       <ParserMessage :error="currentError" class="message" />
-      <Editor class="editor" v-model="frogCode" />
+      <Editor class="editor" :value="frogCode" @input="$emit('input', $event)" />
     </div>
 
     <div class="froggerArea">
@@ -27,26 +27,19 @@ import { parse, interpret } from '@frograming/language';
 import { Frogger, FrogController } from '@frograming/frogger';
 import Editor from '@/components/Editor.vue';
 import ParserMessage from '@/components/ParserMessage.vue';
-import { stripIndent } from 'common-tags';
 
 import debounce from 'lodash.debounce';
 
 export default {
   components: { Editor, ParserMessage, Frogger },
 
+  model: { prop: 'frogCode', event: 'input' },
+
+  props: ['frogCode'],
+
   data: () => ({
     uid: 0,
     currentError: null,
-    frogCode: stripIndent`
-      onTick {
-        if (!isCarUp()) {
-          exec moveUp;
-        } else {
-          exec moveLeft;
-          exec moveRight;
-        }
-      }
-    `,
     controller: new FrogController(),
     ast: null,
     execution: interpret(null),
@@ -62,9 +55,11 @@ export default {
       immediate: true,
       handler: debounce(function () {
         try {
-          this.ast = parse(this.frogCode);
+          const { frogCode } = this;
+          this.ast = parse(frogCode);
           this.execution = interpret(this.ast);
           this.currentError = null;
+          this.$emit('frogCode', frogCode);
         } catch (e) {
           this.ast = null;
           this.execution = interpret(null);
@@ -103,7 +98,7 @@ main {
 }
 
 .editor {
-  flex-grow: 1;
+  height: 80vh;
 }
 
 .froggerArea {
@@ -122,7 +117,6 @@ main {
 }
 
 .froggerSvgContainer {
-  flex-grow: 1;
   height: 80vh;
 }
 

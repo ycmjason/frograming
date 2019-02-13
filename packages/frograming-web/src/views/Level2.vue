@@ -23,20 +23,55 @@
       </FadeTransition>
     </LevelHeader>
 
-    <FrogrammableFrogger @gameStatus="$emit('gameStatus', $event)" />
+    <FrogrammableFrogger v-model="frogCode" @gameStatus="$emit('gameStatus', $event)" />
+
+    <div class="share">
+      <h3>Share your code with your friend!</h3>
+      <CopyText :text="frogCodeLink" />
+    </div>
   </div>
 </template>
 
 <script>
+import { stripIndent } from 'common-tags';
+
+import CopyText from '@/components/CopyText.vue';
 import LevelHeader from '@/components/LevelHeader.vue';
 import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
 
+const encode = window.btoa;
+const decode = window.atob;
+
 export default {
   name: 'level2',
-  props: ['counts'],
-  components: { LevelHeader, FrogrammableFrogger },
+  components: { CopyText, LevelHeader, FrogrammableFrogger },
+  props: ['counts', 'c'],
+  data: vm => ({
+    frogCode: vm.c ? decode(vm.c) : stripIndent`
+      onTick {
+        if (!isCarUp()) {
+          exec moveUp;
+        } else {
+          exec moveLeft;
+          exec moveRight;
+        }
+      }
+    `,
+  }),
+
+  computed: {
+    frogCodeLink () {
+      const { frogCode } = this;
+      const { protocol, host } = window.location;
+      return `${protocol}//${host}/l/2?c=${encode(frogCode)}`;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.share {
+  margin: 0 auto;
+  max-width: 500px;
+}
 </style>
