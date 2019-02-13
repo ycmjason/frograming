@@ -8,7 +8,6 @@
     "clean": "/bin/rm -rf dist",
     "prebuild": "npm run clean",
     "build": "lerna run build --stream",
-    "predeploy:ci": "npm run build",
     "deploy:ci": "lerna run deploy:ci --stream",
     "test": "lerna run test --stream -- -- --verbose"
   },
