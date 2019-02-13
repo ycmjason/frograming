@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="froggerContainer">
     <Ticker
       :debug="debug"
       :ticking="gameStatus === 'playing'"
@@ -79,6 +79,8 @@ export default {
         isLogLeft: board.isLogLeftOfFrog(),
         isLogRight: board.isLogRightOfFrog(),
 
+        isRiverUp: board.isRiverUpOfFrog(),
+
         isWallUp: board.isWallUpOfFrog(),
         isWallDown: board.isWallDownOfFrog(),
         isWallLeft: board.isWallLeftOfFrog(),
@@ -157,7 +159,7 @@ svg {
   height: 100%;
 }
 
-.container {
+.froggerContainer {
   height: 100%;
 }
 </style>
