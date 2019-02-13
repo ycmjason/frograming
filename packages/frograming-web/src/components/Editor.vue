@@ -10,7 +10,24 @@
 <script>
 import { codemirror } from 'vue-codemirror';
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/base16-dark.css';
+import 'codemirror/theme/solarized.css';
+
+import CodeMirror from 'codemirror';
+import 'codemirror/addon/mode/simple.js';
+
+CodeMirror.defineSimpleMode('frog', {
+  // The start state contains the rules that are intially used
+  start: [
+    { regex: /(?:exec|onTick)\b/, token: 'def'},
+    { regex: /(?:isGoalUp|isRiverUp|is(?:Car|Log|Wall)(?:Up|Right|Down|Left))\b/, token: 'variable-2'},
+    { regex: /(?:!|&&|\|\|)/, token: 'operator'},
+    { regex: /(?:if|else)\b/, token: 'keyword'},
+    { regex: /true|false/, token: 'atom' },
+    { regex: /(?:move(?:Up|Right|Down|Left))\b/, token: 'atom'},
+    { regex: /[{(]/, indent: true },
+    { regex: /[})]/, dedent: true },
+  ],
+});
 
 export default {
   components: { codemirror },
@@ -18,8 +35,8 @@ export default {
   data: () => ({
     options: {
       tabSize: 4,
-      mode: 'text/javascript',
-      theme: 'base16-dark',
+      mode: 'frog',
+      theme: 'solarized dark',
       lineNumbers: true,
       line: true,
     },
