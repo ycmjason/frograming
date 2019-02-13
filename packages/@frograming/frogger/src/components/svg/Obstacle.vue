@@ -1,22 +1,10 @@
 <template functional>
-  <rect :x="props.obstacle.pos.x"
-        :y="props.obstacle.pos.y"
-        :data-uid="props.obstacle.uid"
-        height="1"
-        :width="props.obstacle.length"
-        :fill="props.obstacle.color"
-        :class="props.obstacle.type" />
+  <g :data-uid="props.obstacle.uid"
+     :transform="`rotate(
+       ${props.obstacle.velocity >= 0 ? 0 : 180},
+       ${props.obstacle.pos.x + (props.obstacle.length / 2)},
+       ${props.obstacle.pos.y + 0.5}
+     )`">
+    <component :is="props.obstacle.component" :obstacle="props.obstacle"/>
+  </g>
 </template>
-
-<style scoped>
-.car {
-  rx: 0.1;
-  ry: 0.5;
-}
-
-.log {
-  fill: #a02828;
-  rx: 0.1;
-  ry: 0.5;
-}
-</style>
