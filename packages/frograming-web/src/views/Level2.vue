@@ -26,7 +26,7 @@
     <FrogrammableFrogger v-model="frogCode" @gameStatus="$emit('gameStatus', $event)" />
 
     <div class="share">
-      <h3>Share your code with your friend!</h3>
+      <h3>Share your code with your friends!</h3>
       <CopyText :text="frogCodeLink" />
     </div>
   </div>
