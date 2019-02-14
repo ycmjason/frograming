@@ -5,6 +5,7 @@
       <ul>
         <li>Use <code>exec moveUp;</code> / <code>exec moveRight;</code> / <code>exec moveDown;</code> / <code>exec moveLeft;</code> to move to the goal line.</li>
         <li>Hit Enter to submit.</li>
+        <li>Use up / down arrow keys to go through command history.</li>
       </ul>
     </LevelHeader>
     <InterpretedFrogger class="frogger" @gameStatus="$emit('gameStatus', $event)"/>

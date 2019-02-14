@@ -8,7 +8,7 @@
 
     <p>This website currently is mainly designed to work best with computers.</p>
 
-    <KeyboardFrogger />
+    <DisplayFrogger />
 
     <p>
       <router-link tag="button" to="/l/0" class="FirstLevelButton">Go to the first level now!</router-link>
@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import KeyboardFrogger from '@/components/KeyboardFrogger.vue';
+import DisplayFrogger from '@/components/DisplayFrogger.vue';
 
 export default {
   name: 'home',
-  components: { KeyboardFrogger },
+  components: { DisplayFrogger },
 };
 </script>
 

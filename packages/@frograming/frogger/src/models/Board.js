@@ -20,14 +20,18 @@ export default class Board {
     return this.obstacles.filter(({ type }) => type === 'log');
   }
 
-  tick () {
+  tick (n = 1) {
     const { obstacles, frog } = this;
-    for (const obstacle of obstacles) {
-      if (obstacle.contains(frog.pos)) {
-        frog.moveRight(obstacle.velocity, { skipRotate: true });
+    for (let i = 0; i < n; i++) {
+      for (const obstacle of obstacles) {
+        if (obstacle.contains(frog.pos)) {
+          frog.moveRight(obstacle.velocity, { skipRotate: true });
+        }
+        obstacle.move();
       }
-      obstacle.move();
     }
+
+    return this;
   }
 
   isCarUpOfFrog () {

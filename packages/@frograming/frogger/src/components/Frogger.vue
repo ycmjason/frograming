@@ -57,11 +57,15 @@ export default {
       required: false,
       default: () => new FrogController(),
     },
+    tickSeed: {
+      type: Number,
+      default: () => Math.floor(Math.random() * 50),
+    },
   },
 
   data: vm => ({
     gameStatus: 'playing',
-    board: getInitialBoard(),
+    board: getInitialBoard().tick(vm.tickSeed),
   }),
 
   computed: {
