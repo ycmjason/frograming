@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 h1 {
   cursor: pointer;
 }
@@ -31,6 +31,10 @@ footer {
   background: #efefef;
   padding-top: 3rem;
   padding-bottom: 2rem;
+
+  p {
+    max-width: unset;
+  }
 }
 </style>
 

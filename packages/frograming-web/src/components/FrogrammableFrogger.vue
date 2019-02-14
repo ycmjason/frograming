@@ -80,12 +80,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/scss/config.scss';
+
 main {
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-row-gap: 1rem;
 
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: $breakpoint-md) {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 1rem;

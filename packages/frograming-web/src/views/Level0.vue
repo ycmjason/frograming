@@ -13,7 +13,7 @@
         <div v-if="showTease">
           <h3>Well...</h3>
           <ul>
-            <li>Since you have lost {{ counts.lost }} times in a row, you can now to proceed to the next level.</li>
+            <li>Since you have lost {{ counts.lost }} times in a row, maybe you want to learn some "frograming" to beat this game?</li>
             <li>Or, do you wish to keep on trying?</li>
           </ul>
         </div>
