@@ -26,7 +26,7 @@ import LevelPassedPopUp from '@/components/LevelPassedPopUp.vue';
 const PASSING_MESSAGES = [
   'Congratulations! You have passed this level. You can proceed to the next level.',
   'Congratulations! You have passed this level. You can proceed to the next level.',
-  'Congratulations! You have passed all the levels! You have beaten the Frogram game!',
+  'Congratulations! You have passed all the levels! You have beaten the Frogram game! Share your code with your friends!',
 ];
 
 export default {
