@@ -11,7 +11,7 @@
     <KeyboardFrogger />
 
     <p>
-      Go to the <router-link to="/l/0">first level</router-link> now!
+      <router-link tag="button" to="/l/0" class="FirstLevelButton">Go to the first level now!</router-link>
     </p>
   </div>
 </template>
@@ -32,6 +32,12 @@ h2 {
 
 p {
   max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.FirstLevelButton {
+  display: block;
   margin-left: auto;
   margin-right: auto;
 }
