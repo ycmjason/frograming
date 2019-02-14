@@ -13,8 +13,14 @@
         </p>
         <p>
           <a href="https://github.com/ycmjason/frograming" target="blank">
-            Fork me on Github
+            Fork on Github
           </a>
+        </p>
+        <p>
+          <small>
+            Credits to
+            <a href="https://community.dur.ac.uk/a.g.stewart/" target="blank">Anthony Stewart</a>
+          </small>
         </p>
       </div>
     </footer>
