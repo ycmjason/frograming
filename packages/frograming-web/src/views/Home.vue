@@ -6,8 +6,6 @@
 
     <p>Frogram is a website aiming to introduce programming in a fun and easy way. You will go through 3 levels of challenges. All you have to do is to guide the frog to the "GOAL".</p>
 
-    <p>This website currently is mainly designed to work best with computers.</p>
-
     <DisplayFrogger />
 
     <p>
