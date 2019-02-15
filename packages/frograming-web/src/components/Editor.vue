@@ -34,7 +34,7 @@ export default {
   props: ['value'],
   data: () => ({
     options: {
-      tabSize: 4,
+      tabSize: 2,
       mode: 'frog',
       theme: 'solarized dark',
       lineNumbers: true,
