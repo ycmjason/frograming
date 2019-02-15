@@ -92,7 +92,7 @@ main {
 
   @media screen and (min-width: $breakpoint-md) {
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(50%, 1fr));
     grid-column-gap: 1rem;
   }
 }
