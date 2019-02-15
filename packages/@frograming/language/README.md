@@ -12,7 +12,7 @@ npm install @frograming/language
 
 Frogram is a simple programing language that compiles to "frogger command".
 
-A frogger command is a `String` of this format: `Move(Up|Right|Down|Left) | NO_OP | TERMINATED`.
+A frogger command is a `String` of this format: `Move(Up|Right|Down|Left) | NO_OP`.
 
 This package exposes two methods: `parse` and `interpret`.
 
@@ -21,17 +21,17 @@ This package exposes two methods: `parse` and `interpret`.
 
 The `execution` object is a simple object representing the execution context:
 
-- `execution.terminated`
-    - Type: <`Boolean`>
-    - Description: Represents if the frogram has completed
-- `execution.step(state)`
+- `execution.commands`
+    - Type: <`Array`<`String`>>
+    - Description: Commands that are returned from `tick`.
+- `execution.tick(state)`
     - Type: <`Function`>
     - Arguments:
       - `state`: <`Object`>, an object representing the frogger state
-          - A frogger state is an object with `is(Log|Car|Wall)(Up|Right|Down|Left)` keys and boolean values.
+          - A frogger state is an object with `isGoalUp|isRiverUp|is(Log|Car|Wall)(Up|Right|Down|Left)` keys and boolean values.
           - e.g. `{ isLogUp: false, isCarDown: true ... }`
-      - returns: <`String`>, a frogger command: `Move(Up|Right|Down|Left) | NO_OP | TERMINATED`.
-    - Use the given state to continue/step the program until a command is emitted.
+      - returns: <`String`>, a frogger command: `Move(Up|Right|Down|Left) | NO_OP`.
+    - Description: Use the given state to run the frogCode the program until an `exec` statement.
 
 ## Language Introduction
 
@@ -42,51 +42,33 @@ WIP
 ```js
 import { parse, interpret } '@frograming/language';
 
-const ast = parse(`moveDown();
-moveUp();
-
-loop(2) {
-  moveDown();
-}
-
-if (!isCarUp() && isCarLeft() || isLogUp()) {
-  moveDown();
-  loop (2) {
-    moveLeft();
-    moveUp();
-    if (isCarUp()) {
-      moveUp();
-    } else {
-      moveLeft();
+const ast = parse(`onTick {
+  if (isGoalUp()) {
+    exec moveUp;
+  }
+  if (!isCarUp()) {
+    exec moveUp;
+  } else {
+    if (isCarLeft()) {
+      exec moveRight;
+    }
+    if (isCarRight()) {
+      exec moveLeft;
+      exec moveRight;
     }
   }
-} else {
-  moveUp();
 }`);
 
 const execuation = interpret(ast);
 
-execuation.step({
+const command = execuation.tick({
+  isGoalUp: true,
   isCarUp: false,
   isCarLeft: true
   ...
-}); // move(Up|Right|Down|Left) | NO_OP | TERMINATED
+});
 
-/*
- * [
- *   "moveDown",
- *   "moveUp",
- *   "moveDown",
- *   "moveDown",
- *   "moveDown",
- *   "moveLeft",
- *   "moveUp",
- *   "moveLeft",
- *   "moveLeft",
- *   "moveUp",
- *   "moveLeft"
- * ]
- */
+// command === 'moveUp';
 ```
 
 ## Author
