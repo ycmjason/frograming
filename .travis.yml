@@ -14,9 +14,13 @@ script:
   - npm run build
 
 deploy:
-  provider: script
-  script: npm run deploy:ci
-  on:
-    tags: true
-    branch: master
   skip_cleanup: true
+  - provider: script
+    script: npm run deploy:staging
+    on:
+      branch: master
+  - provider: script
+    script: npm run deploy:production
+    on:
+      tags: true
+      branch: master

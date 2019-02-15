@@ -8,8 +8,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "predeploy:ci": "NODE_ENV=production npm run build -- --mode production",
-    "deploy:ci": "firebase -P production deploy --token \"$FIREBASE_TOKEN\""
+    "predeploy:staging": "NODE_ENV=production npm run build -- --mode production",
+    "deploy:staging": "firebase -P staging deploy --token \"$FIREBASE_TOKEN\"",
+    "predeploy:production": "NODE_ENV=production npm run build -- --mode production",
+    "deploy:production": "firebase -P production deploy --token \"$FIREBASE_TOKEN\""
   },
   "dependencies": {
     "@frograming/frogger": "^0.3.0",
