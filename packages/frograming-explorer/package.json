@@ -2,7 +2,7 @@
   "private": true,
   "name": "frograming-explorer",
   "description": "The web to explore the frograming language.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Jason Yu <me@ycmjason.com>",
   "scripts": {
     "serve": "vue-cli-service serve",

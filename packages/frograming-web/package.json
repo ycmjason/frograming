@@ -2,7 +2,7 @@
   "private": true,
   "name": "frograming-web",
   "description": "The web to play frogger using programing.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Jason Yu <me@ycmjason.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
