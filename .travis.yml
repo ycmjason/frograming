@@ -6,7 +6,7 @@ env:
   - NODE_ENV=ci
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_57f1913b149f_key -iv $encrypted_57f1913b149f_iv -in packages/frograming-web/.env.local.enc -out packages/frograming-web/.env.local -d
+  - openssl aes-256-cbc -K $encrypted_4b6f2ab1b028_key -iv $encrypted_4b6f2ab1b028_iv -in packages/frograming-web/.env.local.enc -out packages/frograming-web/.env.local -d
 
 install:
   - npm ci
