@@ -27,7 +27,7 @@
 
     <div class="share">
       <h3>Share your code with your friends!</h3>
-      <CopyText :text="copyLink" @copy="onCopy" />
+      <GetDynamicLinkButton :key="frogCodeLink" :link="frogCodeLink" @copy="onCopy" />
     </div>
   </div>
 </template>
@@ -36,32 +36,16 @@
 import { stripIndent } from 'common-tags';
 import debounce from 'lodash.debounce';
 
-import CopyText from '@/components/CopyText.vue';
+import GetDynamicLinkButton from '@/components/GetDynamicLinkButton.vue';
 import LevelHeader from '@/components/LevelHeader.vue';
 import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
 
 const encode = window.btoa;
 const decode = window.atob;
 
-const shortenUrl = async (url) => {
-  const endpoint = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${process.env.VUE_APP_FIREBASE_API_KEY}`;
-
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    body: JSON.stringify({
-      longDynamicLink: `https://frogram.page.link/?link=${url}`,
-      suffix: { option: 'SHORT' },
-    }),
-  });
-
-  const { shortLink } = await res.json();
-
-  return shortLink;
-};
-
 export default {
   name: 'level2',
-  components: { CopyText, LevelHeader, FrogrammableFrogger },
+  components: { GetDynamicLinkButton, LevelHeader, FrogrammableFrogger },
   props: ['counts', 'c'],
   data: vm => ({
     frogCode: vm.c ? decode(vm.c) : stripIndent`
@@ -74,17 +58,7 @@ export default {
         }
       }
     `,
-    copyLink: vm.frogCodeLink,
   }),
-
-  watch: {
-    frogCodeLink: {
-      immediate: true,
-      handler: debounce(async function (link) {
-        this.copyLink = await shortenUrl(link);
-      }, 500),
-    },
-  },
 
   computed: {
     frogCodeLink () {
@@ -95,8 +69,8 @@ export default {
   },
 
   methods: {
-    onCopy: debounce(function () {
-      this.$ga.event('Share Link', 'copy', this.copyLink);
+    onCopy: debounce(function (link) {
+      this.$ga.event('Share Link', 'copy', link);
     }, 500),
   },
 };
