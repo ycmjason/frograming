@@ -16,4 +16,7 @@ script:
 deploy:
   provider: script
   script: npm run deploy:ci
+  on:
+    tags: true
+    branch: master
   skip_cleanup: true
