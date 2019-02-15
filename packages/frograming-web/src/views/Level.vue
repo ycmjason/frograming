@@ -61,15 +61,15 @@ export default {
 
   methods: {
     onGameStatus (status) {
+      if (status === 'lost' || status === 'won') {
+        this.counts[status] += 1;
+      }
+
       this.$ga.event({
         eventCategory: `Level${this.level}`,
         eventAction: status,
         eventValue: this.counts[status],
       });
-
-      if (status === 'lost' || status === 'won') {
-        this.counts[status] += 1;
-      }
 
       if (status === 'won') {
         this.showLevelPassedPopup = true;
