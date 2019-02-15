@@ -14,13 +14,14 @@ script:
   - npm run build
 
 deploy:
-  skip_cleanup: true
   - provider: script
     script: npm run deploy:staging
+    skip_cleanup: true
     on:
       branch: master
   - provider: script
     script: npm run deploy:production
+    skip_cleanup: true
     on:
       tags: true
       branch: master
