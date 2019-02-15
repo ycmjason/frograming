@@ -1,5 +1,8 @@
 # CHANGELOG
 
+### v0.3.1
+- Updated docs
+
 ### v0.3.0
 - First release with levels and reviewed language.
 
