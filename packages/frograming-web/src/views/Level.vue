@@ -65,7 +65,7 @@ export default {
         this.counts[status] += 1;
       }
 
-      this.$ga.event(`Game Status`, status, `Level ${this.level}`, this.counts[status]);
+      this.$ga.event('Game Status', status, `Level ${this.level}`, this.counts[status]);
 
       if (status === 'won') {
         this.showLevelPassedPopup = true;

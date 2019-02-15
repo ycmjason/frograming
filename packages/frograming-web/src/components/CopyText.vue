@@ -27,6 +27,7 @@ export default {
   }),
   methods: {
     copy () {
+      this.$emit('copy');
       clearTimeout(this.timeoutId);
       this.$refs.input.select();
       document.execCommand('copy');

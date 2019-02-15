@@ -27,7 +27,7 @@
 
     <div class="share">
       <h3>Share your code with your friends!</h3>
-      <CopyText :text="copyLink" />
+      <CopyText :text="copyLink" @copy="onCopy" />
     </div>
   </div>
 </template>
@@ -92,6 +92,12 @@ export default {
       const { protocol, host } = window.location;
       return `${protocol}//${host}/l/2?c=${encode(frogCode)}`;
     },
+  },
+
+  methods: {
+    onCopy: debounce(function () {
+      this.$ga.event('Share Link', 'copy', this.copyLink);
+    }, 500),
   },
 };
 </script>
