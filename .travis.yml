@@ -5,6 +5,9 @@ node_js: 8
 env:
   - NODE_ENV=ci
 
+before_install:
+  - openssl aes-256-cbc -K $encrypted_57f1913b149f_key -iv $encrypted_57f1913b149f_iv -in .env.local.enc -out .env.local -d
+
 install:
   - npm ci
   - npm run bootstrap

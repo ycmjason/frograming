@@ -27,13 +27,14 @@
 
     <div class="share">
       <h3>Share your code with your friends!</h3>
-      <CopyText :text="frogCodeLink" />
+      <CopyText :text="copyLink" />
     </div>
   </div>
 </template>
 
 <script>
 import { stripIndent } from 'common-tags';
+import debounce from 'lodash.debounce';
 
 import CopyText from '@/components/CopyText.vue';
 import LevelHeader from '@/components/LevelHeader.vue';
@@ -41,6 +42,22 @@ import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
 
 const encode = window.btoa;
 const decode = window.atob;
+
+const shortenUrl = async (url) => {
+  const endpoint = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${process.env.VUE_APP_FIREBASE_API_KEY}`;
+
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    body: JSON.stringify({
+      longDynamicLink: `https://frogram.page.link/?link=${url}`,
+      suffix: { option: 'SHORT' },
+    }),
+  });
+
+  const { shortLink } = await res.json();
+
+  return shortLink;
+};
 
 export default {
   name: 'level2',
@@ -57,7 +74,17 @@ export default {
         }
       }
     `,
+    copyLink: vm.frogCodeLink,
   }),
+
+  watch: {
+    frogCodeLink: {
+      immediate: true,
+      handler: debounce(async function (link) {
+        this.copyLink = await shortenUrl(link);
+      }, 500),
+    },
+  },
 
   computed: {
     frogCodeLink () {
