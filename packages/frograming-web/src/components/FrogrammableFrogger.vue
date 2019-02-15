@@ -47,6 +47,9 @@ export default {
   }),
 
   watch: {
+    debug (debug) {
+      this.$ga('FrogrammableFrogger', debug ? 'on' : 'off', 'debug');
+    },
     execution () {
       this.uid += 1;
     },

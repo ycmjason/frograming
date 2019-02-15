@@ -61,6 +61,12 @@ export default {
 
   methods: {
     onGameStatus (status) {
+      this.$ga.event({
+        eventCategory: `Level${this.level}`,
+        eventAction: status,
+        eventValue: this.counts[status],
+      });
+
       if (status === 'lost' || status === 'won') {
         this.counts[status] += 1;
       }

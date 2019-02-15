@@ -11,7 +11,7 @@
 
         <footer>
           <NextLevelButton v-if="hasNextLevel" />
-          <span class="closeButton" @click="$emit('close')">close</span>
+          <span class="closeButton" @click="close">close</span>
         </footer>
       </section>
     </div>
@@ -36,6 +36,13 @@ export default {
     message: {
       type: String,
       required: true,
+    },
+  },
+
+  methods: {
+    close () {
+      this.$ga.event('LevelPassedPopUp', 'close', `Level${this.$route.params.level}`);
+      this.$emit('close');
     },
   },
 };
