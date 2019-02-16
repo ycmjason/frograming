@@ -8,7 +8,12 @@
         @keydown.down.prevent="nextCommand"
         placeholder="Type in an exec statements."
         autofocus>
-    <div @click="uid++" class="froggerSvgContainer">
+    <div
+        @click="uid++"
+        @keydown.prevent.space
+        @keydown.space="uid++"
+        tabindex="0"
+        class="froggerSvgContainer">
       <Frogger :key="uid"
                :tickSeed="0"
                :interval="Infinity"

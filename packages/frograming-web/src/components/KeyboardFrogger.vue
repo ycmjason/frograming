@@ -2,7 +2,8 @@
   <div>
     <div tabindex="0"
       @click="uid++"
-      @keydown.prevent.down.left.up.right
+      @keydown.prevent.down.left.up.right.space
+      @keydown.space="uid++"
       @keydown.down="controller.emit('moveDown')"
       @keydown.up="controller.emit('moveUp')"
       @keydown.left="controller.emit('moveLeft')"

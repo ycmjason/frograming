@@ -11,7 +11,7 @@
 
         <footer>
           <NextLevelButton v-if="hasNextLevel" />
-          <span class="closeButton" @click="close">close</span>
+          <button class="closeButton btn-plain" @click="close">close</button>
         </footer>
       </section>
     </div>

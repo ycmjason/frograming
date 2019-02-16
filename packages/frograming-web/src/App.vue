@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <div class="container">
-        <router-link tag="h1" to="/">Frogram</router-link>
+        <h1><router-link to="/">Frogram</router-link></h1>
       </div>
     </header>
     <router-view/>
@@ -30,6 +30,9 @@
 <style lang="scss" scoped>
 h1 {
   cursor: pointer;
+  a {
+    color: inherit;
+  }
 }
 
 footer {
@@ -45,6 +48,7 @@ footer {
 </style>
 
 <style>
+/* brand styles */
 @import url('https://fonts.googleapis.com/css?family=Libre+Barcode+39+Text|Libre+Franklin:300|Roboto');
 html {
   font-family: 'Roboto', sans-serif;
@@ -77,9 +81,38 @@ code {
 code.block {
   padding: 1rem;
 }
+
+button {
+  background: white;
+  padding: 1rem;
+  cursor: pointer;
+  transition: 0.3s background;
+  text-transform: uppercase;
+
+  &:hover {
+    background: #f6f6f6;
+  }
+}
+
+button.btn-plain {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  display: inline;
+  text-transform: none;
+}
+
+input {
+  padding: 0.5rem;
+}
+
+textarea, button, input {
+  border: 1px solid black;
+}
 </style>
 
 <style lang="scss">
+/* reset stuff */
 html {
   font-size: 20px;
   box-sizing: border-box;
@@ -98,22 +131,5 @@ textarea, button, input {
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;
-  border: 1px solid black;
-}
-
-button {
-  background: white;
-  padding: 1rem;
-  cursor: pointer;
-  transition: 0.3s background;
-  text-transform: uppercase;
-
-  &:hover {
-    background: #f6f6f6;
-  }
-}
-
-input {
-  padding: 0.5rem;
 }
 </style>
