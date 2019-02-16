@@ -2,7 +2,7 @@
   <button v-if="!dynamicLink" @click="getLink">
     {{ loading? 'loading...': 'get link' }}
   </button>
-  <CopyText v-else :text="dynamicLink" @copy="$emit('copy')" />
+  <CopyText v-else :text="dynamicLink" @copy="$emit('copy', dynamicLink)" />
 </template>
 
 <script>
