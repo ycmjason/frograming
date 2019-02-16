@@ -10,8 +10,7 @@
         autofocus>
     <div
         @click="uid++"
-        @keydown.prevent.space
-        @keydown.space="uid++"
+        @keydown.prevent.space="uid++"
         tabindex="0"
         class="froggerSvgContainer">
       <Frogger :key="uid"
