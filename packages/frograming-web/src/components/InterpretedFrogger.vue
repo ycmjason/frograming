@@ -8,22 +8,22 @@
         @keydown.down.prevent="nextCommand"
         placeholder="Type in an exec statements."
         autofocus>
-    <div
-        @click="uid++"
-        @keydown.prevent.space="uid++"
-        tabindex="0"
-        class="froggerSvgContainer">
+    <div>
       <Frogger :key="uid"
-               :tickSeed="0"
-               :interval="Infinity"
+               :boardSettingSeed="0"
+               :tickerController="neverTicker"
                :controller="controller"
                @gameStatus="$emit('gameStatus', $event)" />
+
+      <section class="froggerControls">
+        <button @click="uid++">Restart</button>
+      </section>
     </div>
   </div>
 </template>
 
 <script>
-import { Frogger, FrogController } from '@frograming/frogger';
+import { Frogger, FrogController, TickerController } from '@frograming/frogger';
 import { parse } from '@frograming/language';
 
 import ParserMessage from '@/components/ParserMessage.vue';
@@ -38,6 +38,7 @@ export default {
     currentError: null,
     history: [],
     historyPointer: 0,
+    neverTicker: new TickerController(),
   }),
 
   methods: {
@@ -80,10 +81,6 @@ export default {
 </script>
 
 <style scoped>
-.froggerSvgContainer {
-  height: 70vh;
-}
-
 input {
   width: 100%;
 }

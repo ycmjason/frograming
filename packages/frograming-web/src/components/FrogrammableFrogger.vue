@@ -6,29 +6,27 @@
     </div>
 
     <div class="froggerArea">
-      <div class="froggerSettings">
-        <label title="Control tick with SPACE">
-          <input type="checkbox" v-model="debug"> Debug mode
-        </label>
+      <div class="froggerControls">
+        <button @click="uid++">Restart</button>
+        <div class="froggerControls_debug">
+          <label title="Control tick with SPACE">
+            <input type="checkbox" v-model="debug"> Debug mode
+          </label>
+          <button v-if="debug" @click="debugController.tick()">Tick</button>
+        </div>
       </div>
-      <div
-          @click="uid++"
-          @keydown.prevent.space="uid++"
-          tabindex="0"
-          class="froggerSvgContainer">
-        <Frogger :key="uid"
-                 :controller="controller"
-                 :debug="debug"
-                 @tick="onTick"
-                 @gameStatus="$emit('gameStatus', $event)" />
-      </div>
+      <Frogger :key="uid"
+               :controller="controller"
+               :tickerController="debug ? debugController : undefined"
+               @tick="onTick"
+               @gameStatus="$emit('gameStatus', $event)" />
     </div>
   </main>
 </template>
 
 <script>
 import { parse, interpret } from '@frograming/language';
-import { Frogger, FrogController } from '@frograming/frogger';
+import { Frogger, FrogController, TickerController } from '@frograming/frogger';
 import Editor from '@/components/Editor.vue';
 import ParserMessage from '@/components/ParserMessage.vue';
 
@@ -48,11 +46,12 @@ export default {
     ast: null,
     execution: interpret(null),
     debug: false,
+    debugController: new TickerController(),
   }),
 
   watch: {
     debug (debug) {
-      this.$ga('FrogrammableFrogger', debug ? 'on' : 'off', 'debug');
+      this.$ga.event('FrogrammableFrogger', debug ? 'on' : 'off', 'debug');
     },
     execution () {
       this.uid += 1;
@@ -107,7 +106,7 @@ main {
 }
 
 .editor {
-  height: 80vh;
+  height: 70vh;
 }
 
 .froggerArea {
@@ -115,18 +114,23 @@ main {
   flex-direction: column;
 }
 
-.froggerSettings {
-  padding: 1rem;
+.froggerControls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   margin-bottom: 1rem;
 
   label {
     display: inline-flex;
     align-items: center;
   }
-}
 
-.froggerSvgContainer {
-  height: 80vh;
+  &_debug {
+    margin-left: 1rem;
+    label {
+      margin-right: 10px;
+    }
+  }
 }
 
 .message {

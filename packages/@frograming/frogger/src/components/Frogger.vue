@@ -1,12 +1,14 @@
 <template>
-  <div class="froggerContainer">
+  <div class="froggerContainer" v-bind="$attrs" v-on="$listeners">
     <Ticker
-      :debug="debug"
-      :ticking="gameStatus === 'playing'"
-      :interval="interval"
-      @tick="onTick" />
+        :tickerController="tickerController"
+        :ticking="gameStatus === 'playing'"
+        @tick="onTick" />
 
-    <ControllerConsumer :controller="controller" @command="onCommand" />
+    <ControllerConsumer
+        :controller="controller"
+        @command="onCommand" />
+
     <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
       <Board :board="board" />
 
@@ -25,6 +27,7 @@ import Frame from './svg/Frame.vue';
 import Ticker from './renderless/Ticker.vue';
 import ControllerConsumer from './renderless/ControllerConsumer.vue';
 
+import TickerController, { IntervalTickerController } from '../models/TickerController';
 import FrogController from '../models/FrogController';
 import { getInitialBoard } from '../models/Board';
 
@@ -44,20 +47,16 @@ export default {
   },
 
   props: {
-    debug: {
-      type: Boolean,
-      default: false,
-    },
-    interval: {
-      type: Number,
-      default: 500,
+    tickerController: {
+      type: TickerController,
+      default: () => new IntervalTickerController(500),
     },
     controller: {
       type: FrogController,
       required: false,
       default: () => new FrogController(),
     },
-    tickSeed: {
+    boardSettingSeed: {
       type: Number,
       default: () => Math.floor(Math.random() * 50),
     },
@@ -65,7 +64,7 @@ export default {
 
   data: vm => ({
     gameStatus: 'playing',
-    board: getInitialBoard().tick(vm.tickSeed),
+    board: getInitialBoard().tick(vm.boardSettingSeed),
   }),
 
   computed: {
@@ -156,14 +155,14 @@ export default {
 </script>
 
 <style scoped>
+.froggerContainer {
+  height: 70vh;
+}
+
 svg {
   display: block;
   margin: 0 auto;
   width: 100%;
-  height: 100%;
-}
-
-.froggerContainer {
   height: 100%;
 }
 </style>

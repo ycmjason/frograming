@@ -1,3 +1,5 @@
+import EventBus from './EventBus';
+
 export default class FrogController {
   static #POSSIBLE_COMMANDS = [
     'moveDown',
@@ -8,15 +10,10 @@ export default class FrogController {
     'TERMINATED',
   ];
 
-  #subscribers = [];
+  #eventBus = new EventBus();
 
   subscribe (fn) {
-    if (!this.#subscribers.includes(fn)) {
-      this.#subscribers.push(fn);
-    }
-    return () => {
-      this.#subscribers = this.#subscribers.filter(s => s !== fn);
-    };
+    return this.#eventBus.on('command', fn);
   }
 
   emit (command) {
@@ -25,9 +22,7 @@ export default class FrogController {
       return;
     }
 
-    for (const fn of this.#subscribers) {
-      fn(command);
-    }
+    this.#eventBus.emit('command', command);
 
     return this;
   }

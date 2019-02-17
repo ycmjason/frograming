@@ -1,7 +1,5 @@
 <template>
-  <div class="froggerSvgContainer">
-    <Frogger />
-  </div>
+  <Frogger />
 </template>
 
 <script>
@@ -11,9 +9,3 @@ export default {
   components: { Frogger },
 };
 </script>
-
-<style lang="scss" scoped>
-.froggerSvgContainer {
-  height: 70vh;
-}
-</style>

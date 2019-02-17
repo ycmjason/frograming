@@ -4,9 +4,6 @@
       <h2>Level 0</h2>
       <ul>
         <li>Use <b>arrow keys</b> to bring the frog to the goal line.</li>
-        <FadeTransition>
-          <li v-show="showTips">Tips: click the game to restart. (or hit space)</li>
-        </FadeTransition>
       </ul>
 
       <FadeTransition>
