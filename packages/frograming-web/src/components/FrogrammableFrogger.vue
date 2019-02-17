@@ -13,7 +13,7 @@
       </div>
       <div
           @click="uid++"
-          @keydown.prevent.space="uid++"
+          @keydown.enter.prevent="uid++"
           tabindex="0"
           class="froggerSvgContainer">
         <Frogger :key="uid"
@@ -52,7 +52,7 @@ export default {
 
   watch: {
     debug (debug) {
-      this.$ga('FrogrammableFrogger', debug ? 'on' : 'off', 'debug');
+      this.$ga.event('FrogrammableFrogger', debug ? 'on' : 'off', 'debug');
     },
     execution () {
       this.uid += 1;
