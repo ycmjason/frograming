@@ -184,7 +184,12 @@ export const getInitialBoard = () => new Board({
       color: 'white',
     })),
 
-    new Car({ pos: { x: 0, y: 9 }, length: 1, velocity: -0.4, color: 'yellow' }),
+    ...[0, 3, 7, 11].map(x => new Car({
+      pos: { x, y: 9 },
+      length: 1,
+      velocity: -0.5,
+      color: 'blue',
+    })),
 
     ...[5, 11].map(x => new Car({
       pos: { x, y: 10 },
@@ -200,7 +205,13 @@ export const getInitialBoard = () => new Board({
       color: 'yellow',
     })),
 
-    new Car({ pos: { x: 7, y: 12 }, length: 1, velocity: -0.25, color: 'pink' }),
+
+    ...[0, 7].map(x => new Car({
+      pos: { x, y: 12 },
+      length: 3,
+      velocity: -0.25,
+      color: 'pink',
+    })),
 
     ...[0, 4, 8, 12].map(x => new Car({
       pos: { x, y: 13 },
