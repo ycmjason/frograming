@@ -55,6 +55,7 @@ export default {
 
     onGameStatus (status) {
       const { results, seed, steps } = this;
+      this.$ga.event('TestSuite', `seed:${seed}`, status);
 
       results.push({
         seed,
