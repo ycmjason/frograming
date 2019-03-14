@@ -22,10 +22,25 @@
             <a href="https://community.dur.ac.uk/a.g.stewart/" target="blank">Anthony Stewart</a>
           </small>
         </p>
+        <p>
+          <small>
+            v{{ version }}
+          </small>
+        </p>
       </div>
     </footer>
   </div>
 </template>
+
+<script>
+import { version } from '../package.json';
+
+export default {
+  data () {
+    return { version };
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 h1 {
