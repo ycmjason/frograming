@@ -2,28 +2,29 @@
   <div>
     <ParserMessage :error="currentError" class="message" />
     <input
+        ref="input"
         v-model="input"
         @keypress.enter.prevent="submitCommand"
         @keydown.up.prevent="prevCommand"
         @keydown.down.prevent="nextCommand"
         placeholder="Type in an exec statements."
         autofocus>
-    <div
-        @click="uid++"
-        @keydown.prevent.enter="uid++"
-        tabindex="0"
-        class="froggerSvgContainer">
+    <div>
       <Frogger :key="uid"
-               :tickSeed="0"
-               :interval="Infinity"
+               :boardSettingSeed="0"
+               :tickerController="neverTicker"
                :controller="controller"
                @gameStatus="$emit('gameStatus', $event)" />
+
+      <section class="froggerControls">
+        <button @click="restart">Restart</button>
+      </section>
     </div>
   </div>
 </template>
 
 <script>
-import { Frogger, FrogController } from '@frograming/frogger';
+import { Frogger, FrogController, TickerController } from '@frograming/frogger';
 import { parse } from '@frograming/language';
 
 import ParserMessage from '@/components/ParserMessage.vue';
@@ -38,6 +39,7 @@ export default {
     currentError: null,
     history: [],
     historyPointer: 0,
+    neverTicker: new TickerController(),
   }),
 
   methods: {
@@ -47,12 +49,14 @@ export default {
       this.historyPointer--;
       this.input = history[this.historyPointer];
     },
+
     nextCommand () {
       const { history } = this;
       if (this.historyPointer >= history.length) return;
       this.historyPointer++;
       this.input = history[this.historyPointer];
     },
+
     submitCommand () {
       try {
         const nodes = parse.Lines(this.input.trim());
@@ -75,15 +79,15 @@ export default {
         this.currentError = e;
       }
     },
+    restart () {
+      this.uid++;
+      this.$refs.input.focus();
+    },
   },
 };
 </script>
 
 <style scoped>
-.froggerSvgContainer {
-  height: 70vh;
-}
-
 input {
   width: 100%;
 }

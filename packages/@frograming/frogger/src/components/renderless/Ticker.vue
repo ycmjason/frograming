@@ -1,17 +1,39 @@
 <script>
-import DebugTicker from './DebugTicker.vue';
-import IntervalTicker from './IntervalTicker.vue';
+import TickerController from '../../models/TickerController';
 
 export default {
-  functional: true,
   props: {
-    debug: {
+    tickerController: {
+      type: TickerController,
+      required: true,
+    },
+    ticking: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
-  render: (h, { props, data, children }) => {
-    return h(props.debug? DebugTicker: IntervalTicker, data, children);
+
+  watch: {
+    tickerController: {
+      immediate: true,
+      handler (ctrl, oldCtrl) {
+        if (oldCtrl) oldCtrl.offTick(this.tick);
+        ctrl.onTick(this.tick);
+      },
+    },
   },
+
+  beforeDestroy () {
+    this.tickerController.offTick(this.tick);
+  },
+
+  methods: {
+    tick () {
+      if (!this.ticking) return;
+      this.$emit('tick');
+    },
+  },
+
+  render: h => null,
 };
 </script>

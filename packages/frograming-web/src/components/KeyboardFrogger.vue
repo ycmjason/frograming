@@ -1,14 +1,15 @@
 <template>
   <div>
+    <div class="froggerControls">
+      <button @click="restart">Restart</button>
+    </div>
     <div tabindex="0"
-      @click="uid++"
-      @keydown.prevent.down.left.up.right.enter
-      @keydown.enter="uid++"
-      @keydown.down="controller.emit('moveDown')"
-      @keydown.up="controller.emit('moveUp')"
-      @keydown.left="controller.emit('moveLeft')"
-      @keydown.right="controller.emit('moveRight')"
-      class="froggerSvgContainer">
+         ref="keyboardArea"
+         @keydown.prevent.down.left.up.right
+         @keydown.down="controller.emit('moveDown')"
+         @keydown.up="controller.emit('moveUp')"
+         @keydown.left="controller.emit('moveLeft')"
+         @keydown.right="controller.emit('moveRight')">
       <Frogger :key="uid"
                :controller="controller"
                @gameStatus="$emit('gameStatus', $event)" />
@@ -35,15 +36,18 @@ export default {
     uid: 0,
     controller: new FrogController(),
   }),
+
+  methods: {
+    restart () {
+      this.uid++;
+      this.$refs.keyboardArea.focus();
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '@/scss/config.scss';
-
-.froggerSvgContainer {
-  height: 70vh;
-}
 
 .mobileControls {
   margin-top: 1rem;
