@@ -10,6 +10,8 @@
 <script>
 import { Frogger, FrogController, IntervalTickerController } from '@frograming/frogger';
 
+const NUMBER_OF_CONFIGURATION = 50;
+
 export default {
   components: { Frogger },
 
@@ -59,7 +61,7 @@ export default {
       });
 
       this.$emit('results', results);
-      if (this.results.length < 50) {
+      if (this.results.length < NUMBER_OF_CONFIGURATION) {
         this.seed += 1;
         this.restart();
       } else {

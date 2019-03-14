@@ -16,8 +16,8 @@
           <td>{{ result.steps }}</td>
         </tr>
       </table>
-      <div v-if="!running && !isTimeout">
-        {{ passedCount }} passed, {{ failedCount }} failed. ({{ ((endTime - startTime) / 60000).toFixed(2) }} min)
+      <div v-if="!running && !isTimeout && !Number.isNaN(runTime)">
+        {{ passedResults.length }} passed, {{ failedResults.length }} failed. ({{ runTime }} mins)
       </div>
     </div>
 
@@ -51,11 +51,22 @@ export default {
   }),
 
   computed: {
-    passedCount () {
-      return this.results.filter(({ passed }) => passed).length;
+    runTime () {
+      if (!this.endTime || !this.startTime) return '';
+      return ((this.endTime - this.startTime) / 60000).toFixed(2);
     },
-    failedCount () {
-      return this.results.filter(({ passed }) => !passed).length;
+    passedResults () {
+      return this.results.filter(({ passed }) => passed);
+    },
+    failedResults () {
+      return this.results.filter(({ passed }) => !passed);
+    },
+    passedAverageSteps () {
+      if (this.passedResults.length <= 0) return 0;
+      const sum = this.passedResults
+        .map(({ steps }) => steps)
+        .reduce((x, y) => x + y);
+      return sum / this.passedResults.length;
     },
   },
 
@@ -68,6 +79,11 @@ export default {
     onFinished () {
       this.running = false;
       this.endTime = Date.now();
+      this.$ga.event('TestSuite', 'finished', 'runTime', Number(this.runTime));
+      if (this.passedResults >= 0) {
+        this.$ga.event('TestSuite', 'finished', 'passed', this.passedResults.length);
+        this.$ga.event('TestSuite', 'finished', 'passedAvgSteps', this.passedAverageSteps);
+      }
     },
 
     test () {
