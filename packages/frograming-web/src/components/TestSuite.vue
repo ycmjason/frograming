@@ -3,6 +3,11 @@
     <h3>The ultimate test suite</h3>
     <p>Automated testing is really important in programming. This ultimate test suite will ensure your code is correct in every configuration.</p>
     <button @click="test" v-if="!running">Run the test</button>
+
+    <div class="test__timeout" v-if="!running && isTimeout">
+      <p>Your code does not finish after 60 ticks. Does it do anything at all?</p>
+    </div>
+
     <div class="test__result" v-if="results.length > 0">
       <table>
         <tr>
@@ -71,9 +76,10 @@ export default {
   },
 
   methods: {
-    onTimeout () {
+    onTimeout (seed) {
       this.running = false;
       this.isTimeout = true;
+      this.$ga.event('TestSuite', 'timeout', `${seed}`);
     },
 
     onFinished () {
@@ -96,6 +102,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.test__timeout {
+  color: #721c24;
+}
+
 .test__result {
   margin: 1rem auto;
 
@@ -107,11 +117,13 @@ export default {
     }
 
     td.bg-success {
-      background: #adf1ad;
+      color: #155724;
+      background-color: #d4edda;
     }
 
     td.bg-failed {
-      background: #f59696;
+      background: #f8d7da;
+      color: #721c24;
     }
   }
 }

@@ -11,6 +11,8 @@
 import { Frogger, FrogController, IntervalTickerController } from '@frograming/frogger';
 
 const NUMBER_OF_CONFIGURATION = 50;
+const INTERVAL = 50;
+const TIMEOUT_STEPS = 60;
 
 export default {
   components: { Frogger },
@@ -20,7 +22,7 @@ export default {
   data: () => ({
     uid: 0,
     controller: new FrogController(),
-    tickerController: new IntervalTickerController(50),
+    tickerController: new IntervalTickerController(INTERVAL),
     seed: 0,
     steps: 0,
     results: [],
@@ -40,8 +42,8 @@ export default {
     },
 
     onTick (context) {
-      if (this.steps >= 200) {
-        this.$emit('timeout');
+      if (this.steps >= TIMEOUT_STEPS) {
+        this.$emit('timeout', { seed: this.seed, steps: this.step });
         this.testing = false;
       }
 
