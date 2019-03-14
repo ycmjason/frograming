@@ -2,7 +2,7 @@
   "private": true,
   "name": "frograming-explorer",
   "description": "The web to explore the frograming language.",
-  "version": "0.3.2",
+  "version": "1.0.0-alpha.0",
   "author": "Jason Yu <me@ycmjason.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -12,7 +12,7 @@
     "deploy:production": "firebase -P production deploy --token \"$FIREBASE_TOKEN\""
   },
   "dependencies": {
-    "@frograming/language": "^0.3.1",
+    "@frograming/language": "^1.0.0-alpha.0",
     "lodash.debounce": "^4.0.8",
     "vue": "^2.5.21",
     "vue-codemirror": "^4.0.6",

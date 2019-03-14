@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### v1.0.0-alpha
+- KISS make UX more intuitive
+- 1.0 candidate
+
 ### v0.3.1
 - Updated docs
 
