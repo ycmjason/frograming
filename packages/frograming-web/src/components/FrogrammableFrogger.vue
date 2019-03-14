@@ -84,7 +84,7 @@ export default {
 
     restart () {
       this.uid++;
-      console.log(this.$refs.editor);  
+      console.log(this.$refs.editor);
       this.$refs.editor.focus();
     },
   },
