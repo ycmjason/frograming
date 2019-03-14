@@ -25,6 +25,8 @@
 import LevelHeader from '@/components/LevelHeader.vue';
 import KeyboardFrogger from '@/components/KeyboardFrogger.vue';
 
+const LOST_COUNT_TO_SHOW_NEXT = 3;
+
 export default {
   name: 'level0',
 
@@ -34,13 +36,13 @@ export default {
 
   computed: {
     showNext () {
-      return this.counts.won >= 1 || this.counts.lost >= 5;
+      return this.counts.won >= 1 || this.counts.lost >= LOST_COUNT_TO_SHOW_NEXT;
     },
     showTips () {
       return this.counts.lost >= 1;
     },
     showTease () {
-      return this.counts.lost >= 5 && this.counts.won <= 0;
+      return this.counts.lost >= LOST_COUNT_TO_SHOW_NEXT && this.counts.won <= 0;
     },
   },
 };
