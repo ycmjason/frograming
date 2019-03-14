@@ -54,7 +54,9 @@ export default {
       this.$ga.event('FrogrammableFrogger', debug ? 'on' : 'off', 'debug');
     },
     execution () {
-      this.uid += 1;
+      if (!this.debug) {
+        this.uid += 1;
+      }
     },
 
     frogCode: {
