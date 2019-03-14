@@ -1,5 +1,6 @@
 <template>
   <codemirror
+      ref="cm"
       data-gramm_editor="false"
       class="editor"
       :options="options"
@@ -41,6 +42,12 @@ export default {
       line: true,
     },
   }),
+
+  methods: {
+    focus () {
+      this.$refs.cm.codemirror.focus();
+    },
+  },
 };
 </script>
 

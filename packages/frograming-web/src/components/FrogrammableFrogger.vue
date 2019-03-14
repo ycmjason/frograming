@@ -2,12 +2,12 @@
   <main>
     <div class="editorArea">
       <ParserMessage :error="currentError" class="message" />
-      <Editor class="editor" :value="frogCode" @input="$emit('input', $event)" />
+      <Editor class="editor" :value="frogCode" ref="editor" @input="$emit('input', $event)" />
     </div>
 
     <div class="froggerArea">
       <div class="froggerControls">
-        <button @click="uid++">Restart</button>
+        <button @click="restart">Restart</button>
         <div class="froggerControls_debug">
           <label title="Control tick with SPACE">
             <input type="checkbox" v-model="debug"> Debug mode
@@ -80,6 +80,12 @@ export default {
       const { execution, controller } = this;
       const command = execution.tick(context);
       controller.emit(command);
+    },
+
+    restart () {
+      this.uid++;
+      console.log(this.$refs.editor);  
+      this.$refs.editor.focus();
     },
   },
 };
