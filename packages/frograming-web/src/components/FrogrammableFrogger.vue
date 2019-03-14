@@ -6,6 +6,11 @@
     </div>
 
     <div class="froggerArea">
+      <Frogger :key="uid"
+               :controller="controller"
+               :tickerController="debug ? debugController : undefined"
+               @tick="onTick"
+               @gameStatus="$emit('gameStatus', $event)" />
       <div class="froggerControls">
         <button @click="restart">Restart</button>
         <div class="froggerControls_debug">
@@ -15,11 +20,6 @@
           <button v-if="debug" @click="debugController.tick()">Tick</button>
         </div>
       </div>
-      <Frogger :key="uid"
-               :controller="controller"
-               :tickerController="debug ? debugController : undefined"
-               @tick="onTick"
-               @gameStatus="$emit('gameStatus', $event)" />
     </div>
   </main>
 </template>
@@ -118,12 +118,16 @@ main {
 .froggerArea {
   display: flex;
   flex-direction: column;
+  @media screen and (min-width: $breakpoint-md) {
+    flex-direction: column-reverse;
+  }
 }
 
 .froggerControls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   margin-bottom: 1rem;
 
   label {
