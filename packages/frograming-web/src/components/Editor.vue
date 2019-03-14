@@ -28,6 +28,10 @@ CodeMirror.defineSimpleMode('frog', {
     { regex: /[{(]/, indent: true },
     { regex: /[})]/, dedent: true },
   ],
+
+  meta: {
+    electricChars: '}',
+  },
 });
 
 export default {
