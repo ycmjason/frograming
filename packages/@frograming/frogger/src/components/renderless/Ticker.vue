@@ -17,15 +17,14 @@ export default {
     tickerController: {
       immediate: true,
       handler (ctrl, oldCtrl) {
-        if (oldCtrl) oldCtrl.destroy();
-        ctrl.onTick(() => this.tick());
-        ctrl.initiate();
+        if (oldCtrl) oldCtrl.offTick(this.tick);
+        ctrl.onTick(this.tick);
       },
     },
   },
 
   beforeDestroy () {
-    this.tickerController.destroy();
+    this.tickerController.offTick(this.tick);
   },
 
   methods: {

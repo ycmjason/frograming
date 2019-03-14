@@ -48,12 +48,14 @@ export default {
       this.historyPointer--;
       this.input = history[this.historyPointer];
     },
+
     nextCommand () {
       const { history } = this;
       if (this.historyPointer >= history.length) return;
       this.historyPointer++;
       this.input = history[this.historyPointer];
     },
+
     submitCommand () {
       try {
         const nodes = parse.Lines(this.input.trim());
