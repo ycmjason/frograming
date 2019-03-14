@@ -2,6 +2,7 @@
   <div>
     <ParserMessage :error="currentError" class="message" />
     <input
+        ref="input"
         v-model="input"
         @keypress.enter.prevent="submitCommand"
         @keydown.up.prevent="prevCommand"
@@ -16,7 +17,7 @@
                @gameStatus="$emit('gameStatus', $event)" />
 
       <section class="froggerControls">
-        <button @click="uid++">Restart</button>
+        <button @click="restart">Restart</button>
       </section>
     </div>
   </div>
@@ -77,6 +78,10 @@ export default {
       } catch (e) {
         this.currentError = e;
       }
+    },
+    restart () {
+      this.uid++;
+      this.$refs.input.focus();
     },
   },
 };
