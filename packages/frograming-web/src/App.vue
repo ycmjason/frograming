@@ -142,4 +142,8 @@ textarea, button, input {
   font-size: inherit;
   font-style: inherit;
 }
+
+hr {
+  margin: 1rem 0;
+}
 </style>

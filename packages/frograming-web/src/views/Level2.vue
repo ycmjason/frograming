@@ -23,9 +23,25 @@
       </FadeTransition>
     </LevelHeader>
 
-    <FrogrammableFrogger v-model="frogCode" @gameStatus="$emit('gameStatus', $event)" />
+    <FrogrammableFrogger
+      v-model="frogCode"
+      @gameStatus="!testing && $emit('gameStatus', $event)"
+      @execution="execution = $event" />
 
-    <div class="share">
+    <hr>
+
+    <div class="cta_section test">
+      <h3>The ultimate test suite</h3>
+      <button @click="testing = true">Go to Test</button>
+
+      <Modal :show="testing" @close="testing = false">
+        <TestSuite v-if="testing" :execution="execution"/>
+      </Modal>
+    </div>
+
+    <hr>
+
+    <div class="cta_section share">
       <h3>Share your code with your friends!</h3>
       <GetDynamicLinkButton :key="frogCodeLink" :link="frogCodeLink" @copy="onCopy" />
     </div>
@@ -39,15 +55,25 @@ import debounce from 'lodash.debounce';
 import GetDynamicLinkButton from '@/components/GetDynamicLinkButton.vue';
 import LevelHeader from '@/components/LevelHeader.vue';
 import FrogrammableFrogger from '@/components/FrogrammableFrogger.vue';
+import TestSuite from '@/components/TestSuite.vue';
+import Modal from '@/components/Modal.vue';
 
 const encode = window.btoa;
 const decode = window.atob;
 
 export default {
   name: 'level2',
-  components: { GetDynamicLinkButton, LevelHeader, FrogrammableFrogger },
+  components: {
+    GetDynamicLinkButton,
+    LevelHeader,
+    FrogrammableFrogger,
+    TestSuite,
+    Modal,
+  },
   props: ['counts', 'c'],
   data: vm => ({
+    testing: false,
+    execution: null,
     frogCode: vm.c ? decode(vm.c) : stripIndent`
       onTick {
         if (!isCarUp()) {
@@ -77,7 +103,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.share {
+.cta_section {
   margin: 0 auto;
   max-width: 500px;
   text-align: center;

@@ -67,12 +67,12 @@ export default {
           this.ast = parse(frogCode);
           this.execution = interpret(this.ast);
           this.currentError = null;
-          this.$emit('frogCode', frogCode);
         } catch (e) {
           this.ast = null;
           this.execution = interpret(null);
           this.currentError = e;
         }
+        this.$emit('execution', this.execution);
       }, 500),
     },
   },

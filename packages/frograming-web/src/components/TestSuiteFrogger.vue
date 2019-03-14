@@ -1,0 +1,71 @@
+<template>
+  <Frogger :key="uid"
+           :controller="controller"
+           :tickerController="tickerController"
+           :boardSettingSeed="seed"
+           @tick="onTick"
+           @gameStatus="onGameStatus" />
+</template>
+
+<script>
+import { Frogger, FrogController, IntervalTickerController } from '@frograming/frogger';
+
+export default {
+  components: { Frogger },
+
+  props: ['execution'],
+
+  data: () => ({
+    uid: 0,
+    controller: new FrogController(),
+    tickerController: new IntervalTickerController(50),
+    seed: 0,
+    steps: 0,
+    results: [],
+    testing: true,
+  }),
+
+  watch: {
+    execution () {
+      this.uid += 1;
+    },
+  },
+
+  methods: {
+    restart () {
+      this.steps = 0;
+      this.uid++;
+    },
+
+    onTick (context) {
+      if (this.steps >= 200) {
+        this.$emit('timeout');
+        this.testing = false;
+      }
+
+      const { execution, controller } = this;
+      const command = execution.tick(context);
+      controller.emit(command);
+      this.steps += 1;
+    },
+
+    onGameStatus (status) {
+      const { results, seed, steps } = this;
+
+      results.push({
+        seed,
+        passed: status === 'won',
+        steps,
+      });
+
+      this.$emit('results', results);
+      if (this.results.length < 50) {
+        this.seed += 1;
+        this.restart();
+      } else {
+        this.$emit('finished');
+      }
+    },
+  },
+};
+</script>
