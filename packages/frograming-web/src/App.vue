@@ -12,11 +12,6 @@
           <a href="https://www.ycmjason.com" target="blank">Jason Yu</a> &copy; 2019
         </p>
         <p>
-          <a href="https://github.com/ycmjason/frograming" target="blank">
-            Fork on Github
-          </a>
-        </p>
-        <p>
           <small>
             Credits to
             <a href="https://community.dur.ac.uk/a.g.stewart/" target="blank">Anthony Stewart</a>
