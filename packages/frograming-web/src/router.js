@@ -27,4 +27,7 @@ export default new Router({
       component: NotFound,
     },
   ],
+  scrollBehavior () {
+    return { x: 0, y: 0 };
+  },
 });

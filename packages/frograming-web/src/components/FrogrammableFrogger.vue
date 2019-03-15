@@ -9,15 +9,27 @@
       <Frogger :key="uid"
                :controller="controller"
                :tickerController="debug ? debugController : undefined"
+               :boardSettingSeed="seed"
                @tick="onTick"
                @gameStatus="$emit('gameStatus', $event)" />
       <div class="froggerControls">
-        <button @click="restart">Restart</button>
+        <button @click="restart(); focusEditor();">Restart</button>
         <div class="froggerControls_debug">
-          <label title="Control tick with SPACE">
+          <label>
             <input type="checkbox" v-model="debug"> Debug mode
           </label>
-          <button v-if="debug" @click="debugController.tick()">Tick</button>
+          <button :disabled="!debug" @click="debugController.tick()">Tick</button>
+        </div>
+        <div class="froggerControls_seed">
+          <label>
+            <input type="checkbox" v-model="isRandomSeed"> Random seed
+          </label>
+          <input
+            :disabled="isRandomSeed"
+            type="number"
+            min="0"
+            max="49"
+            v-model="seed">
         </div>
       </div>
     </div>
@@ -31,6 +43,8 @@ import Editor from '@/components/Editor.vue';
 import ParserMessage from '@/components/ParserMessage.vue';
 
 import debounce from 'lodash.debounce';
+
+const getRandomSeed = () => Math.floor(Math.random() * 50);
 
 export default {
   components: { Editor, ParserMessage, Frogger },
@@ -47,6 +61,8 @@ export default {
     execution: interpret(null),
     debug: false,
     debugController: new TickerController(),
+    isRandomSeed: true,
+    seed: getRandomSeed(),
   }),
 
   watch: {
@@ -55,7 +71,7 @@ export default {
     },
     execution () {
       if (!this.debug) {
-        this.uid += 1;
+        this.restart();
       }
     },
 
@@ -67,12 +83,12 @@ export default {
           this.ast = parse(frogCode);
           this.execution = interpret(this.ast);
           this.currentError = null;
-          this.$emit('frogCode', frogCode);
         } catch (e) {
           this.ast = null;
           this.execution = interpret(null);
           this.currentError = e;
         }
+        this.$emit('execution', this.execution);
       }, 500),
     },
   },
@@ -86,7 +102,12 @@ export default {
 
     restart () {
       this.uid++;
-      console.log(this.$refs.editor);
+      if (this.isRandomSeed) {
+        this.seed = getRandomSeed();
+      }
+    },
+
+    focusEditor () {
       this.$refs.editor.focus();
     },
   },
@@ -98,12 +119,13 @@ export default {
 
 main {
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 100%;
   grid-row-gap: 1rem;
 
   @media screen and (min-width: $breakpoint-md) {
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(2, minmax(50%, 1fr));
+    grid-template-columns: repeat(2, minmax(calc(50% - 1rem), 1fr));
     grid-column-gap: 1rem;
   }
 }
@@ -126,10 +148,9 @@ main {
 }
 
 .froggerControls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  overflow-x: auto;
   margin-bottom: 1rem;
 
   label {
@@ -138,7 +159,18 @@ main {
   }
 
   &_debug {
+    display: inline-block;
     margin-left: 1rem;
+
+    label {
+      margin-right: 10px;
+    }
+  }
+
+  &_seed {
+    display: inline-block;
+    margin-left: 1rem;
+
     label {
       margin-right: 10px;
     }

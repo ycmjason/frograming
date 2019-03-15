@@ -118,19 +118,18 @@ export default {
       }
     },
 
-    start () {
-      this.gameStatus = GAME_STATUS.playing;
-      this.$emit('gameStatus', GAME_STATUS.playing);
-    },
-
     win () {
-      this.gameStatus = GAME_STATUS.won;
-      this.$emit('gameStatus', GAME_STATUS.won);
+      if (this.gameStatus !== GAME_STATUS.won) {
+        this.gameStatus = GAME_STATUS.won;
+        this.$emit('gameStatus', GAME_STATUS.won);
+      }
     },
 
     lose () {
-      this.gameStatus = GAME_STATUS.lost;
-      this.$emit('gameStatus', GAME_STATUS.lost);
+      if (this.gameStatus !== GAME_STATUS.lost) {
+        this.gameStatus = GAME_STATUS.lost;
+        this.$emit('gameStatus', GAME_STATUS.lost);
+      }
     },
 
     onTick () {
