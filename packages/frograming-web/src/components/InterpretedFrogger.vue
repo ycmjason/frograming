@@ -64,6 +64,10 @@ export default {
           throw Error(`Expected only 1 line, received ${nodes.length}.`);
         }
 
+        if (nodes.length <= 0) {
+          throw Error(`Empty input.`);
+        }
+
         const { type, name } = nodes[0];
         if (type !== 'command') {
           throw Error(`Expected "exec" statement.`);

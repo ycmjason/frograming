@@ -18,7 +18,7 @@
           <label>
             <input type="checkbox" v-model="debug"> Debug mode
           </label>
-          <button v-if="debug" @click="debugController.tick()">Tick</button>
+          <button :disabled="!debug" @click="debugController.tick()">Tick</button>
         </div>
         <div class="froggerControls_seed">
           <label>

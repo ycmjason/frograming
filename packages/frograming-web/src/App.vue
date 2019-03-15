@@ -57,7 +57,7 @@ footer {
 }
 </style>
 
-<style>
+<style lang="scss">
 /* brand styles */
 @import url('https://fonts.googleapis.com/css?family=Libre+Barcode+39+Text|Libre+Franklin:300|Roboto');
 html {
@@ -77,8 +77,13 @@ h2, h3, h4, h5, h6 {
 
 .container {
   padding: 0 1rem;
-  max-width: 1200px;
   margin: 0 auto;
+  max-width: 1200px;
+}
+
+hr {
+  max-width: 500px;
+  margin: 1rem auto;
 }
 
 code {
@@ -101,6 +106,14 @@ button {
 
   &:hover {
     background: #f6f6f6;
+  }
+
+  &:disabled {
+    border-color: rgba(0, 0, 0, 0.247);
+
+    &:hover {
+      background: white;
+    }
   }
 }
 
@@ -141,9 +154,5 @@ textarea, button, input {
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;
-}
-
-hr {
-  margin: 1rem 0;
 }
 </style>
