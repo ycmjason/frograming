@@ -12,8 +12,10 @@
     <svg viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
       <Board :board="board" />
 
-      <Banner v-if="gameStatus === 'won'" text="You won!" color="lightgreen" />
-      <Banner v-else-if="gameStatus === 'lost'" text="You lost!" color="pink" />
+      <template v-if="!hideBanner">
+        <Banner @click="hideBanner = true" v-if="gameStatus === 'won'" text="You won!" color="lightgreen" />
+        <Banner @click="hideBanner = true" v-else-if="gameStatus === 'lost'" text="You lost!" color="pink" />
+      </template>
 
       <Frame color="#000" :width="200" />
     </svg>
@@ -65,6 +67,7 @@ export default {
   data: vm => ({
     gameStatus: 'playing',
     board: getInitialBoard().tick(vm.boardSettingSeed),
+    hideBanner: false,
   }),
 
   computed: {

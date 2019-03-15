@@ -9,7 +9,7 @@
       <Frogger :key="uid"
                :controller="controller"
                :tickerController="debug ? debugController : undefined"
-               :boardSettingSeed="seed"
+               :boardSettingSeed="Number(seed)"
                @tick="onTick"
                @gameStatus="$emit('gameStatus', $event)" />
       <div class="froggerControls">
