@@ -2,7 +2,7 @@
   "private": true,
   "name": "frograming-web",
   "description": "The web to play frogger using programing.",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "author": "Jason Yu <me@ycmjason.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -14,7 +14,7 @@
     "deploy:production": "firebase -P production deploy --token \"$FIREBASE_TOKEN\""
   },
   "dependencies": {
-    "@frograming/frogger": "^1.0.0-alpha.0",
+    "@frograming/frogger": "^1.0.0-alpha.2",
     "@frograming/language": "^1.0.0-alpha.0",
     "common-tags": "^1.8.0",
     "core-js": "^2.6.3",
