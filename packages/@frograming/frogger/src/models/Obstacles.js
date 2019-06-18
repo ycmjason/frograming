@@ -11,6 +11,9 @@ const nextUid = (() => {
   return () => uid++;
 })();
 
+const FROG_WIDTH = 1;
+const TOLERANCE_THRESHOLD = 0.15;
+
 class AbstractObstacle {
   type = 'abstract-obstacle';
 
@@ -45,12 +48,12 @@ class AbstractObstacle {
 
   overlapsWith ({x, y}) {
     const { pos, length } = this;
-    return y === pos.y && isInRange(x, [pos.x - 1, pos.x + length], '()');
+    return y === pos.y && isInRange(x, [pos.x - FROG_WIDTH + TOLERANCE_THRESHOLD, pos.x + length - TOLERANCE_THRESHOLD], '()');
   }
 
   contains ({x, y}) {
     const { pos, length } = this;
-    return y === pos.y && isInRange(x, [pos.x, round(pos.x + length - 1, 5)], '[]');
+    return y === pos.y && isInRange(x, [pos.x - TOLERANCE_THRESHOLD, round(pos.x + length - FROG_WIDTH, 5) + TOLERANCE_THRESHOLD], '[]');
   }
 }
 
