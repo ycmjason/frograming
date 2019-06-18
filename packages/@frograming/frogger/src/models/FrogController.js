@@ -18,7 +18,7 @@ export default class FrogController {
 
   emit (command) {
     if (!FrogController.#POSSIBLE_COMMANDS.includes(command)) {
-      console.warn(`'${command}' is not a proper command.`);
+      console.warn(`'${command}' is not a proper command.`); // eslint-disable-line no-console
       return;
     }
 
