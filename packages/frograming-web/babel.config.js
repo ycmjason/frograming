@@ -1,5 +1,6 @@
 module.exports = {
   presets: [
-    '@vue/app',
+    ['@vue/app', { 'useBuiltIns': 'usage' }],
   ],
+  plugins: ['@babel/plugin-proposal-private-methods'],
 };

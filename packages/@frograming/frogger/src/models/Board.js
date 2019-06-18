@@ -1,4 +1,4 @@
-import 'core-js/fn/array/flat-map';
+import 'core-js/features/array/flat-map';
 import { isInRange } from '../utils/math';
 import Frog from './Frog';
 import { Car, Log } from './Obstacles';
