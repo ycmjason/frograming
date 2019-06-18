@@ -136,7 +136,7 @@ export default class Board {
 
   isFrogOutOfBoard () {
     const { frog } = this;
-    return frog.pos.x < 0 || frog.pos.x >= MAX_X + 1 || frog.pos.y < 0 || frog.pos.y >= MAX_Y + 1;
+    return frog.pos.x <= -1 || frog.pos.x >= MAX_X + 1 || frog.pos.y <= -1 || frog.pos.y >= MAX_Y + 1;
   }
 
   hasFrogTouchdown () {
